@@ -1,0 +1,165 @@
+<!-- Sidenav -->
+<nav
+  class="
+    sidenav
+    navbar navbar-vertical
+    fixed-left
+    navbar-expand-xs navbar-light
+    bg-white
+  "
+  id="sidenav-main"
+>
+  <div class="scrollbar-inner">
+    <!-- Brand -->
+    <div class="sidenav-header align-items-center">
+      <a class="navbar-brand" href="javascript:void(0)">
+        <img
+          src="../../assets/img/logo/MC.png"
+          alt="..."
+        />
+      </a>
+    </div>
+    <div class="navbar-inner">
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Nav items -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link {{#if dashboard}}active{{/if}}"
+              href="/schoolAd/dashboard">
+              <i class="ni ni-tv-2 text-blue"></i>
+              <span class="nav-link-text"> Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle {{#if building}}active{{/if}}"
+              href=""
+              id="buildingNav"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              <i class="ni ni-building text-blue"></i>
+              <span class="nav-link-text"> Building</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="buildingNav">
+              <a class="dropdown-item ml-4" href="/schoolAd/building">
+                <i class="ni ni-bullet-list-67 text-blue"></i>
+                <span class="nav-link-text">Building List</span>
+              </a>
+              <a class="dropdown-item ml-4" href="/schoolAd/building/add">
+                <i class="ni ni-fat-add text-blue"></i>
+                <span class="nav-link-text">Add Existing Building</span>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle {{#if facility}}active{{/if}}"
+              href=""
+              id="facilityNav"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              <i class="ni ni-building text-blue"></i>
+              <span class="nav-link-text"> Facilities</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="facilityNav">
+              <a class="dropdown-item ml-4" href="/schoolAd/furniture">
+                <i class="ni ni-books text-blue"></i>
+                <span class="nav-link-text">Furniture</span>
+              </a>
+              <a class="dropdown-item ml-4" href="/schoolAd/temporary">
+                <i class="ni ni-shop text-blue"></i>
+                <span class="nav-link-text">Temporary & MakeShift</span>
+              </a>
+              <a class="dropdown-item ml-4" href="/schoolAd/standAlone">
+                <i class="ni ni-map-big text-blue"></i>
+                <span class="nav-link-text">Water & Sanitation Facility</span>
+              </a>
+              <a class="dropdown-item ml-4" href="/schoolAd/facility">
+                <i class="ni ni-folder-17 text-blue"></i>
+                <span class="nav-link-text">Other Facilities</span>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle {{#if  other}}active{{/if}}"
+              href=""
+              id="otherNav"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              <i class="ni ni-bold-down text-blue"></i>
+              <span class="nav-link-text"> Others</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="otherNav">
+              <a class="dropdown-item ml-4" href="/schoolAd/transport">
+                <i class="ni ni-bus-front-12 text-blue"></i>
+                <span class="nav-link-text">Transportation</span>
+              </a>
+              <a class="dropdown-item ml-4" href="/schoolAd/student">
+                <i class="ni ni-circle-08 text-blue"></i>
+                <span class="nav-link-text">Student List</span>
+              </a>
+            </div>
+          </li>
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link {{#if facility}}active{{/if}}"
+              href="/schoolAd/facility">
+              <i class="ni ni-atom text-blue"></i>
+              <span class="nav-link-text">Facility</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link {{#if temporary}}active{{/if}}"
+              href="/schoolAd/temporary">
+              <i class="ni ni-planet text-blue"></i>
+              <span class="nav-link-text">Temporary & MakeShift</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link {{#if stand}}active{{/if}}"
+              href="/schoolAd/standAlone">
+              <i class="ni ni-notification-70 text-blue"></i>
+              <span class="nav-link-text">Stand-Alone Water & Sanitation Facility</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link {{#if furniture}}active{{/if}}"
+              href="/schoolAd/furniture">
+              <i class="ni ni-basket text-blue"></i>
+              <span class="nav-link-text">Furniture</span>
+            </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link {{#if student}}active{{/if}}"
+              href="/schoolAd/student">
+              <i class="ni ni-circle-08 text-blue"></i>
+              <span class="nav-link-text">Student</span>
+            </a>
+          </li> -->
+          <li class="nav-item">
+            <a
+              class="nav-link {{#if profile}}active{{/if}}"
+              href="/schoolAd/profile"
+            >
+              <i class="ni ni-circle-08 text-blue"></i>
+              <span class="nav-link-text">Profile</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,205 @@
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{appinfo 'title'}}</title>
+  <link rel="shortcut icon" href="/assets/img/apptitle.png" type="image/x-icon" />
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/brand/favicon.png" type="image/png" />
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="/assets/vendor/nucleo/css/nucleo.css" type="text/css" />
+  <link rel="stylesheet" href="/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="/assets/css/argon.css?v=1.2.0" type="text/css" />
+
+  <!-- datatable -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css" type="text/css" /> -->
+
+  <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" rel="stylesheet"
+    type="text/css" />
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/assets/css/fstdropdown.css">
+    
+  <style>
+    .disaplayInput{
+display: none;
+}
+#billdesc{
+    padding-top: 50px;
+}
+#test{
+    width: 100%;
+    height: 30px;
+}
+option {
+    height: 30px;
+    line-height: 30px;
+}
+
+.editOption{
+    width: 90%;
+    height: 24px;
+    position: relative;
+    top: -30px
+
+}
+    .modal-confirm {
+      color: #636363;
+      width: 400px;
+    }
+
+    .modal-confirm .modal-content {
+      padding: 20px;
+      border-radius: 5px;
+      border: none;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .modal-confirm .modal-header {
+      border-bottom: none;
+      position: relative;
+    }
+
+    .modal-confirm h4 {
+      text-align: center;
+      font-size: 26px;
+      margin: 30px 0 -10px;
+    }
+
+    .modal-confirm .close {
+      position: absolute;
+      top: -5px;
+      right: -2px;
+    }
+
+    .modal-confirm .modal-body {
+      color: #999;
+    }
+
+    .modal-confirm .modal-footer {
+      border: none;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 13px;
+      padding: 10px 15px 25px;
+    }
+
+    .modal-confirm .modal-footer a {
+      color: #999;
+    }
+
+    .modal-confirm .icon-box {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 50%;
+      z-index: 9;
+      text-align: center;
+      border: 3px solid #2e29c4;
+    }
+
+    .modal-confirm .icon-box i {
+      color: #2e29c4;
+      font-size: 46px;
+      display: inline-block;
+      margin-top: 13px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+      color: #fff;
+      border-radius: 4px;
+      background: #60c7c1;
+      text-decoration: none;
+      transition: all 0.4s;
+      line-height: normal;
+      min-width: 120px;
+      border: none;
+      min-height: 40px;
+      border-radius: 3px;
+      margin: 0 5px;
+    }
+
+    .modal-confirm .btn-secondary {
+      background: #c1c1c1;
+    }
+
+    .modal-confirm .btn-secondary:hover,
+    .modal-confirm .btn-secondary:focus {
+      background: #a8a8a8;
+    }
+
+    .modal-confirm .btn-danger {
+      background: #2e29c4;
+    }
+
+    .modal-confirm .btn-danger:hover,
+    .modal-confirm .btn-danger:focus {
+      background: #2e29c4;
+    }
+
+    .trigger-btn {
+      display: inline-block;
+      margin: 100px auto;
+    }
+  </style>
+</head>
+
+<body data-action="sidenav-pin" data-target="#sidenav-main">
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <!-- Argon JS -->
+  <script src="/assets/js/argon.js?v=1.2.0"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
+  <div id="preloader"></div>
+  {{{content}}}
+  <!-- Optional JS -->
+  <script src="/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+
+
+<!-- datatables -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+
+
+  <!-- datatables -->
+  <!-- <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script> -->
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> -->
+
+  <script src="/assets/js/fstdropdown.js"></script>
+  <script>
+    // Preloader
+    $(window).on('load', function () {
+      $('#preloader')
+        .delay(100)
+        .fadeOut('slow', function () {
+          $(this).remove();
+        });
+    });
+  </script>
+</body>
+</html>

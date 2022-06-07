@@ -1,0 +1,429 @@
+{{> schoolAd-sidenav facility=true}}
+<div class="main-content" id="panel">
+  {{> schoolAd-topnav}}
+
+  <!-- Header -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home">
+                      Dashboard</i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Temporary & MakeShift</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <!----------------- temporary tables -------------------------->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="col text-right">
+              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Add
+                Temporary Learning Space/s</a>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush" id="temp">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">No. of Temporary Learning Space/s</th>
+                  <th scope="col">Classes/Section uses MakeShift</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each temporary_data}}
+                <tr>
+                  <td scope="row">{{this.temporary}}</td>
+                  <td class="text-danger">{{this.usetemporary}}</td>
+                  <td class="text-right">
+                    <div class="dropdown">
+                      <a class="btn btn-sm btn-icon-only text-black" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item editBtn" data-id="{{this._id}}" data-temporary="{{this.temporary}}"
+                          data-usetemporary="{{this.usetemporary}}">Update</a>
+                        <a class="dropdown-item dltBtn" data-id="{{this._id}}">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!----------------- makeshift tables -------------------------->
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="col text-right">
+              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addMakeshift">Add
+                MakeShift Rooms</a>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush" id="makeshift">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">No. of MakeShift Rooms</th>
+                  <th scope="col"></th>
+                  <th scope="col">Classes/Section uses MakeShift</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each makeshift_data}}
+                <tr>
+                  <th scope="row">{{this.makeshift}}</th>
+                  <td class="text-success"></td>
+                  <td class="text-danger">{{this.useMakeshift}}</td>
+                  <td class="">
+                    <div class="dropdown">
+                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item editBtn1" data-id="{{this._id}}" data-makeshift="{{this.makeshift}}"
+                          data-useMakeshift="{{this.useMakeshift}}">Update</a>
+                        <a class="dropdown-item dlt1Btn" data-id="{{this._id}}">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  ***************** temporary add Modal *********************** -->
+<div class="modal fade" id="addBuilding" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form role="form" method="POST" action="/schoolAd/temporary">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-lg-11 pl-5">
+              <label>No. of Temporary Learning Space/s (TLS)</label>
+              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                title="" data-placement="top"
+                data-content="Refers to temporary structures provided to calamity-stricken areas/schools to ensure continuity of teaching and learning activities. It is intended for short-term use of schools while waiting for construction and/or rehabilitation of permanent classrooms.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+              </a>
+              <input type="number" class="form-control" placeholder="" name="temporary" required>
+            </div>
+            <div class="form-group col-lg-11  pl-5">
+              <label>Classes/Section using TLS</label>
+              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                title="" data-placement="top"
+                data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+              </a>
+              <input type="number" class="form-control" placeholder="" name="usetemporary" required>
+            </div>
+            <div class="col-12 text-right pr-5">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                Save
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--  ***************** temporary update Modal *********************** -->
+<div class="modal fade updateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/schoolAd/temporary/update">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-lg-11 pl-5">
+              <label>Temporary L.S</label>
+              <input type="hidden" name="id" id="edit_id" class="form-control">
+              <input type="number" class="form-control" value="temporary_edit" id="temporary_edit" name="temporary"
+                required>
+            </div>
+            <div class="form-group col-lg-11 pl-5">
+              <label>Classes/Section uses Temporary L.S</label>
+              <input type="number" class="form-control" value="usetemporary_edit" id="usetemporary_edit"
+                name="usetemporary" required>
+            </div>
+            <div class="col-12 text-right pr-5">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                Save
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- **************************** delete Modal ****************************** -->
+<div class="modal fade deleteModal">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/schoolAd/temporary/delete" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to delete these records? This process cannot be undone.</p>
+          <input type="hidden" id="del_id" name="del_id">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ************************ makeshift add Modal *********************************** -->
+<div class="modal fade" id="addMakeshift" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form role="form" method="POST" action="/schoolAd/makeshift">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-lg-11 pl-5">
+              <label>No. of MakeShift Rooms</label>
+              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                title="" data-placement="top"
+                data-content="Refers to classrooms made of non-standard or substitute materials and temporary in nature. It is usually made of used/salvaged materials or any material available/found on site.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+              </a>
+              <input type="hidden" name="id" id="edit_id" class="form-control">
+              <input type="number" class="form-control" name="makeshift" required>
+            </div>
+            <div class="form-group col-lg-11 pl-5">
+              <label>Classes/Section using MakeShift</label>
+              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                title="" data-placement="top"
+                data-content="Refers to the number of classes or sections using makeshift room/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+              </a>
+              <input type="number" class="form-control" name="useMakeshift" required>
+            </div>
+          </div>
+          <div class="col-12 text-right pr-5">
+            <button id="btn-save" type="submit" class="btn btn-primary">
+              Save
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--  ***************** makeshift update Modal *********************** -->
+<div class="modal fade updateModal1" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/schoolAd/makeshift/update">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-lg-11 pl-5">
+              <label>No. of MakeShift Rooms</label>
+              <input type="hidden" name="make_id" id="makeshift_id" class="form-control">
+              <input type="hidden" name="id" id="edit_id" class="form-control">
+              <input type="number" class="form-control" value="makeshift_edit" id="makeshift_edit" name="makeshift"
+                required>
+            </div>
+            <div class="form-group col-lg-11 pl-5">
+              <label>Classes/Section uses MakeShift</label>
+              <input type="number" class="form-control" value="useMakeshift_edit" id="useMakeshift_edit"
+                name="useMakeshift" required>
+            </div>
+            <div class="col-12 text-right pr-5">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                Save
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ****************************Makeshift delete Modal ****************************** -->
+<div class="modal fade deleteModal1">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/schoolAd/makeshift/delete" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to delete these records? This process cannot be undone.</p>
+          <input type="hidden" id="mks_id" name="makesh_id">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- script update  temporary-->
+<script>
+  $('.editBtn').click(function () {
+
+    $('#edit_id').val($(this).attr('data-id'));
+    $('#temporary_edit').val($(this).attr('data-temporary'));
+    $('#usetemporary_edit').val($(this).attr('data-usetemporary'));
+
+    $('.updateModal').modal('show');
+  });
+</script>
+<!-- script delete  temporary-->
+<script>
+  $('.dltBtn').click(function () {
+
+    $('#del_id').val($(this).attr('data-id'));
+
+    $('.deleteModal').modal('show');
+  });
+</script>
+<!-- script update  makeshift-->
+<script>
+  $('.editBtn1').click(function () {
+
+    $('#makeshift_id').val($(this).attr('data-id'));
+    $('#makeshift_edit').val($(this).attr('data-makeshift'));
+    $('#useMakeshift_edit').val($(this).attr('data-useMakeshift'));
+
+    $('.updateModal1').modal('show');
+  });
+</script>
+<!-- script delete  makeshift-->
+<script>
+  $('.dlt1Btn').click(function () {
+
+    $('#mks_id').val($(this).attr('data-id'));
+
+    $('.deleteModal1').modal('show');
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+  });
+</script>
+
+
+<!-- **************************** DATA TABLE script ****************************** -->
+<script>
+  $(document).ready(function () {
+    $('#temp').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        'copy', 'excel', 'pdf', 'print'
+      ]
+    });
+  });
+</script>
+<!-- **************************** DATA TABLE script ****************************** -->
+<script>
+  $(document).ready(function () {
+    $('#makeshift').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        'copy', 'excel', 'pdf', 'print'
+      ]
+    });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+  });
+</script>
+<!-- **************************** 
+     show entries
+  script data table
+  ****************************** -->
+<!-- <script>
+  $(document).ready(function () {
+    $('#makeshift').DataTable({
+      dom: 'lBfrtip',
+      buttons: [
+        'copyHtml5',
+        'excelHtml5',
+      ],
+      stateSave: true,
+    });
+  });
+</script> -->

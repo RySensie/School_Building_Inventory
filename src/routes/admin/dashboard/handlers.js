@@ -1,0 +1,138 @@
+'use strict';
+
+const Buildings = require("../../../database/models/building");
+const Facilities = require("../../../database/models/facility");
+const Students = require("../../../database/models/student");
+const Rooms = require("../../../database/models/room");
+const Temporary = require("../../../database/models/temporary");
+const Makeshift = require("../../../database/models/makeshift");
+const Request = require("../../../database/models/request");
+const Mongoose = require('mongoose');
+const Schools = require('../../../database/models/school');
+const Users = require('../../../database/models/users');
+var internals = {};
+var Async = require('async');
+
+internals.adminDashboard = async (req, reply) => {
+  try {
+    console.log('-->', req.auth.credentials);
+    const school_id = req.auth.credentials.school_id;
+    const totalBuilding = await Buildings.countDocuments({school_id});
+    const totalRoom = await Rooms.countDocuments({school_id});
+    const all = await Schools.aggregate([
+      {
+
+          $lookup:
+          {
+              from: "buildings",
+              localField: "_id",
+              foreignField: "school_id",
+              as: "totalBuild",
+          }
+          
+      },
+      {
+          $lookup:
+          {
+              from: "rooms",
+              localField: "_id",
+              foreignField: "school_id",
+              as: "totalRoom",
+          } 
+      },
+      {
+          $lookup:
+          {
+              from: "facilities",
+              localField: "_id",
+              foreignField: "school_id",
+              as: "totalFa",
+          } 
+      },
+      {
+        $lookup:
+        {
+            from: "furnitures",
+            localField: "_id",
+            foreignField: "school_id",
+            as: "totalFur",
+        } 
+    },
+    {
+      $lookup:
+      {
+          from: "users",
+          localField: "_id",
+          foreignField: "school_id",
+          as: "totalUsers",
+      } 
+  },
+    
+  ])
+  console.log('resssssssss', all);
+  const p = all.map(data => ({...data, 
+                  total_rooms: data.totalRoom.length,
+                   total_buildings: data.totalBuild.length,
+                    total_facilities: data.totalFa.length,
+                     total_furniture: data.totalFur.length,
+                      total_users: data.totalUsers.length }));
+  
+  const building_damage = await Buildings.find({
+    $or:[
+      {$and: [
+        {buildingCondition: "MAJOR DAMAGE"},
+        {isDeleted:false}
+      ]},
+      {$and: [
+        {buildingCondition: "MINOR DAMAGE"},
+        {isDeleted:false}
+      ]}
+    ]
+  }).populate('school_id')
+    .lean();
+  const room_damage = await Rooms.find({
+      $or:[
+        {$and: [
+          {roomCondition: "MAJOR DAMAGE"},
+          {isDeleted:false}
+        ]},
+        {$and: [
+          {roomCondition: "MINOR DAMAGE"},
+          {isDeleted:false}
+        ]}
+      ]
+    }).populate('school_id').populate('building_id')
+      .lean();
+  const users = await Users.find({
+        isConfirm: false
+      }).lean();
+  
+  const request = await Request.find({
+        status: 'PENDING'
+  }).populate('school_id')
+  .lean();
+
+      console.log('TEST', request);
+  reply.view('admin/dashboard/dashboard.html', {
+    all: p,
+    totalBuilding,
+    total_room: p.reduce((acc, curr) => acc += curr.total_rooms, 0),
+    total_building: p.reduce((acc, curr) => acc += curr.total_buildings, 0),
+    total_furniture: p.reduce((acc, curr) => acc += curr.total_furniture, 0),
+    total_users: p.reduce((acc, curr) => acc += curr.total_users, 0),
+    total_school: all.length,
+    building_damage,
+    room_damage,
+    request,
+    users
+  });
+
+
+  }catch (error) {
+    console.log(err)
+    reply.redirect("admin/dashboard?message=Internal error! &alert=error");
+  }
+};
+
+
+module.exports = internals;

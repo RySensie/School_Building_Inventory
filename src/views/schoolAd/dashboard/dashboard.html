@@ -1,0 +1,363 @@
+{{> schoolAd-sidenav dashboard=true}}
+<div class="main-content" id="panel">
+  {{> schoolAd-topnav dashboard=true mode=primary}}
+  <!-- Page content -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-blue mb-0">
+                      BUILDINGS
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0"> {{totalBuilding}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-blue
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-building "></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-blue mr-2"><i class="ni ni-building mr-2"></i></span>
+                  <span class="text-nowrap"> Total No. of Building</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-orange mb-0">
+                      ROOMS
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{totalRoom}}</span>
+                  </div>
+                  <div ni-circle-08 class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-orange
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-shop"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-orange mr-2"><i class="ni ni-shop"></i></span>
+                  <span class="text-nowrap"> Total No. of Rooms</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-red mb-0">
+                      ROOM SHORTAGE
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{total}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-red
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-chart-bar-32"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-danger mr-2"><i class="ni ni-chart-bar-32"></i></span>
+                  <span class="text-nowrap">Total No. Of Rooms Needed</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-success mb-0">
+                      Total Student
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{students.totalStudent}}</span>
+                  </div>
+                  <div ni-circle-08 class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-green
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-success mr-2"><i class="ni ni-money-coins"></i></span>
+                  <span class="text-nowrap">Total No. Of Student</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--4">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="row">
+            <div class="col-sm-6">
+              <img src="../../assets/img/logo/image.png" class="" style="width: 300px; height: 300px;
+                      margin-left: 150px; align-items: center; border-radius: 5px;" />
+            </div>
+            <div class="col-sm-6">
+              <h1 class="text-center mt-7 ml-3 font-weight-bold display-3">{{credentials.school_name}}</h1>
+              <h2 class="text-center mb-10 font-italic">ID: {{credentials.school_ID}}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="col text-right">
+              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestModal">Request Building</a>
+              <!-- <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Request Rooms</a>
+              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Request Other Facility</a> -->
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Note</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each request}}
+                <tr>
+                  <td scope="row">{{this.name}}</td>
+                  <td class="text-danger">{{this.condition}}</td>
+                  <td class="text-danger">{{this.status}}</td>
+                  <td class="text-danger">{{this.note}}</td>
+                  <!-- <td class="text-right">
+                    <div class="dropdown">
+                      <a class="btn btn-sm btn-icon-only text-black" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item editBtn" data-id="{{this._id}}" data-temporary="{{this.temporary}}"
+                          data-usetemporary="{{this.usetemporary}}">Update</a>
+                        <a class="dropdown-item dltBtn" data-id="{{this._id}}">Delete</a>
+                      </div>
+                    </div>
+                  </td> -->
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  ***************** REQUEST add Modal *********************** -->
+<div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form role="form" method="POST" action="/schoolAd/request">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-lg-11 pl-5">
+                <label>Name</label>
+                <select  name="name" class="form-control">
+                    <option selected></option>
+                    <option>BUILDING</option>
+                    <option>FACILITY</option>
+                    <option>FURNITURE</option>
+                    <option>ROOM</option>
+                    <option>WATER & SANITATION</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-11  pl-5">
+              <label>Condition</label>
+              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                title="" data-placement="top"
+                data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+              </a>
+              <input type="string" class="form-control" placeholder="" name="condition" required>
+            </div>
+            <div class="form-group col-lg-11  pl-5">
+              <label for="exampleFormControlTextarea1">Note</label>
+              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                title="" data-placement="top"
+                data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+              </a>
+              
+                <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="col-12 text-right pr-5">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                Save
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- chart.js -->
+<script src="https://cdnjs.com/libraries/Chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://www.jsdelivr.com/package/npm/chart.js"></script>
+<!-- chart script -->
+<script>
+  // chartBar();
+  chartPie();
+
+  function chartBar() {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132)',
+            'rgba(54, 162, 235)',
+            'rgba(255, 206, 86)',
+            'rgba(75, 192, 192)',
+            'rgba(153, 102, 255)',
+            'rgba(255, 159, 64)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  function chartPie() {
+    const ctxs = document.getElementById('myCharts').getContext('2d');
+    const myCharts = new Chart(ctxs, {
+      type: 'pie',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132)',
+            'rgba(54, 162, 235)',
+            'rgba(255, 206, 86)',
+            'rgba(75, 192, 192)',
+            'rgba(153, 102, 255)',
+            'rgba(255, 159, 64)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132)',
+            'rgba(54, 162, 235)',
+            'rgba(255, 206, 86)',
+            'rgba(75, 192, 192)',
+            'rgba(153, 102, 255)',
+            'rgba(255, 159, 64)'
+          ],
+          borderWidth: 1,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+</script>
+<!-- **************************** DATA TABLE script ****************************** -->
+<script>
+  $(document).ready(function () {
+    $('#builDamage').DataTable({
+      dom: 'lBfrtip',
+      buttons: [
+      ],
+      stateSave: true,
+    });
+  });
+</script>
+ <!-- popOver Script -->
+ <script>
+  $(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+  });
+</script>

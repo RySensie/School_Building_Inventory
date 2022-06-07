@@ -1,0 +1,504 @@
+{{> schoolAd-sidenav stand=true}}
+<div class="main-content" id="panel">
+    {{> schoolAd-topnav stand=true}}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home">
+                                            Dashboard</i></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Stand-Alone Water & Sanitation
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header">
+                        <!-- {{#if message }}
+                        <div class="alert alert-{{alert}}" role="alert">
+                            <strong>Alert!</strong> {{message}}
+                        </div>
+                        {{/if}} -->
+                        <div class="row align-items-center">
+                            <div class="col text-right">
+                                <a href="" class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#addBuilding">Add Water & Sanitation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush" id="stand">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">Male</th>
+                                    <th scope="col" class="sort" data-sort="name">Female</th>
+                                    <th scope="col" class="sort" data-sort="name">Shared</th>
+                                    <th scope="col" class="sort" data-sort="name">PWD</th>
+                                    <th scope="col" class="sort" data-sort="name">Non-Functional</th>
+                                    <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
+                                    <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
+                                    <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
+                                    <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
+                                    <th scope="col" class="sort" data-sort="status">With Faucet</th>
+                                    <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                {{#each schoolWSF_data}}
+                                <tr>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.male}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.fmale}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.shared}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.pwd}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.urinals}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.septicTank}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
+                                        </div>
+                                    </td>
+                                    <td scope="row">
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item editBtn" 
+                                                    data-id="{{this._id}}"
+                                                    data-male="{{this.male}}"
+                                                    data-fmale="{{this.fmale}}"
+                                                    data-shared="{{this.shared}}"
+                                                    data-pwd="{{this.pwd}}"
+                                                    data-nonfunc="{{this.nonfunc}}" 
+                                                    data-numberWashbin="{{this.numberWashbin}}"
+                                                    data-urinals="{{this.urinals}}"
+                                                    data-UrinalsTrou="{{this.UrinalsTrou}}"
+                                                    data-septicTank="{{this.septicTank}}"
+                                                    data-wfaucet="{{this.wfaucet}}"
+                                                    data-wOutFaucet="{{this.wOutFaucet}}">Update</a>
+                                                <a class="dropdown-item deleteBtn" data-id="{{this._id}}">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ****************************Add Modal************************************************** -->
+<div class="modal fade" id="addBuilding" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="needs-validation" novalidate action="/schoolAd/standAlone" method="POST">
+                <div class="card-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">Number of Male Toilet</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to the serviceable toilet bowls.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" id="" class="form-control" name="male" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">Number of Female Toilet</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to the serviceable toilet bowls. ">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" id="" class="form-control" name="fmale" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">Number of Shared Toilet</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to the serviceable toilet bowls.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" id="" class="form-control" name="shared" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">Number of PWD Toilet</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to the serviceable toilet bowls. ">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" id="" class="form-control" name="pwd" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-city">Number of Non-Functional Toilet</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to the non-serviceable toilet bowls.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" id="" class="form-control" name="nonfunc" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Number of Sink/Washbin</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to a sink or washbasin.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" id="numberWashbin" class="form-control" name="numberWashbin"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Number of Urinals</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to the bowls or other receptacles, typically attached to a wall in a restroom, into which men may urinate.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" class="form-control" name="urinals" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Number of Urinals Trough</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to a long, narrow open container used for urinating.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" class="form-control" name="UrinalsTrou" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="septicTank" class="form-control-label">With Siptic Tank</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="" data-placement="top"
+                                        data-content="Refers to a sewage-disposal unit used for homes/schools not connected to sewer lines. It consists ordinarily of either a single or double compartment of concrete buried in the ground, so designed that settled sludge (waste) is in contact with the waste water as it flows through the tank and then to a drain field. Solids are decomposed by the anaerobic bacterial action of the sludge.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <select id="septicTank" name="septicTank" class="form-control" required>
+                                        <option selected></option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Number of With Water Supply</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="Number of faucets" data-placement="top"
+                                        data-content="Refers to the total number of a device by which water flows. It may be with or without a water supply.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" class="form-control" name="wfaucet" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Number of Without Water Supply</label>
+                                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                                        title="Number of faucets" data-placement="top"
+                                        data-content="Refers to the total number of a device by which water flows. It may be with or without a water supply.">
+                                        <span class="material-icons">
+                                             help_outline
+                                        </span>
+                                    </a>
+                                    <input type="number" class="form-control" name="wOutFaucet" required>
+                                </div>
+                            </div>
+                            <div class="col-12 text-right pr-5">
+                                <button id="btn-save" type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ****************************Update Modal************************************************** -->
+<div class="modal fade updateModal" tabindex="-1" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="needs-validation" novalidate action="/schoolAd/standAlone/update" method="POST">
+                <div class="card-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="edit_id" id="edit_id">
+                                    <label class="form-control-label">Number of Male Toilet</label>
+                                    <input type="number" id="male_edit" value="male_edit" class="form-control" name="male" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of Female Toilet</label>
+                                    <input type="number" id="fmale_edit" value="fmale_edit" class="form-control" name="fmale" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of Shared Toilet</label>
+                                    <input type="number" id="shared_edit" value="shared_edit" class="form-control" name="shared" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of PWD Toilet</label>
+                                    <input type="number" id="pwd_edit" value="pwd_edit" class="form-control" name="pwd" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of Non-Functional
+                                        Toilet</label>
+                                    <input type="number" id="nonfunc_edit" value="nonfunc_edit" class="form-control" name="nonfunc" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of
+                                        Sink/Washbin</label>
+                                    <input type="number" id="numberWashbin_edit" value="numberWashbin_edit" class="form-control" name="numberWashbin"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of Urinals</label>
+                                    <input type="number" id="urinals_edit" value="urinals_edit" class="form-control" name="urinals" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of Urinals Trough</label>
+                                    <input type="number" id="UrinalsTrou_edit" value="UrinalsTrou_edit" class="form-control" name="UrinalsTrou" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="septicTank_edit" class="form-control-label">With Siptic Tank</label>
+                                    <select id="septicTank_edit" name="septicTank" class="form-control" required>
+                                        <option selected value="septicTank_edit"></option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of With Water Supply</label>
+                                    <input type="number" id="wfaucet_edit" value="wfaucet_edit" class="form-control" name="wfaucet" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-control-label">Number of Without Water Supply</label>
+                                    <input type="number" id="wOutFaucet_edit" value="wOutFaucet_edit" class="form-control" name="wOutFaucet" required>
+                                </div>
+                            </div>
+                            <div class="col-12 text-right pr-5">
+                                <button id="btn-save" type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- **************************** delete Modal ****************************** -->
+<div class="modal fade deleteModal" data-backdrop="static">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <form action="/schoolAd/standAlone/delete" method="POST">
+                <div class="modal-body">
+
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                    <input type="hidden" id="delete_id" name="id">
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<script>
+    $('.editBtn').click(function () {
+
+        $('#edit_id').val($(this).attr('data-id'));
+        $('#male_edit').val($(this).attr('data-male'));
+        $('#fmale_edit').val($(this).attr('data-fmale'));
+        $('#shared_edit').val($(this).attr('data-shared'));
+        $('#pwd_edit').val($(this).attr('data-pwd'));
+        $('#nonfunc_edit').val($(this).attr('data-nonfunc'));
+        $('#numberWashbin_edit').val($(this).attr('data-numberWashbin'));
+        $('#urinals_edit').val($(this).attr('data-urinals'));
+        $('#UrinalsTrou_edit').val($(this).attr('data-UrinalsTrou'));
+        $('#septicTank_edit').val($(this).attr('data-septicTank'));
+        $('#wfaucet_edit').val($(this).attr('data-wfaucet'));
+        $('#wOutFaucet_edit').val($(this).attr('data-wOutFaucet'));
+
+        $('.updateModal').modal('show');
+    });
+</script>
+<!-- Delete Modal -->
+<script>
+    $('.deleteBtn').click(function () {
+
+        $('#delete_id').val($(this).attr('data-id'));
+
+        $('.deleteModal').modal('show');
+    });
+</script>
+
+<!-- **************************** DATA TABLE script ****************************** -->
+<script>
+    $(document).ready(function() {
+    $('#stand').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ]
+    } );
+  } );
+  </script>
+  <script>
+    $(document).ready(function () {
+      $('[data-toggle="popover"]').popover();
+    });
+  </script>

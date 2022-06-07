@@ -1,0 +1,445 @@
+{{> admin-sidenav school=true}}
+<div class="main-content" id="panel">
+  {{> admin-topnav school=true mode=primary}}
+  <!-- Page content -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-blue mb-0">
+                      BUILDINGS
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0"> {{totalBuild}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-blue
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-building "></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-blue mr-2"><i class="ni ni-building mr-2"></i></span>
+                  <span class="text-nowrap"> Total No. of Building</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-orange mb-0">
+                      ROOMS
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{totalRoom}}</span>
+                  </div>
+                  <div ni-circle-08 class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-orange
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-shop"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-orange mr-2"><i class="ni ni-shop"></i></span>
+                  <span class="text-nowrap"> Total No. of Rooms</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-red mb-0">
+                      ROOM SHORTAGE
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{total}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-red
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-chart-bar-32"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-danger mr-2"><i class="ni ni-chart-bar-32"></i></span>
+                  <span class="text-nowrap">Total No. Of Rooms Needed</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-success mb-0">
+                      Total Student
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{students.totalStudent}}</span>
+                  </div>
+                  <div ni-circle-08 class="col-auto">
+                    <div class="
+                        icon icon-shape
+                        bg-gradient-green
+                        text-white
+                        rounded-circle
+                        shadow
+                      ">
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-success mr-2"><i class="ni ni-money-coins"></i></span>
+                  <span class="text-nowrap">Total No. Of Student</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class=" mb-0">School Building Records</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Proj]]ects table -->
+            <table class="table align-items-center table-flush" id="school">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="sort" data-sort="name">Building Number</th>
+                  <th scope="col" class="sort" data-sort="budget">Building Type</th>
+                  <th scope="col" class="sort" data-sort="status">Number of Storey</th>
+                  <th scope="col" class="sort" data-sort="status">Year Completed</th>
+                  <th scope="col" class="sort" data-sort="status">Building Condition</th>
+                  <th scope="col" class="sort" data-sort="status">Fund Source</th>
+                  <th scope="col" class="sort" data-sort="status">Specific Fund Source</th>
+                  <th scope="col" class="sort" data-sort="status">Number of Rooms</th>
+                  <th scope="col" class="sort" data-sort="status">Building Classification</th> 
+                  <th scope="col" class="sort" data-sort="status">Date Acquisition</th> 
+                  <th scope="col" class="sort" data-sort="status">Acquisition Cost</th> 
+                  <th scope="col" class="sort" data-sort="status">Building Materials</th> 
+                  <th scope="col" class="sort" data-sort="status">Book Value</th> 
+                  <th scope="col" class="sort" data-sort="status">Insurance Information</th> 
+                  <th scope="col" class="sort" data-sort="status">Building PWD Accessible?</th> 
+                  <th scope="col" class="sort" data-sort="status">Undergone Major Repair</th> 
+                  <th scope="col" class="sort" data-sort="status">With Certificate of Acceptance?</th> 
+                  <th scope="col" class="sort" data-sort="status">Building Include in the Boook of Accountant?</th> 
+
+                </tr>
+              </thead>
+              <tbody>
+                {{#each building}}
+                <tr>
+                  <td scope="row">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <a href="/schoolAd/building/Details/{{_id}}"
+                                class="name mb-0 text-sm">{{this.buildingNumber}}</a>
+                                
+                        </div>
+                    </div>
+                </td>
+                <td class="media align-items-center">
+                    {{this.buildingType}}
+                </td>
+                <td>
+                    <span class="media align-items-center">
+                        <i class="bg-warning"></i>
+                        <span class="status">{{this.numberOfStorey}}</span>
+                    </span>
+                </td>
+                <td>
+                    {{this.yearCompleted}}
+                </td>
+                <td>
+                    {{this.buildingCondition}}
+                </td>
+                <td>
+                    {{this.fundSource}}
+                </td>
+                <td>
+                    {{this.specificFundSource}}
+                </td>
+                <td>
+                    {{this.numberOfRooms}}
+                </td>
+                <td>
+                    {{this.classificationOfBuilding}}
+                </td>
+                <td>
+                    {{this.dateAcquisition}}
+                </td>
+                <td>
+                    {{this.acquisitionCost}}
+                </td>
+                <td>
+                    {{this.buildingMaterial}}
+                </td>
+                <td>
+                    {{this.bookValue}}
+                </td>
+                <td>
+                    {{this.insuranceInfo}}
+                </td>
+                <td>
+                    {{this.pwdAccessible}}
+                </td>
+                <td>
+                    {{this.undergoneMajorRepair}}
+                </td>
+                <td>
+                    {{this.certificateOfAcceptance}}
+                </td>
+                <td>
+                    {{this.includeDepedBook}}
+                </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Facilities</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Projects table -->
+            <table class="table align-items-center table-flush" id="facility">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">NAME</th>
+                  <th scope="col"></th>
+                  <th scope="col">PRESENT</th>
+                  <th scope="col">STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each facility}}
+                <tr>
+                  <th scope="row">{{this.name}}</th>
+                  <td></td>
+                  <td>{{this.presentCampus}}</td>
+                  <td class="text-success">{{this.status}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Furnitures</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Projects table -->
+            <table class="table align-items-center table-flush" id="furniture">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">NAME</th>
+                  <th scope="col"></th>
+                  <th scope="col">TOTAL</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each furniture}}
+                <tr>
+                  <th scope="row">{{this.name}}</th>
+                  <td></td>
+                  <td class="text-success">{{this.total}}</td>
+                  <td></td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class=" mb-0">School Water & Sanitation</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Proj]]ects table -->
+            <table class="table align-items-center table-flush" id="schoolwsfs">
+              <thead class="thead-light">
+                  <tr>
+                      <th scope="col" class="sort" data-sort="name">Toilet Type</th>
+                      <th scope="col" class="sort" data-sort="name">Total Toilet</th>
+                      <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
+                      <th scope="col" class="sort" data-sort="status">Type of Urinals</th>
+                      <th scope="col" class="sort" data-sort="status">Number of Urinals</th>
+                      <th scope="col" class="sort" data-sort="status">Septic Tank</th>
+                      <th scope="col" class="sort" data-sort="status">Faucet</th>
+                      <th scope="col" class="sort" data-sort="completion">Number of Faucet</th>
+                  </tr>
+              </thead>
+              <tbody class="list">
+                  {{#each schoolwsf}}
+                  <tr>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.type}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.toilet}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.typeUrinals}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.numberUrinals}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.septicTank}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.faucet}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.totalFaucet}}</span>
+                          </div>
+                      </td>
+                  </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+  </div>
+    <div class="row">
+      <div class="col-xl-7"></div>
+      <div class="col-xl-5"></div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+      $('#school').DataTable({
+          dom: 'lBfrtip',
+      buttons: [
+          'copyHtml5',
+          'excelHtml5',
+      ],
+      stateSave: true,
+      });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+      $('#facility').DataTable({
+          dom: 'lBfrtip',
+      buttons: [
+          'copyHtml5',
+          'excelHtml5',
+      ],
+      stateSave: true,
+      });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+      $('#furniture').DataTable({
+          dom: 'lBfrtip',
+      buttons: [
+          'copyHtml5',
+          'excelHtml5',
+      ],
+      stateSave: true,
+      });
+  });
+</script>
+<script>
+  $(document).ready(function () {
+      $('#schoolwsfs').DataTable({
+          dom: 'lBfrtip',
+      buttons: [
+          'copyHtml5',
+          'excelHtml5',
+      ],
+      stateSave: true,
+      });
+  });
+</script>

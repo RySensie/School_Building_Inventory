@@ -1,0 +1,587 @@
+{{> schoolAd-sidenav building=true}}
+<div class="main-content" id="panel">
+  {{> schoolAd-topnav}}
+
+
+  <!-- Header -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home">
+                      Dashboard</i></a></li>
+                <li class="breadcrumb-item"><a href="/schoolAd/building/Details/{{building_id}}"> BuildingList</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Room Details</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header">
+            {{#if message }}
+            <div class="alert alert-{{alert}}" role="alert">
+              <strong>Alert!</strong> {{message}}
+            </div>
+            {{/if}}
+            <div class="row align-items-center">
+              <div class="col text-right">
+                <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Add Room</a>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+
+            <table class="table align-items-center table-flush" id="tangene">
+              <thead class="thead-light text-center">
+                <tr class="text-center">
+                  <th scope="col" lass="sort" data-sort="budget">Room Number</th>
+                  <th scope="col" class="sort" data-sort="budget">Room Condition</th>
+                  <th scope="col" class="sort" data-sort="status">Actual Usage</th>
+                  <th scope="col" class="sort" data-sort="status">Floor Number</th>
+                  <th scope="col" class="sort" data-sort="status">Dimension in Width</th>
+                  <th scope="col" class="sort" data-sort="status">Dimension in Lenght</th>
+                  <th scope="col" class="sort" data-sort="completion">Action</th>
+                </tr>
+              </thead>
+              <tbody class="list text-center">
+                {{#each rooms_data}}
+
+                <tr class="text-center">
+                  <td scope="row">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{this.roomNumber}}</span>
+                    </div>
+                  </td>
+                  <td scope="row">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{this.roomCondition}}</span>
+                    </div>
+                  </td>
+                  <td scope="row">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{this.actualUsage}}</span>
+                    </div>
+                  </td>
+                  <td scope="row">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{this.floor}}</span>
+                    </div>
+                  </td>
+                  <td scope="row">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{this.roomDimensionW}}</span>
+                    </div>
+                  </td>
+                  <td scope="row">
+                    <div class="media-body">
+                      <span class="name mb-0 text-sm">{{this.roomDimensionL}}</span>
+                    </div>
+                  </td>
+                  <td class="">
+                    <div class="dropdown">
+                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item editBtn" data-id="{{this._id}}" data-roomNumber="{{this.roomNumber}}"
+                          data-roomCondition="{{this.roomCondition}}" data-actualUsage="{{this.actualUsage}}"
+                          data-floor="{{this.floor}}"
+                          data-roomDimensionW="{{this.roomDimensionW}}"
+                          data-roomDimensionL="{{this.roomDimensionL}}">Update</a>
+                        <a class="dropdown-item deleteBtn1" data-id="{{this._id}}">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ------------------- Add  Modal ---------------- -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <form role="form" method="POST" action="/schoolAd/room/add/{{building_id}}">
+          <div class="card-header">
+            <div class="row align-items-center">
+
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label class="form-control-label">ACTUAL PHOTO</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Upload actual photo of the building.">
+              <span class="material-icons">
+                help_outline
+              </span></a>
+            <img class="img-thumbnail" id="actualResult" class="rounded-circle" />
+            <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+              class="form-control border-0" required />
+          </div> -->
+          <div class="form-group">
+            <!-- <label for="validationTooltip04">Room Number</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+            title="" data-placement="top"
+            data-content="Refers to the number of rooms.">
+            <span class="material-icons">
+              help_outline
+            </span>
+          </a>
+            <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="address">
+              <option value="">CHOOSE ROOM NUMBER</option>
+                {{#each rooms_data}}
+                <option value="{{this.address}}">{{this.address}}</option>
+                {{/each}}
+            </select> -->
+            <label for="presentCampus">Room Number</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Refers to the number of rooms.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}">
+          </div>
+          <div class="form-group text-black">
+            <label for="presentCampus">Room Condition</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Refers to the current physical state of a room.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <select id="status_edit" name="roomCondition" class="form-control">
+              <option selected></option>
+              <option>GOOD CONDITION</option>
+              <option>MINOR DAMAGE</option>
+              <option>MAJOR DAMAGE</option>
+              <option>CONDEMNED/DEMOLATION</option>
+              <option>COMPLETION</option>
+              <option>ON GOING CONSTRUCTION</option>
+            </select>
+          </div>
+          <div class="form-group text-black">
+            <label for="presentCampus">Floor</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Refers to the current physical state of a room.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}">
+          </div>
+          <div class="form-group">
+            <label for="presentCampus">Actual Usage</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top"
+              data-content="Refers to the manner by which a room is currently being utilized, it should correspond to the number of usages (e.g., If the room is shared by two SPED classes held at the same time, actual usage is SPED classroom and SPED classroom).">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" placeholder="Actual Usage" name="actualUsage" type="text">
+          </div>
+          <div class="form-group">
+            <label for="presentCampus">Room Dimension Width</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top"
+              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side of the chalkboard while length refers to the side of the window.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" placeholder="meter" name="roomDimensionW" type="number">
+          </div>
+          <div class="form-group">
+            <label for="presentCampus">Room Dimension Lenght </label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top"
+              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side of the chalkboard while length refers to the side of the window.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" placeholder="meter" name="roomDimensionL" type="number">
+          </div>
+          <div class="col-12 text-right">
+            <button id="btn-save" type="submit" class="btn btn-primary">
+              Save
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- **************************** Update Modal ****************************** -->
+<div class="modal fade updateModal" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <form role="form" method="POST" action="/schoolAd/room/update/{{building_id}}">
+          <div class="card-header">
+            <div class="row align-items-center">
+
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label class="form-control-label">ACTUAL PHOTO</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Upload actual photo of the building.">
+              <span class="material-icons">
+                help_outline
+              </span></a>
+            <img class="img-thumbnail" id="actualResult" class="rounded-circle" />
+            <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+              class="form-control border-0" required />
+          </div> -->
+          <div class="form-group">
+            <!-- <label for="validationTooltip04">Room Number</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+            title="" data-placement="top"
+            data-content="Refers to the number of rooms.">
+            <span class="material-icons">
+              help_outline
+            </span>
+          </a>
+            <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="address">
+              <option value="">CHOOSE ROOM NUMBER</option>
+                {{#each rooms_data}}
+                <option value="{{this.address}}">{{this.address}}</option>
+                {{/each}}
+            </select> -->
+            <input type="text" name="edit_id" id="edit_id" class="form-control" hidden>
+            <label for="presentCampus">Room Number</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Refers to the number of rooms.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" id="roomNumber_edit" value="roomNumber_edit" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}">
+          </div>
+          <div class="form-group text-black">
+            <label for="presentCampus">Room Condition</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Refers to the current physical state of a room.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <select id="roomCondition_edit" name="roomCondition" class="form-control">
+              <option selected value="roomCondition_edit"></option>
+              <option>GOOD CONDITION</option>
+              <option>MINOR DAMAGE</option>
+              <option>MAJOR DAMAGE</option>
+              <option>CONDEMNED/DEMOLATION</option>
+              <option>COMPLETION</option>
+              <option>ON GOING CONSTRUCTION</option>
+            </select>
+          </div>
+          <div class="form-group text-black">
+            <label for="presentCampus">Floor</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top" data-content="Refers to the current physical state of a room.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" id="floor_edit" value="floor_edit" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}">
+          </div>
+          <div class="form-group">
+            <label for="presentCampus">Actual Usage</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top"
+              data-content="Refers to the manner by which a room is currently being utilized, it should correspond to the number of usages (e.g., If the room is shared by two SPED classes held at the same time, actual usage is SPED classroom and SPED classroom).">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" id="actualUsage_edit" value="actualUsage_edit" placeholder="Actual Usage" name="actualUsage" type="text">
+          </div>
+          <div class="form-group">
+            <label for="presentCampus">Room Dimension Width</label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top"
+              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side of the chalkboard while length refers to the side of the window.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" id="roomDimensionW_edit" value="roomDimensionW_edit" placeholder="meter" name="roomDimensionW" type="number">
+          </div>
+          <div class="form-group">
+            <label for="presentCampus">Room Dimension Lenght </label>
+            <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+              data-placement="top"
+              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side of the chalkboard while length refers to the side of the window.">
+              <span class="material-icons">
+                help_outline
+              </span>
+            </a>
+            <input class="form-control" id="roomDimensionL_edit" value="roomDimensionL_edit" placeholder="meter" name="roomDimensionL" type="number">
+          </div>
+          <div class="col-12 text-right">
+            <button id="btn-save" type="submit" class="btn btn-primary">
+              Save
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade updateModal" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Room</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="POST" action="/schoolAd/room/update/{{building_id}}">
+          <div class="form-group">
+            <div class="input-group input-group-merge input-group-alternative mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+              </div>
+              <input type="text" name="edit_id" id="edit_id" class="form-control" hidden>
+              <input class="form-control" placeholder="Room Number" name="roomNumber" id="roomNumber_edit" type="text"
+                value="{{this.roomNumber}}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group input-group-merge input-group-alternative mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+              </div>
+              <input class="form-control" placeholder="Room Condition" name="roomCondition" id="roomCondition_edit"
+                type="text" value="{{this.roomCondition}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group input-group-merge input-group-alternative mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+              </div>
+              <input class="form-control" placeholder="Actual Usage" name="actualUsage" id="actualUsage_edit"
+                type="text" value="{{this.actualUsage}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group input-group-merge input-group-alternative mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+              </div>
+              <input class="form-control" placeholder="Room Dimension Width" name="roomDimensionW"
+                id="roomDimensionW_edit" type="number" value="{{this.roomDimensionW}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group input-group-merge input-group-alternative mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+              </div>
+              <input class="form-control" placeholder="Room Dimension Lenght" name="roomDimensionL"
+                id="roomDimensionL_edit" type="number" value="{{this.roomDimensionL}}">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- **************************** delete Modal ****************************** -->
+<div class="modal fade deleteModal" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/schoolAd/room/delete/{{building_id}}" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to delete these records? This process cannot be undone.</p>
+          <input type="hidden" id="delete_id" name="id">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- update -->
+<script>
+  $('.editBtn').click(function () {
+    $('#edit_id').val($(this).attr('data-id'));
+    $('#roomNumber_edit').val($(this).attr('data-roomNumber'));
+    $('#roomCondition_edit').val($(this).attr('data-roomCondition'));
+
+    $('#actualUsage_edit').val($(this).attr('data-actualUsage'));
+    $('#floor_edit').val($(this).attr('data-floor'));
+    $('#roomDimensionW_edit').val($(this).attr('data-roomDimensionW'));
+    $('#roomDimensionL_edit').val($(this).attr('data-roomDimensionL'));
+
+    $('.updateModal').modal('show');
+  });
+</script>
+<!-- Delete -->
+<script>
+  $('.deleteBtn1').click(function () {
+    $('#delete_id').val($(this).attr('data-id'));
+
+    $('.deleteModal').modal('show');
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+  });
+</script>
+
+<!-- <script>
+  $(document).ready(function () {
+    $('#tangene').DataTable({
+      dom: 'lBfrtip',
+      buttons: [
+        'copyHtml5',
+        'excelHtml5',
+      ],
+      stateSave: true,
+    });
+  });
+</script> -->
+<script>
+  $(document).ready(function () {
+    $('#tangene').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        'copy', 'excel', 'pdf', 'print'
+      ]
+    });
+  });
+</script>
+<!------------------------
+   SELECT WITH DROPDOWN 
+  ------------------------->
+<script>
+  function setDrop() {
+    if (!document.getElementById('third').classList.contains("fstdropdown-select"))
+      document.getElementById('third').className = 'fstdropdown-select';
+    setFstDropdown();
+  }
+  setFstDropdown();
+  function removeDrop() {
+    if (document.getElementById('third').classList.contains("fstdropdown-select")) {
+      document.getElementById('third').classList.remove('fstdropdown-select');
+      document.getElementById("third").fstdropdown.dd.remove();
+      document.querySelector("#third~.fstdiv").remove();
+    }
+  }
+  function addOptions(add) {
+    var select = document.getElementById("fourth");
+    for (var i = 0; i < add; i++) {
+      var opt = document.createElement("option");
+      var o = Array.from(document.getElementById("fourth").querySelectorAll("option")).slice(-1)[0];
+      var last = o == undefined ? 1 : Number(o.value) + 1;
+      opt.text = opt.value = last;
+      select.add(opt);
+    }
+  }
+  function removeOptions(remove) {
+    for (var i = 0; i < remove; i++) {
+      var last = Array.from(document.getElementById("fourth").querySelectorAll("option")).slice(-1)[0];
+      if (last == undefined)
+        break;
+      Array.from(document.getElementById("fourth").querySelectorAll("option")).slice(-1)[0].remove();
+    }
+  }
+  function updateDrop() {
+    document.getElementById("fourth").fstdropdown.rebind();
+  }
+</script>
+
+  <!-- UPLAOD Image ACTUAL PHOTO-->
+  <script>
+    /*  ==========================================
+      SHOW UPLOADED IMAGE
+  * ========================================== */
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $("#actualResult").attr("src", e.target.result);
+          $("#imgdatainput").val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $(function () {
+      $("#upload").on("change", function () {
+        readURL(input);
+      });
+    });
+
+    /*  ==========================================
+      SHOW UPLOADED IMAGE NAME
+  * ========================================== */
+    var input = document.getElementById("upload");
+    var infoArea = document.getElementById("upload-label");
+
+    input.addEventListener("change", showFileName);
+    function showFileName(event) {
+      var input = event.srcElement;
+      var fileName = input.files[0].name;
+      infoArea.textContent = "File name: " + fileName;
+    }
+</script>

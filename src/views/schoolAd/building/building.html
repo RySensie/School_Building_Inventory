@@ -1,0 +1,1331 @@
+{{> schoolAd-sidenav building=true}}
+<div class="main-content" id="panel">
+  {{> schoolAd-topnav}}
+  <!-- Header -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-7">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home"> Dashboard</i></a></li>
+                <li class="breadcrumb-item active" aria-current="page"> BuildingList</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header">
+            {{#if message }}
+            <div class="alert alert-{{alert}}" role="alert">
+              <strong>Alert!</strong> {{message}}
+            </div>
+            {{/if}}
+            <div class="row align-items-center">
+              <div class="col text-right">
+                <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Add
+                  Building</a>
+              </div>
+            </div>
+          </div>
+          <!-- Light table -->
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush" id="tangene">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="sort" data-sort="name">Building Number</th>
+                  <th scope="col" class="sort" data-sort="budget">Building Type</th>
+                  <th scope="col" class="sort" data-sort="status">Number of Storey</th>
+                  <th scope="col" class="sort" data-sort="status">Year Completed</th>
+                  <th scope="col" class="sort" data-sort="status">Building Condition</th>
+                  <th scope="col" class="sort" data-sort="status">Fund Source</th>
+                  <th scope="col" class="sort" data-sort="status">Specific Fund Source</th>
+                  <th scope="col" class="sort" data-sort="status">Number of Rooms</th>
+                  <th scope="col" class="sort" data-sort="status">Building Classification</th>
+                  <th scope="col" class="sort" data-sort="status">Date Acquisition</th>
+                  <th scope="col" class="sort" data-sort="status">Acquisition Cost</th>
+                  <th scope="col" class="sort" data-sort="status">Building Materials</th>
+                  <th scope="col" class="sort" data-sort="status">Book Value</th>
+                  <th scope="col" class="sort" data-sort="status">Insurance Information</th>
+                  <th scope="col" class="sort" data-sort="status">Building PWD Accessible?</th>
+                  <th scope="col" class="sort" data-sort="status">Undergone Major Repair</th>
+                  <th scope="col" class="sort" data-sort="status">With Certificate of Acceptance?</th>
+                  <th scope="col" class="sort" data-sort="status">Building Include in the Boook of Accountant?</th>
+                  <th scope="col" class="sort" data-sort="status">Action</th>
+
+                  <!-- <th scope="col" class="sort" data-sort="status">Action</th> -->
+                </tr>
+              </thead>
+              <tbody class="list">
+                {{#each buildings_data}}
+                <tr>
+                  <td scope="row">
+                    <div class="media align-items-center">
+                      <a href="/schoolAd/building/Details/{{_id}}" class="avatar rounded-circle mr-3">
+                          <img alt="Image placeholder" src="{{this.actual_img}}">
+                      </a>
+                      <div class="media-body">
+                          <a href="/schoolAd/building/Details/{{_id}}"
+                              class="name mb-0 text-sm">{{this.buildingNumber}}</a>
+                      </div>
+                  </div>
+                    <!-- <div class="media align-items-center">
+                      <div class="media-body">
+                        <a href="/schoolAd/building/Details/{{_id}}"
+                          class="name mb-0 text-sm">{{this.buildingNumber}}</a>
+
+                      </div>
+                    </div> -->
+                  </td>
+                  <td class="media align-items-center">
+                    <span style="text-transform: uppercase;">{{this.buildingType}}</span>
+                  </td>
+                  <td>
+                    <span class="media align-items-center">
+                      <i class="bg-warning"></i>
+                      <span class="status">{{this.numberOfStorey}}</span>
+                    </span>
+                  </td>
+                  <td>
+                    {{this.yearCompleted}}
+                  </td>
+                  <td>
+                    <span style="text-transform: uppercase;">{{this.buildingCondition}}</span>
+                  </td>
+                  <td>
+                    <span style="text-transform: uppercase;">{{toUpper this.fundSource}}</span>
+                  </td>
+                  <td>
+                    <span style="text-transform: uppercase;">{{this.specificFundSource}}</span>
+                  </td>
+                  <td>
+                    {{this.numberOfRooms}}
+                  </td>
+                  <td>
+                    <span >{{this.classificationOfBuilding}}</span>
+                  </td>
+                  <td>
+                    {{ this.dateAcquisition}}
+                  </td>
+                  <td>
+                    {{this.acquisitionCost}}
+                  </td>
+                  <td>
+                    <span style="text-transform: uppercase;">{{this.buildingMaterial}}</span>
+                  </td>
+                  <td>
+                    {{this.bookValue}}
+                  </td>
+                  <td>
+                    <span style="text-transform: uppercase;">{{this.insuranceInfo}}</span>
+                  </td>
+                  <td>
+                    {{this.pwdAccessible}}
+                  </td>
+                  <td>
+                    {{this.undergoneMajorRepair}}
+                  </td>
+                  <td>
+                    {{this.certificateOfAcceptance}}
+                  </td>
+                  <td>
+                    {{this.includeDepedBook}}
+                  </td>
+
+                  <td class="">
+                    <div class="dropdown">
+                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item editBtn" data-id="{{this._id}}"
+                          data-actual_img="{{this.actual_img}}"
+                          data-buildingNumber="{{this.buildingNumber}}" data-buildingType="{{this.buildingType}}"
+                          data-numberOfStorey="{{this.numberOfStorey}}" data-yearCompleted="{{this.yearCompleted}}"
+                          data-buildingCondition="{{this.buildingCondition}}" data-fundSource="{{this.fundSource}}"
+                          data-specificFundSource="{{this.specificFundSource}}"
+                          data-numberOfRooms="{{this.numberOfRooms}}"
+                          data-classificationOfBuilding="{{this.classificationOfBuilding}}"
+                          data-dateAcquisition="{{this.dateAcquisition}}"
+                          data-acquisitionCost="{{this.acquisitionCost}}"
+                          data-buildingMaterial="{{this.buildingMaterial}}" data-bookValue="{{this.bookValue}}"
+                          data-insuranceInfo="{{this.insuranceInfo}}" data-pwdAccessible="{{this.pwdAccessible}}"
+                          data-undergoneMajorRepair="{{this.undergoneMajorRepair}}"
+                          data-certificateOfAcceptance="{{this.certificateOfAcceptance}}"
+                          data-includeDepedBook="{{this.includeDepedBook}}">Update</a>
+
+                        <!-- <a class="dropdown-item deleteBtn" data-id="{{this._id}}">Delete Building</a> -->
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- **************************** add Modal ****************************** -->
+<div class="modal fade" id="addBuilding" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/schoolAd/building/add" method="POST" enctype="multipart/form-data">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="building-number">ACTUAL PHOTO</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Upload actual photo of the building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span></a>
+                      <img class="img-thumbnail" id="actualResult"
+                        class="rounded-circle" />
+                      <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+                      class="form-control border-0" required />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="building-number">BUILDING BLUEPRINT</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Upload blueprint of the building">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <img class="img-thumbnail" id="bluePrintResult"
+                    class="rounded-circle" />
+                  <input id="upload1" name="blueprint_img" type="file" accept=".jpg,.jpeg" onchange="readURL1(this);"
+                    class="form-control border-0" required />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="building-number">BUILDING NUMBER</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the number of buildings in the school.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="text" id="buildingNumber" class="form-control" name="buildingNumber"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="buildingCondition">BUILDING CONDITION</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the current physical state of a building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <select id="status_edit" name="buildingCondition" class="form-control" >
+                    <option selected></option>
+                    <option>GOOD CONDITION</option>
+                    <option>MINOR DAMAGE</option>
+                    <option>MAJOR DAMAGE</option>
+                    <option>CONDEMNED/DEMOLATION</option>
+                    <option>COMPLETION</option>
+                    <option>ON GOING CONSTRUCTION</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-city">FUND SOURCE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the source of budget for the construction of buildings and rooms.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="fundSource" class="form-control" name="fundSource"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-country">SPECIFIC FUND SOURCE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the specific source of budget for the construction of buildings and rooms.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="specificFundSource" class="form-control" name="specificFundSource"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <div class="col-lg-11">
+                    <label for="buildingType">BUILDING TYPE</label>
+                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the different designs of school buildings within the school site.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                    <select class="form-control" name="buildingType" onchange="if(this.options[this.selectedIndex].value=='customOption'){
+                        toggleField(this,this.nextSibling);
+                        this.selectedIndex='0';
+                    }">
+                        <option></option>
+                        <option>JICA - EDUCATIONAL FACILITIES IMPROVEMENT PROGRAM (EFIP)</option>
+                        <option>BAGONG LIPUNAN SCHOOL BUILDING (BLSB) TYPE 1</option>
+                        <option>RAMOS DEMOUNTABLE SCHOOL BUILDING</option>
+                        <option>PUBLIC - PRIVATE PARTNERSHIP (PPP)</option>
+                        <option>HOME ECONOMICS BUIDLING</option>
+                        <option>DEPED MODIFIED SCHOOL BUILDING (7 X 7)</option>
+                        <option>INDUSTRIAL ARTS BUILDING</option>
+                        <option>DEPED STANDARD SCHOOL BUILDING</option>
+                        <option>MARCOS PRE - FABRICATED SCHOOL BUILDING</option>
+                        <option>ARMY TYPE SCHOOL BUILDING</option>
+                        <option value="customOption">OTHER SCHOOL BUILDING</option>
+                    </select><input name="buildingType" class="form-control" style="display:none; text-transform: uppercase;" 
+                        disabled="disabled"
+                        onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+                </div>
+                  <!-- <label for="buildingType" class="form-control-label">BUILDING TYPE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the different designs of school buildings within the school site.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="buildingType" class="form-control" name="buildingType"  /> -->
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="numberOfStorey">NUMBER OF STOREY</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the number of levels/floors in a building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="numberOfStorey" class="form-control" name="numberOfStorey"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="numberOfRooms">NUMBER OF ROOMS</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the number of rooms.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="numberOfRooms" class="form-control" name="numberOfRooms"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="classificationOfBuilding">BUILDING CLASSIFICATION</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the classification of how the building is constructed">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <select id="classificationOfBuilding" name="classificationOfBuilding" class="form-control">
+                    <option selected></option>
+                    <option>PERMANENT</option>
+                    <option>SEMI PERMANENT</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="buildingMaterial">BUILDING MATERIALS</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the materials used during the construction of the building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <select id="buildingMaterial" name="buildingMaterial" class="form-control" >
+                    <option selected></option>
+                    <option>CONCRETE</option>
+                    <option>CONCRETE & WOODS</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="yearCompleted">Year Completed</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the specific year when a building was completed and officially turned over to the school.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="date" id="yearCompleted" class="form-control" name="yearCompleted"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="yearCompleted">Date of Acquisition</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the date of acceptance of the building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="date" id="yearCompleted" class="form-control" name="dateAcquisition"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="yearCompleted">Proof of Acquisition</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Upload the evidence here.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <img class="img-thumbnail" id="proofResult"
+                    class="rounded-circle" />
+                  <input id="upload2" name="proof_img" type="file" accept=".jpg,.jpeg" onchange="readURL2(this);"
+                    class="form-control border-0" required />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="acquisitionCost">Acquisition Cost</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the amount/cost of the building upon acquisition.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="acquisitionCost" class="form-control" name="acquisitionCost"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="bookValue">Book Value</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the acquisition cost of the asset less its depreciation cost.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="bookValue" class="form-control" name="bookValue"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="insuranceInfo">Insurance Information</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the current Insurance Policy of the building (state if none).">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="insuranceInfo" class="form-control" name="insuranceInfo"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="form-group col-lg-6">
+                <label for="pwdAccessible">Building PWD Accessible?</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to buildings that are compliant with the BP No.344 (Accessibility Law) and RA No. 7277 (Magna Carta for Disabled Persons) which aims to make all buildings in the country accessible to persons with disabilities (PWDs).">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="pwdAccessible" name="pwdAccessible" class="form-control">
+                  <option selected></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="undergoneMajorRepair">Undergone Major Repair</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to the building which underwent repair within the last 5 years.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="undergoneMajorRepair" name="undergoneMajorRepair" class="form-control">
+                  <option selected></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="certificateOfAcceptance">With Certificate of Acceptance?</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to newly constructed school buildings duly accepted by DepEd thru the Principal/School Head by way of signing of the Certificate of Acceptance.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="certificateOfAcceptance" name="certificateOfAcceptance" class="form-control">
+                  <option selected></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="includeDepedBook">Accountant</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to buildings that were already booked as assets of DepEd following standard accounting procedures for the transfer and booking-up of the subject facilities.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="includeDepedBook" name="includeDepedBook" class="form-control">
+                  <option selected></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-8">
+            </div>
+            <div class="col-4 text-right">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                SAVE
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                CLOSE
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- **************************** update Modal ****************************** -->
+
+<div class="modal fade updateModal" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/schoolAd/building/update" method="POST" enctype="multipart/form-data">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="building-number">ACTUAL PHOTO</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Upload actual photo of the building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span></a>
+                      <img class="img-thumbnail" id="actual_img_edit" src="" />
+                      <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+                      class="form-control border-0"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <input type="text" name="edit_id" id="edit_id" class="form-control" hidden>
+                  <label class="form-control-label" for="building-number">BUILDING NUMBER</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the number of buildings in the school.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="text" id="buildingNumber_edit" value="buildingNumber_edit" class="form-control" name="buildingNumber"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="buildingCondition">BUILDING CONDITION</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the current physical state of a building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <select id="buildingCondition_edit" name="buildingCondition" class="form-control" >
+                    <option selected value="buildingCondition_edit"></option>
+                    <option>GOOD CONDITION</option>
+                    <option>MINOR DAMAGE</option>
+                    <option>MAJOR DAMAGE</option>
+                    <option>CONDEMNED/DEMOLATION</option>
+                    <option>COMPLETION</option>
+                    <option>ON GOING CONSTRUCTION</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-city">FUND SOURCE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the source of budget for the construction of buildings and rooms.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="fundSource_edit" value="fundSource_edit" class="form-control" name="fundSource"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-country">SPECIFIC FUND SOURCE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the specific source of budget for the construction of buildings and rooms.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="specificFundSource_edit" value="specificFundSource_edit" class="form-control" name="specificFundSource"  />
+                </div>
+              </div>
+              <div class="col-lg-11">
+                <div class="form-group">
+                    <label for="buildingType">BUILDING TYPE</label>
+                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the different designs of school buildings within the school site.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                    <select class="form-control" id="buildingType_edit" name="buildingType" onchange="if(this.options[this.selectedIndex].value=='customOption'){
+                        toggleField(this,this.nextSibling);
+                        this.selectedIndex='0';
+                    }">
+                        <option value="buildingType_edit"></option>
+                        <option>JICA - EDUCATIONAL FACILITIES IMPROVEMENT PROGRAM (EFIP)</option>
+                        <option>BAGONG LIPUNAN SCHOOL BUILDING (BLSB) TYPE 1</option>
+                        <option>RAMOS DEMOUNTABLE SCHOOL BUILDING</option>
+                        <option>PUBLIC - PRIVATE PARTNERSHIP (PPP)</option>
+                        <option>HOME ECONOMICS BUIDLING</option>
+                        <option>DEPED MODIFIED SCHOOL BUILDING (7 X 7)</option>
+                        <option>INDUSTRIAL ARTS BUILDING</option>
+                        <option>DEPED STANDARD SCHOOL BUILDING</option>
+                        <option>MARCOS PRE - FABRICATED SCHOOL BUILDING</option>
+                        <option>ARMY TYPE SCHOOL BUILDING</option>
+                        <option value="customOption">OTHER SCHOOL BUILDING</option>
+                    </select><input name="buildingType" class="form-control" style="display:none; text-transform: uppercase;" 
+                        disabled="disabled"
+                        onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+       
+                  <!-- <label for="buildingType" class="form-control-label">BUILDING TYPE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the different designs of school buildings within the school site.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text" id="buildingType" class="form-control" name="buildingType"  /> -->
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="numberOfStorey">NUMBER OF STOREY</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the number of levels/floors in a building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="numberOfStorey_edit" value="numberOfStorey_edit" class="form-control" name="numberOfStorey"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="numberOfRooms">NUMBER OF ROOMS</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the number of rooms.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="numberOfRooms_edit" value="numberOfRooms_edit" class="form-control" name="numberOfRooms"  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="classificationOfBuilding">BUILDING CLASSIFICATION</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the classification of how the building is constructed">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <select id="classificationOfBuilding_edit" name="classificationOfBuilding" class="form-control">
+                    <option selected value="classificationOfBuilding_edit"></option>
+                    <option>PERMANENT</option>
+                    <option>SEMI PERMANENT</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="buildingMaterial">BUILDING MATERIALS</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the materials used during the construction of the building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <select id="buildingMaterial_edit" name="buildingMaterial" class="form-control" >
+                    <option selected value="buildingMaterial_edit"></option>
+                    <option>CONCRETE</option>
+                    <option>CONCRETE & WOODS</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="yearCompleted">Year Completed</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the specific year when a building was completed and officially turned over to the school.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="date" id="yearCompleted_edit" value="yearCompleted_edit" class="form-control" name="yearCompleted"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="yearCompleted">Date of Acquisition</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the date of acceptance of the building.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="date" id="dateAcquisition_edit" value="dateAcquisition_edit" class="form-control" name="dateAcquisition"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="acquisitionCost">Acquisition Cost</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the amount/cost of the building upon acquisition.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="acquisitionCost_edit" value="acquisitionCost_edit" class="form-control" name="acquisitionCost"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="bookValue">Book Value</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the acquisition cost of the asset less its depreciation cost.">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input type="number" id="bookValue_edit" value="bookValue_edit"  class="form-control" name="bookValue"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="insuranceInfo">Insurance Information</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                    title="" data-placement="top"
+                    data-content="Refers to the current Insurance Policy of the building (state if none).">
+                    <span class="material-icons">
+                      help_outline
+                    </span>
+                  </a>
+                  <input style="text-transform: uppercase;" type="text"  id="insuranceInfo_edit" value="insuranceInfo_edit" class="form-control" name="insuranceInfo"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="form-group col-lg-6">
+                <label for="pwdAccessible">Building PWD Accessible?</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to buildings that are compliant with the BP No.344 (Accessibility Law) and RA No. 7277 (Magna Carta for Disabled Persons) which aims to make all buildings in the country accessible to persons with disabilities (PWDs).">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="pwdAccessible_edit" name="pwdAccessible" class="form-control">
+                  <option selected value="pwdAccessible_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="undergoneMajorRepair">Undergone Major Repair</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to the building which underwent repair within the last 5 years.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="undergoneMajorRepair_edit" name="undergoneMajorRepair" class="form-control">
+                  <option selected value="undergoneMajorRepair_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="certificateOfAcceptance">With Certificate of Acceptance?</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to newly constructed school buildings duly accepted by DepEd thru the Principal/School Head by way of signing of the Certificate of Acceptance.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="certificateOfAcceptance_edit" name="certificateOfAcceptance" class="form-control">
+                  <option selected value="certificateOfAcceptance_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="includeDepedBook">Accountant</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to buildings that were already booked as assets of DepEd following standard accounting procedures for the transfer and booking-up of the subject facilities.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <select id="includeDepedBook_edit" name="includeDepedBook" class="form-control">
+                  <option selected value="includeDepedBook_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">  
+            <div class="col-8">
+            </div>
+            <div class="col-4 text-right">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                SAVE
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                CLOSE
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="/schoolAd/building/update" method="POST">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-4 text-right">
+              <button id="btn-save" type="submit" class="btn btn-primary">
+                Save
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-5">
+                <div class="form-group">
+                  <input type="text" name="edit_id" id="edit_id" class="form-control" hidden>
+                  <label class="form-control-label" for="building-number">Building Number/Name</label>
+                  <input type="text" id="buildingNumber_edit" value="buildingNumber_edit" class="form-control"
+                    name="buildingNumber"  />
+                </div>
+              </div>
+              <div class="form-group col-lg-5">
+                <div class="col-lg-11">
+                  <label for="buildingType">BUILDING TYPE</label>
+                  <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
+                  title="" data-placement="top"
+                  data-content="Refers to the different designs of school buildings within the school site.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                  <select class="form-control" name="buildingType" id="buildingType_edit" onchange="if(this.options[this.selectedIndex].value=='customOption'){
+                      toggleField(this,this.nextSibling);
+                      this.selectedIndex='0';
+                  }">
+                      <option value="buildingType_edit"></option>
+                      <option>JICA - EDUCATIONAL FACILITIES IMPROVEMENT PROGRAM (EFIP)</option>
+                      <option>BAGONG LIPUNAN SCHOOL BUILDING (BLSB) TYPE 1</option>
+                      <option>RAMOS DEMOUNTABLE SCHOOL BUILDING</option>
+                      <option>PUBLIC - PRIVATE PARTNERSHIP (PPP)</option>
+                      <option>HOME ECONOMICS BUIDLING</option>
+                      <option>DEPED MODIFIED SCHOOL BUILDING (7 X 7)</option>
+                      <option>INDUSTRIAL ARTS BUILDING</option>
+                      <option>DEPED STANDARD SCHOOL BUILDING</option>
+                      <option>MARCOS PRE - FABRICATED SCHOOL BUILDING</option>
+                      <option>ARMY TYPE SCHOOL BUILDING</option>
+                      <option value="customOption">OTHER SCHOOL BUILDING</option>
+                  </select><input name="buildingType"  id="buildingType_edit" value="buildingType_edit" class="form-control" style="display:none; text-transform: uppercase;" 
+                      disabled="disabled"
+                      onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+              </div>
+                 <label class="form-control-label">Building Type</label>
+                <input type="text" id="buildingType_edit" value="buildingType_edit" class="form-control"
+                  name="buildingType"  />
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Fund Source</label>
+                  <input type="text" id="fundSource_edit" value="fundSource_edit" class="form-control" name="fundSource"
+                     />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Specific Fund Source</label>
+                  <input type="text" id="specificFundSource_edit" value="specificFundSource_edit" class="form-control"
+                    name="specificFundSource"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Building Condition</label>
+                  <select id="buildingCondition_edit" name="buildingCondition" class="form-control">
+                    <option selected value="buildingCondition_edit"></option>
+                    <option>Good Condition</option>
+                    <option>Minor Damage</option>
+                    <option>Major Damage</option>
+                    <option>Condemned/ for Demolation</option>
+                    <option>For Completion</option>
+                    <option>On Going Construction</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Number of Storey</label>
+                  <input type="number" id="numberOfStorey_edit" value="numberOfStorey_edit" class="form-control"
+                    name="numberOfStorey"  />
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label">Number of Rooms</label>
+                  <input type="number" id="numberOfRooms_edit" value="numberOfRooms_edit" class="form-control"
+                    name="numberOfRooms"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Classification of Building</label>
+                  <select id="classificationOfBuilding_edit" name="classificationOfBuilding" class="form-control">
+                    <option selected value="classificationOfBuilding_edit"></option>
+                    <option>Permanent</option>
+                    <option>Semi Permanent</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Year Completed</label>
+                  <input type="date" id="yearCompleted_edit" value="yearCompleted_edit" class="form-control"
+                    name="yearCompleted"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Date of Acquisition</label>
+                  <input type="date" id="dateAcquisition_edit" value="dateAcquisition_edit" class="form-control"
+                    name="dateAcquisition"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Building Materials</label>
+                  <select id="buildingMaterial_edit" name="buildingMaterial" class="form-control">
+                    <option selected value="buildingMaterial_edit"></option>
+                    <option>Concrete</option>
+                    <option>Concrete Wood</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Acquisition Cost</label>
+                  <input type="number" id="acquisitionCost_edit" value="acquisitionCost_edit" class="form-control"
+                    name="acquisitionCost"  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Book Value</label>
+                  <input type="number" id="bookValue_edit" value="bookValue_edit" class="form-control" name="bookValue"
+                     />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Insurance Information</label>
+                  <input type="text" id="insuranceInfo_edit" class="form-control" name="insuranceInfo"  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="form-group col-lg-4">
+                <label>Building PWD Accessible</label>
+                <select id="pwdAccessible_edit" name="pwdAccessible" class="form-control">
+                  <option selected value="pwdAccessible_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-4">
+                <label></label>Undergone Major Repair</label>
+                <select id="undergoneMajorRepair_edit" name="undergoneMajorRepair" class="form-control">
+                  <option selected value="undergoneMajorRepair_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-4">
+                <label>Certificate of Acceptance</label>
+                <select id="certificateOfAcceptance_edit" name="certificateOfAcceptance" class="form-control">
+                  <option selected value="certificateOfAcceptance_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-4">
+                <label>Boook of Accountant</label>
+                <select id="includeDepedBook_edit" name="includeDepedBook" class="form-control">
+                  <option selected value="includeDepedBook_edit"></option>
+                  <option>YES</option>
+                  <option>NO</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</div>
+<!-- **************************** delete Modal ****************************** -->
+<div class="modal fade myModal">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/schoolAd/building/delete" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to delete these records? This process cannot be undone.</p>
+          <input type="hidden" id="delete_id" name="id">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- **************************** update script ****************************** -->
+<script>
+  $('.editBtn').click(function () {
+    $('#edit_id').val($(this).attr('data-id'));
+    $("#actual_img_edit").attr("src",$(this).attr('data-actual_img'));
+    $('#buildingNumber_edit').val($(this).attr('data-buildingNumber'));
+    $('#buildingType_edit').val($(this).attr('data-buildingType'));
+    $('#numberOfStorey_edit').val($(this).attr('data-numberOfStorey'));
+    $('#yearCompleted_edit').val($(this).attr('data-yearCompleted'));
+    $('#buildingCondition_edit').val($(this).attr('data-buildingCondition'));
+    $('#fundSource_edit').val($(this).attr('data-fundSource'));
+    $('#specificFundSource_edit').val($(this).attr('data-specificFundSource'));
+    $('#numberOfRooms_edit').val($(this).attr('data-numberOfRooms'));
+    $('#classificationOfBuilding_edit').val($(this).attr('data-classificationOfBuilding'));
+    $('#dateAcquisition_edit').val($(this).attr('data-dateAcquisition'));
+    $('#acquisitionCost_edit').val($(this).attr('data-acquisitionCost'));
+    $('#buildingMaterial_edit').val($(this).attr('data-buildingMaterial'));
+    $('#bookValue_edit').val($(this).attr('data-bookValue'));
+    $('#pwdAccessible_edit').val($(this).attr('data-pwdAccessible'));
+    $('#insuranceInfo_edit').val($(this).attr('data-insuranceInfo'));
+    $('#undergoneMajorRepair_edit').val($(this).attr('data-undergoneMajorRepair'));
+    $('#certificateOfAcceptance_edit').val($(this).attr('data-certificateOfAcceptance'));
+    $('#includeDepedBook_edit').val($(this).attr('data-includeDepedBook'));
+
+    $('.updateModal').modal('show');
+  });
+</script>
+<!-- **************************** delete script ****************************** -->
+<script>
+  $('.deleteBtn').click(function () {
+    $('#delete_id').val($(this).attr('data-id'));
+
+    $('.myModal').modal('show');
+  });
+</script>
+<!-- **************************** DATA TABLE script ****************************** -->
+<script>
+  $(document).ready(function() {
+  $('#tangene').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+  });
+</script>
+
+  <!-- UPLAOD Image ACTUAL PHOTO-->
+<script>
+    /*  ==========================================
+      SHOW UPLOADED IMAGE
+  * ========================================== */
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $("#actualResult").attr("src", e.target.result);
+          $("#imgdatainput").val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $(function () {
+      $("#upload").on("change", function () {
+        readURL(input);
+      });
+    });
+
+    /*  ==========================================
+      SHOW UPLOADED IMAGE NAME
+  * ========================================== */
+    var input = document.getElementById("upload");
+    var infoArea = document.getElementById("upload-label");
+
+    input.addEventListener("change", showFileName);
+    function showFileName(event) {
+      var input = event.srcElement;
+      var fileName = input.files[0].name;
+      infoArea.textContent = "File name: " + fileName;
+    }
+</script>
+
+ <!-- UPLAOD Image BLUEPRINT -->
+<script>
+    /*  ==========================================
+      SHOW UPLOADED IMAGE
+  * ========================================== */
+    function readURL1(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $("#bluePrintResult").attr("src", e.target.result);
+          $("#imgdatainput").val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    $(function () {
+      $("#upload1").on("change", function () {
+        readURL(input);
+      });
+    });
+
+    /*  ==========================================
+      SHOW UPLOADED IMAGE NAME
+  * ========================================== */
+    var input = document.getElementById("upload1");
+    var infoArea = document.getElementById("upload-label");
+
+    input.addEventListener("change", showFileName);
+    function showFileName(event) {
+      var input = event.srcElement;
+      var fileName = input.files[0].name;
+      infoArea.textContent = "File name: " + fileName;
+    }
+</script>
+ <!-- UPLAOD Image PROOF -->
+ <script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL2(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#proofResult").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(function () {
+    $("#upload2").on("change", function () {
+      readURL(input);
+    });
+  });
+
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload2");
+  var infoArea = document.getElementById("upload-label");
+
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
+</script>
+<!-- select with inpuut script -->
+<script>
+  function toggleField(hideObj, showObj) {
+      hideObj.disabled = true;
+      hideObj.style.display = 'none';
+      showObj.disabled = false;
+      showObj.style.display = 'inline';
+      showObj.focus();
+  }
+</script>

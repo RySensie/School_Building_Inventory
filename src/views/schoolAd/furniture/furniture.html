@@ -1,0 +1,270 @@
+{{> schoolAd-sidenav facility=true}}
+<div class="main-content" id="panel">
+    {{> schoolAd-topnav}}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home">
+                                            Dashboard</i></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Furniture</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col text-right">
+                                <a href="" class="btn btn-sm btn-primary" data-toggle="modal"
+                                    data-target="#addBuilding">Add Furniture</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush" id="furniture">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">Type of Facility</th>
+                                    <th scope="col" class="sort" data-sort="budget">Present in Campus</th>
+                                    <th scope="col" class="sort" data-sort="status">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                {{#each furniture_data}}
+                                <tr>
+                                    <td scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <a class="name mb-0 text-sm">{{this.name}}</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{this.total}}
+                                    </td>
+                                    <td class="">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item editBtn"
+                                                     data-id="{{this._id}}"
+                                                    data-name="{{this.name}}" 
+                                                    data-total="{{this.total}}"
+                                                    >Update</a>
+                                                <a class="dropdown-item deleteBtn"
+                                                    data-id="{{this._id}}"
+                                                    >Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ****************************Add Modal************************************************** -->
+<div class="modal fade" id="addBuilding" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/schoolAd/furniture/add" method="POST">
+                <div class="card-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="form-group col-lg-11">
+                                <label for="name">Select Furniture</label>
+                                <select class="form-control" name="name" onchange="if(this.options[this.selectedIndex].value=='customOption'){
+                                    toggleField(this,this.nextSibling);
+                                    this.selectedIndex='0';
+                                }">
+                                    <option></option>
+                                    <option>Kinder Modular Table</option>
+                                    <option>Kinder Chair</option>
+                                    <option>Armchair</option>
+                                    <option>School Desk</option>
+                                    <option>Other Classroom Table</option>
+                                    <option>Other Classroom Chair</option>
+                                    <option>Elementary 2 Seater</option>
+                                    <option>Junior 2 Seater</option>
+                                    <option>Senior 2 Seater</option>
+                                    <option value="customOption">Other</option>
+                                </select><input name="name" class="form-control" style="display:none;"
+                                    disabled="disabled"
+                                    onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+                            </div>
+                            <div class="form-group col-lg-11">
+                                <label for="presentCampus">Total Number</label>
+                                <input type="number" class="form-control" placeholder="" name="total">
+                            </div>
+                            <div class="col-12 text-right pr-5">
+                                <button id="btn-save" type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ****************************Update Modal************************************************** -->
+<div class="modal fade updateModal" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/schoolAd/furniture/update" method="POST">
+                <div class="card-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="pl-lg-4">
+                        <div class="row">
+                            <div class="form-group col-lg-11">
+                                <label for="name">Select Furniture</label>
+                                <input type="text" name="edit_id" id="edit_id" class="form-control" hidden>
+                                <select class="form-control" name="name" id="name_edit" onchange="if(this.options[this.selectedIndex].value=='customOption'){
+                                        toggleField(this,this.nextSibling);
+                                        this.selectedIndex='0';
+                                    }">
+                                    <option value="name_edit"></option>
+                                    <option>Kinder Modular Table</option>
+                                    <option>Kinder Chair</option>
+                                    <option>Armchair</option>
+                                    <option>School Desk</option>
+                                    <option>Other Classroom Table</option>
+                                    <option>Other Classroom Chair</option>
+                                    <option>Elementary 2 Seater</option>
+                                    <option>Junior 2 Seater</option>
+                                    <option>Senior 2 Seater</option>
+                                    <option value="customOption">Other</option>
+                                </select><input name="name" class="form-control" style="display:none;"
+                                    disabled="disabled"
+                                    onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+                            </div>
+                            <div class="form-group col-lg-11">
+                                <label for="presentCampus">Total Number</label>
+                                <input type="number" class="form-control" id="total_edit"
+                                    name="total">
+                            </div>
+                            <div class="col-12 text-right">
+                                <button id="btn-save" type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- **************************** delete Modal ****************************** -->
+<div class="modal fade deleteModal" data-backdrop="static">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <form action="/schoolAd/furniture/delete" method="POST">
+                <div class="modal-body">
+
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                    <input type="hidden" id="delete_id" name="id">
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ****************************Update script************************************************** -->
+<script>
+    $('.editBtn').click(function () {
+
+        $('#edit_id').val($(this).attr('data-id'));
+        $('#name_edit').val($(this).attr('data-name'));
+        $('#total_edit').val($(this).attr('data-total'));
+
+
+        $('.updateModal').modal('show');
+    });
+</script>
+<!-- ****************************Update script************************************************** -->
+<script>
+    $('.deleteBtn').click(function () {
+
+        $('#delete_id').val($(this).attr('data-id'));
+
+        $('.deleteModal').modal('show');
+    });
+</script>
+<!-- **************************** DATA TABLE script ****************************** -->
+<script>
+    $(document).ready(function () {
+        $('#furniture').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+<!-- select with inpuut script -->
+<script>
+    function toggleField(hideObj, showObj) {
+        hideObj.disabled = true;
+        hideObj.style.display = 'none';
+        showObj.disabled = false;
+        showObj.style.display = 'inline';
+        showObj.focus();
+    }
+</script>

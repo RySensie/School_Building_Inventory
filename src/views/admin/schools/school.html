@@ -1,0 +1,103 @@
+{{> admin-sidenav school=true}}
+<div class="main-content" id="panel">
+    {{> admin-topnav}}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt-10">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header">
+                        {{#if message }}
+                        <div class="alert alert-{{alert}}" role="alert">
+                          <strong>Alert!</strong> {{message}}
+                        </div>
+                        {{/if}}
+                        <div class="row align-items-center">
+                          <div class="col text-right">
+                            <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Add Building</a>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush"  id="tangene">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">School Name</th>
+                                    <th scope="col" class="sort" data-sort="budget">School ID</th>
+                                    <th scope="col" class="sort" data-sort="status">Address</th>
+                                    <th scope="col" class="sort" data-sort="status">User</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                {{#each schools_data}}
+                                <tr>
+                                    <td scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="/admin/school/details/{{this.school_id._id}}"
+                                                    class="name mb-0 text-sm">{{this.school_id.schoolName}}</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="budget">
+                                        {{this.school_id.schoolId}}
+                                    </td>
+                                    <td>
+                                        <span class="">
+                                            <i class="bg-warning"></i>
+                                            <span class="status">{{this.school_id.address}}</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                      {{this.firstname}} {{this.lastname}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+        $('#tangene').DataTable();
+    });
+  </script>

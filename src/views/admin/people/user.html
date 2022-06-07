@@ -1,0 +1,119 @@
+{{> admin-sidenav people=true}}
+<div class="main-content" id="panel">
+    {{> admin-topnav }}
+
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt-0">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header border-0">
+                    </div>
+                    <!-- Light table -->
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush" id="tangene">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="email">Email</th>
+                                    <th scope="col" class="sort" data-sort="schoolName">School Name</th>
+                                    <th scope="col" class="sort" data-sort="user">Status</th>
+                                    <th scope="col" class="sort" data-sort="user">Confirmation</th>
+                                    <th scope="col" class="sort" data-sort="user">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                {{#each users_data }}
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">{{this.email}}</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td class="budget">
+                                        {{this.school_id.schoolName}}
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            <span class="status">{{#if isConfirm}}Approved{{else}}Pending{{/if}}</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-switch">
+                                            <form action="/admin/people/confirm" method="POST">
+                                                <input type="hidden" name="userID" value="{{_id}}">
+                                                <input type="checkbox" name="confirm" class="custom-control-input"
+                                                    id="{{_id}}">
+                                                <label class="custom-control-label" for="{{_id}}">Confirm
+                                                    Account</label>
+                                                <button class="btn btn-primary btn-sm" type="submit">Confirm</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item" href="" data-toggle="modal"
+                                                    data-target="#exampleModal">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tangene').DataTable();
+    });
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>

@@ -1,0 +1,40 @@
+{
+  "name": "deped",
+  "version": "1.0.0",
+  "description": "deped app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "devmode": "nodemon --exec npm start"
+  },
+  "author": "Jan Ryan Labadan",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^5.12.0",
+    "ba64": "^3.0.9",
+    "bootstrap-validator": "^0.11.9",
+    "chart.js": "^3.7.1",
+    "fs": "0.0.1-security",
+    "good": "^6.4.0",
+    "good-console": "^5.2.0",
+    "handlebars": "^4.7.7",
+    "handlebars-paginate": "^0.1.0",
+    "hapi": "^16.5.2",
+    "hapi-auth-cookie": "^6.1.1",
+    "hapi-require-https": "^2.0.6",
+    "inert": "^4.2.0",
+    "jimp": "^0.16.1",
+    "kill-port": "^1.3.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
+    "mongoose": "^5.13.3",
+    "mongoose-aggregate-paginate": "2.0.2",
+    "mongoose-paginate": "^5.0.0",
+    "mongoose-tree-ancestors": "^1.0.1",
+    "nodemailer": "^6.6.2",
+    "nodemon": "^2.0.12",
+    "sharp": "^0.28.3",
+    "validator": "^9.4.1",
+    "vision": "^4.0.1"
+  }
+}

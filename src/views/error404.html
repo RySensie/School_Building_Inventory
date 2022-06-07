@@ -1,0 +1,32 @@
+<div class="container-fluid" style="margin-top: 50">
+  <div class="jumbotron">
+    <center>
+      <img
+        src="/assets/img/brand/logo.png"
+        alt="app logo"
+        width="300"
+        class="img-responsive"
+      />
+    </center>
+    <h1 class="text-center">
+      404 Not Found
+      <p></p>
+      <p>
+        <small class="text-center">We couldn't find the page..</small>
+      </p>
+    </h1>
+    <p class="text-center">
+      Try pressing the back button or clicking on this button.
+    </p>
+    <p class="text-center">
+      <button onclick="goBack()" class="btn btn-primary" href="#">
+        <i class="fas fa-undo"></i> BACK
+      </button>
+    </p>
+  </div>
+</div>
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
