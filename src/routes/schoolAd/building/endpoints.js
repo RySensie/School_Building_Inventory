@@ -63,17 +63,17 @@ internals.endpoints = [
       },
     },
   },
-  {
-    method: ['POST'],
-    path: '/schoolAd/building/delete',
-    handler: Handlers.buildingDelete,
-    config: {
-      auth: {
-        strategy: 'standard',
-        scope: ['schoolAd']
-      },
-    },
-  },
+  // {
+  //   method: ['POST'],
+  //   path: '/schoolAd/building/delete',
+  //   handler: Handlers.buildingDelete,
+  //   config: {
+  //     auth: {
+  //       strategy: 'standard',
+  //       scope: ['schoolAd']
+  //     },
+  //   },
+  // },
 ]
 
 module.exports = internals;

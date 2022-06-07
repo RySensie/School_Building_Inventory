@@ -111,7 +111,7 @@ internals.buildingDetails = async (req, reply) => {
   }
 };
 //-----------------Update Building---------------------//
-internals.buildingUpdate = function (req, reply) {
+internals.buildingUpdate = async function (req, reply) {
   var payload = {
     school_id: req.auth.credentials.school_id,
     schoolName: req.payload.schoolName,
