@@ -6,6 +6,7 @@ const Buildings = require("../../../database/models/building");
 const Rooms = require("../../../database/models/room");
 const Async = require('async');
 var upload = require('../../../lib/upload_photo');
+var _ = require('lodash');
 var internals = {},
   moment = require('moment');
 
@@ -59,20 +60,44 @@ internals.room = function (req, reply) {
   )
 };
 
-//Update Rooms---------------------Update-----
-internals.roomUpdate = function (req, reply) {
-  console.log("----->>>>>>", req.params.building_id);
+//Update Rooms---------------------Update-----//
+internals.roomUpdate = async function (req, reply) {
+  var payload = {
 
-  Rooms.findOneAndUpdate(
-    { _id: req.payload.edit_id },
-    { $set: req.payload }
-  ).exec((err, data) => {
-    if (err) {
-      console.log(err);
-    }
+    roomNumber: req.payload.roomNumber,
+    roomCondition: req.payload.roomCondition,
+    floor: req.payload.floor,
+    actualUsage: req.payload.actualUsage,
+    roomDimensionW: req.payload.roomDimensionW,
+    roomDimensionL: req.payload.roomDimensionL
+  };
+  console.log(req.payload.actual_img);
+  const rooms = await Rooms.findOneAndUpdate({
+    _id: req.payload.edit_id 
+  },{$set: payload}).lean();
+  console.log(rooms);
+  if(!rooms){
     return reply.redirect('/schoolAd/room/' + req.params.building_id);
-  });
+  }
+  if(!_.isEmpty(req.payload.actual_img)){
+    upload.photo(req.payload.actual_img, 'ROOM', rooms._id);
+  }
+
+  return reply.redirect('/schoolAd/room/' + req.params.building_id);
 };
+// internals.roomUpdate = function (req, reply) {
+//   console.log("----->>>>>>", req.params.building_id);
+
+//   Rooms.findOneAndUpdate(
+//     { _id: req.payload.edit_id },
+//     { $set: req.payload }
+//   ).exec((err, data) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     return reply.redirect('/schoolAd/room/' + req.params.building_id);
+//   });
+// };
 //Delete Rooms---------------------Delete-----
 internals.roomDelete = function (req, reply) {
   console.log("----->>>>>>", req.payload.id);
@@ -128,7 +153,7 @@ internals.roomAdd = async (req, reply) => {
   }
   console.log(rooms);
   await Rooms.update({
-    _id: rooms?._id
+    _id: rooms._id
   }, {
     $set: {
       actual_img: `/assets/uploads/ROOM/${rooms._id}.jpeg`

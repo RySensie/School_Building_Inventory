@@ -19,6 +19,39 @@ internals.endpoints = [
       },
     },
   },
+  {
+    method: ['POST'],
+    path: '/schoolAd/reqNew',
+    handler: Handlers.requestNew,
+    config: {
+      auth: {
+        strategy: 'standard',
+        scope: ['schoolAd']
+      },
+    },
+  },
+  {
+    method: ['POST'],
+    path: '/schoolAd/buildReq',
+    handler: Handlers.requestBUILD,
+    config: {
+      auth: {
+        strategy: 'standard',
+        scope: ['schoolAd']
+      },
+    },
+  },
+  {
+    method: ['POST'],
+    path: '/schoolAd/roomReq',
+    handler: Handlers.requestRoom,
+    config: {
+      auth: {
+        strategy: 'standard',
+        scope: ['schoolAd']
+      },
+    },
+  },
 ]
 
 module.exports = internals;

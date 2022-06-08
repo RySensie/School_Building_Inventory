@@ -7,20 +7,15 @@
 
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt-10">
+    <div class="container-fluid mt--5">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <!-- Card header -->
                     <div class="card-header">
-                        {{#if message }}
-                        <div class="alert alert-{{alert}}" role="alert">
-                          <strong>Alert!</strong> {{message}}
-                        </div>
-                        {{/if}}
+
                         <div class="row align-items-center">
                           <div class="col text-right">
-                            <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Add Building</a>
                           </div>
                         </div>
                       </div>
@@ -43,7 +38,7 @@
                                     <td scope="row">
                                         <div class="media align-items-center">
                                             <a href="#" class="avatar rounded-circle mr-3">
-                                                <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                                                <img alt="Image placeholder" src="{{this.school_id.logo_img}}">
                                             </a>
                                             <div class="media-body">
                                                 <a href="/admin/school/details/{{this.school_id._id}}"

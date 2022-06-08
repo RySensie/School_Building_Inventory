@@ -132,10 +132,9 @@ internals.buildingUpdate = async function (req, reply) {
     dateAcquisition: req.payload.dateAcquisition,
     acquisitionCost: req.payload.acquisitionCost,
     bookValue: req.payload.bookValue,
-    insuranceInfo: req.payload.insuranceInfo,
-    status: req.payload.status,
+    insuranceInfo: req.payload.insuranceInfo
   };
-  console.log(payload);
+  console.log(req.payload.actual_img);
   const building = await Buildings.findOneAndUpdate({
     _id: req.payload.edit_id
   },{$set: payload}).lean();
@@ -143,7 +142,7 @@ internals.buildingUpdate = async function (req, reply) {
   if(!building){
     return reply.redirect('/schoolAd/building?message=Problem occured!&alertType=danger');
   }
-  if(!_.isEmpty(req.payoad.actual_img)){
+  if(!_.isEmpty(req.payload.actual_img)){
     upload.photo(req.payload.actual_img, 'ACTUAL', building._id);
   }
 

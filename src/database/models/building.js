@@ -35,6 +35,8 @@ const buildingSchema = new Mongoose.Schema({
   blueprint_img: {type: String},
   proof_img: {type: String},
   isDeleted: {type: Boolean, default: false},
+  status: {type: String, default: 'PENDING'},
+  note: {type: String}, 
 }, {
   timestamps: true,
   _id: true,

@@ -136,16 +136,200 @@
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class="mb-0">School Building Records</h3>
+                <h3 class="mb-0">BUILDING DAMAGE REQUEST</h3>
+              </div>
+              <!-- <div class="col text-right">
+                <a href="/admin/school" class="btn btn-sm btn-primary">See all</a>
+              </div> -->
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Building Number</th>
+                  <th scope="col">School</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each building_damage}}
+                <tr>
+                  <td scope="row">
+                    <div class="media align-items-center">
+                      <a class="avatar rounded-circle mr-3">
+                        <img alt="Image placeholder" src="{{this.actual_img}}">
+                      </a>
+                      <div class="media-body">
+                        <a
+                          class="name mb-0 text-sm">{{this.buildingNumber}}</a>
+                      </div>
+                    </div>
+                  </td>
+                  <!-- <td scope="row">{{this.buildingNumber}}</td> -->
+                  <td scope="row">{{this.school_id.schoolName}}</td>
+                  <td class="text-danger">{{this.buildingCondition}}</td>
+                  <td class="text-danger">{{this.status}}</td>
+                  <td class="text-danger">{{this.note}}</td>
+                  <td class="">
+                    <button class="btn btn-sm btn-info requestBtn"
+                      data-id="{{this._id}}" data-img="{{this.actual_img}}"
+                      data-num="{{this.buildingNumber}}" data-con="{{this.buildingCondition}}"
+                      data-stat="{{this.status}}" data-note="{{this.note}}"
+                      data-schlname="{{this.school_id.schoolName}}"><span class="material-icons">
+                        visibility
+                      </span></button>
+                    <button class="btn btn-sm btn-success approveBtn"
+                      data-id="{{this._id}}"
+                      ><span class="material-icons">
+                        thumb_up_alt
+                      </span></button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">ROOM DAMAGE REQUEST</h3>
+              </div>
+              <!-- <div class="col text-right">
+                <a href="/admin/school" class="btn btn-sm btn-primary">See all</a>
+              </div> -->
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Room Number</th>
+                  <th scope="col">School</th>
+                  <th scope="col">Building Number</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each room_damage}}
+                <tr>
+                  <td scope="row">
+                    <div class="media align-items-center">
+                      <a class="avatar rounded-circle mr-3">
+                        <img alt="Image placeholder" src="{{this.actual_img}}">
+                      </a>
+                      <div class="media-body">
+                        <a
+                          class="name mb-0 text-sm">{{this.roomNumber}}</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td scope="row">{{this.school_id.schoolName}}</td>
+                  <td class="text-danger">{{this.building_id.buildingNumber}}</td>
+                  <td class="text-danger">{{this.roomCondition}}</td>
+                  <td class="text-danger">{{this.status}}</td>
+                  <td class="">
+                    <button class="btn btn-sm btn-info requestBtn1" 
+                      data-id="{{this._id}}"
+                      data-img1="{{this.actual_img}}"
+                      data-rnum="{{this.roomNumber}}"
+                      data-rcon="{{this.roomCondition}}"
+                      data-rstat="{{this.status}}" 
+                      data-rnote="{{this.note}}"
+                      data-bnum="{{this.building_id.buildingNumber}}"
+                      data-flr="{{this.floor}}"
+                      data-rschlname="{{this.school_id.schoolName}}"><span class="material-icons">
+                        visibility
+                      </span></button>
+                    <button class="btn btn-sm btn-success approveBtn1"
+                      data-id2="{{this._id}}"
+                      ><span class="material-icons">
+                        thumb_up_alt
+                      </span></button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">OTHER REQUEST</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">School Name</th>
+                  <th scope="col">Specific Request</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Approved</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each request}}
+                <tr>
+                  <td scope="row">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        <a
+                          class="name mb-0 text-sm">{{this.name}}</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td scope="row">{{this.school_id.schoolName}}</td>
+                  <td class="">{{this.specific}}</td>
+                  <td class="text-danger">{{this.status}}</td>
+                  <td class="">{{this.note}}</td>
+                  <td class="">
+                    <button class="btn btn-sm btn-success approveBtn3"
+                      data-id3="{{this._id}}"
+                      ><span class="material-icons">
+                        thumb_up_alt
+                      </span></button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">SUMMARY REPORTS</h3>
               </div>
               <div class="col text-right">
-                <a href="/admin/school" class="btn btn-sm btn-primary">See all</a>
+                <a href="/admin/school" class="btn btn-primary btn-info"><span class="material-icons">
+                  visibility
+                </span></a>
               </div>
             </div>
           </div>
           <div class="table-responsive">
             <!-- Projects table -->
-            <table class="table align-items-center table-flush" id="admin">
+            <table class="table align-items-center table-flush" id="report">
               <thead class="thead-light">
                 <tr>
                   <th scope="col">SCHOOLS</th>
@@ -180,46 +364,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="col text-right">
-              <!-- <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestModal">Request Building</a> -->
-              <!-- <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Request Rooms</a>
-              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Request Other Facility</a> -->
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">School</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Condition</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Note</th>
-                  <th scope="col">Approved</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each request}}
-                <tr>
-                  <td scope="row">{{this.school_id.schoolName}}</td>
-                  <td scope="row">{{this.name}}</td>
-                  <td class="text-danger">{{this.condition}}</td>
-                  <td class="text-danger">{{this.status}}</td>
-                  <td class="text-danger">{{this.note}}</td>
-                  <td class="">
-                    <button class="btn btn-sm btn-success">Approved</button>
-                   
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+
       <div class="col-sm-12">
         <!-- <div class="card">
           <div class="card-header border-0">
@@ -238,6 +383,241 @@
   </div>
 </div>
 </div>
+
+<!--  ***************** REQUEST Building Modal *********************** -->
+<div class="modal fade requestBuilding" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="card-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <input type="text" id="_id1" hidden>
+            <img class="img-thumbnail" id="img_edit" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 pt-2">
+            <label>School Name</label>
+            <input class="form-control text-blue" type="text" name="" id="school" value="school" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 pt-3">
+            <label>Building Number</label>
+            <input class="form-control text-blue" type="text" name="" id="num" value="num" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
+            <label>Building Condition</label>
+            <input class="form-control text-red" type="text" name="" id="con" value="con" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
+            <label>Status</label>
+            <input class="form-control text-red" type="text" name="" id="stat" value="stat" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-8 pt-2">
+            <label for="exampleFormControlTextarea1">Note</label>
+            <textarea class="form-control text-blue" id="note" aria-valuemax="note" rows="3" disabled></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- **************************** REQUEST APPROVED BUILDING Modal ****************************** -->
+<div class="modal fade approvedModal" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">thumb_up</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/admin/approved" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to approved this request? This process cannot be undone.</p>
+          <input type="hidden" id="req_id" name="id">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Approved</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--  ***************** REQUEST Room Modal *********************** -->
+<div class="modal fade requestRoom" data-backdrop="static" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="card-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <input type="text" id="_id1" hidden>
+            <img class="img-thumbnail" id="img_edit1" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 pt-2">
+            <label>School Name</label>
+            <input class="form-control text-blue" type="text" name="" id="rschool" value="rschool" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 pt-3">
+            <label>Building Number</label>
+            <input class="form-control text-blue" type="text" name="" id="bnum" value="bnum" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
+            <label>Floor</label>
+            <input class="form-control text-blue" type="text" name="" id="flr" value="flr" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 pt-3">
+            <label>Room Number</label>
+            <input class="form-control text-blue" type="text" name="" id="rnum" value="rnum" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
+            <label>Room Condition</label>
+            <input class="form-control text-red" type="text" name="" id="rcon" value="rcon" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
+            <label>Status</label>
+            <input class="form-control text-red" type="text" name="" id="rstat" value="rstat" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-8 pt-2">
+            <label for="exampleFormControlTextarea1">Note</label>
+            <textarea class="form-control text-blue" id="rnote" aria-valuemax="rnote" rows="3" disabled></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- **************************** REQUEST APPROVED ROOM Modal ****************************** -->
+<div class="modal fade approvedModal1" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">thumb_up</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/admin/approvedRoom" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to approved this request? This process cannot be undone.</p>
+          <input type="hidden" id="aprvd" name="id1">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Approved</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- **************************** REQUEST APPROVED OTHER Modal ****************************** -->
+<div class="modal fade approvedModal3" data-backdrop="static">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">thumb_up</i>
+        </div>
+        <h4 class="modal-title w-100">Are you sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <form action="/admin/approvedOther" method="POST">
+        <div class="modal-body">
+
+          <p>Do you really want to approved this request? This process cannot be undone.</p>
+          <input type="hidden" id="otherAprv" name="id3">
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Approved</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- ****************************request building script************************************************** -->
+<script>
+  $('.requestBtn').click(function () {
+
+    $('#_id').val($(this).attr('data-id'));
+    $("#img_edit").attr("src", $(this).attr('data-img'));
+    $('#num').val($(this).attr('data-num'));
+    $('#con').val($(this).attr('data-con'));
+    $('#stat').val($(this).attr('data-stat'));
+    $('#note').val($(this).attr('data-note'));
+    $('#school').val($(this).attr('data-schlname'));
+    $('.requestBuilding').modal('show');
+  });
+</script>
+<!-- ****************************request approved builiding script ****************************** -->
+<script>
+  $('.approveBtn').click(function () {
+    $('#req_id').val($(this).attr('data-id'));
+
+    $('.approvedModal').modal('show');
+  });
+</script>
+<!-- ****************************request room script************************************************** -->
+<script>
+  $('.requestBtn1').click(function () {
+
+    $('#_id1').val($(this).attr('data-id1'));
+    $("#img_edit1").attr("src", $(this).attr('data-img1'));
+    $('#rnum').val($(this).attr('data-rnum'));
+    $('#rcon').val($(this).attr('data-rcon'));
+    $('#rstat').val($(this).attr('data-rstat'));
+    $('#rnote').val($(this).attr('data-rnote'));
+    $('#bnum').val($(this).attr('data-bnum'));
+    $('#flr').val($(this).attr('data-flr'));
+    $('#rschool').val($(this).attr('data-rschlname'));
+    $('.requestRoom').modal('show');
+  });
+</script>
+<!-- ****************************request approved room script ****************************** -->
+<script>
+  $('.approveBtn1').click(function () {
+    $('#aprvd').val($(this).attr('data-id2'));
+
+    $('.approvedModal1').modal('show');
+  });
+</script>
+<!-- ****************************request approved other script ****************************** -->
+<script>
+  $('.approveBtn3').click(function () {
+    $('#otherAprv').val($(this).attr('data-id3'));
+
+    $('.approvedModal3').modal('show');
+  });
+</script>
+
 
 <!-- chart script -->
 <!-- chart.js -->
@@ -328,15 +708,14 @@
     });
   }
 </script>
+<!-- DATA TABLES SCRIPT -->
 <script>
   $(document).ready(function () {
-      $('#admin').DataTable({
-          dom: 'lBfrtip',
+    $('#report').DataTable({
+      dom: 'Bfrtip',
       buttons: [
-          'copyHtml5',
-          'excelHtml5',
-      ],
-      stateSave: true,
-      });
+        'copy', 'excel', 'pdf', 'print'
+      ]
+    });
   });
 </script>

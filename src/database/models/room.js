@@ -17,6 +17,8 @@ const RoomSchema = new Mongoose.Schema(
     floor: {type: Number},
     isDeleted: {type: Boolean, default: false},
     actual_img: {type: String},
+    status: {type: String, default: 'PENDING'},
+    note: {type: String},
   },
   {
     timestamps: true,

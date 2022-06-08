@@ -66,26 +66,51 @@ internals.dashboard = async function (req, reply) {
       }
     ]
  );
- const buildDamage = await Buildings.aggregate([ 
-  { $match : { 
-    $and:[
-      {school_id: Mongoose.Types.ObjectId(req.auth.credentials.school_id)},
-      {isDeleted: false}
-    ]
-  }},
+//  const buildDamage = await Buildings.aggregate([ 
+//   { $match : { 
+//     $and:[
+//       {school_id: Mongoose.Types.ObjectId(req.auth.credentials.school_id)},
+//       {isDeleted: false}
+//     ]
+//   }},
   
-]);
+// ]);
 
 
-const minorDamage = await Buildings.aggregate([ 
-  { $match : { buildingCondition: "MINOR DAMAGE"}},
+// const minorDamage = await Buildings.aggregate([ 
+//   { $match : { buildingCondition: "MINOR DAMAGE"}},
   
-]);
+// ]);
+const buildingRequest = await Buildings.find({
+  $or:[
+    {$and: [
+      {school_id: req.auth.credentials.school_id},
+      { buildingCondition: "MINOR DAMAGE"},
+    ]},
+    {$and: [
+      {school_id: req.auth.credentials.school_id},
+      { buildingCondition: "MAJOR DAMAGE"},
+    ]}
+  ]
+}).lean()
+const roomRequest = await Rooms.find({
+  $or:[
+    {$and: [
+      {school_id: req.auth.credentials.school_id},
+      { roomCondition: "MINOR DAMAGE"},
+    ]},
+    {$and: [
+      {school_id: req.auth.credentials.school_id},
+      { roomCondition: "MAJOR DAMAGE"},
+    ]}
+  ]
+}).populate('school_id building_id')
+.lean()
 const request = await Request.find({
   $or:[
     {$and: [
       {school_id: req.auth.credentials.school_id},
-      {status: 'PENDING'}
+      {status: 'REQUESTED'}
     ]},
     {$and: [
       {school_id: req.auth.credentials.school_id},
@@ -93,13 +118,14 @@ const request = await Request.find({
     ]}
   ]
 }).lean();
+      console.log(roomRequest);
      const total = makeshift[0]?.useMakeshift + temporary[0]?.useTemporary
       reply.view('schoolAd/dashboard/dashboard.html', {
         totalBuilding,
         credentials: req.auth.credentials,
         totalRoom,
-        minorDamage,
-        buildDamage,
+        // minorDamage,
+        // buildDamage,
         students:students[0],
         makeshift:makeshift[0],
         temporary:temporary[0],
@@ -107,11 +133,50 @@ const request = await Request.find({
         alert: req.query.alert,
         total: isNaN(total) ? 0: total,
         request,
+        buildingRequest,
+        roomRequest,
       });
     } catch (error) {
       console.log(error);
     }
 
 };
+internals.requestNew = async (req, reply) => {
+  var payload = {
+    school_id: req.auth.credentials.school_id,
+    name: req.payload.name,
+    specific: req.payload.specific,
+    note: req.payload.note,
+    status: req.payload.status,
+  };
+  console.log(payload);
+  const reqNew = await Request.create(payload);
+  return reply.redirect('/schoolAd/dashboard?message=Request successfuly created&alert=success');
+};
+internals.requestBUILD = function (req, reply) {
 
+  Buildings.findOneAndUpdate(
+    { _id: req.payload.id},
+    { $set: req.payload }
+  ).exec((err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(data);
+    return reply.redirect('/schoolAd/dashboard?message=Requested successfuly &alert=success');
+  });
+};
+internals.requestRoom = function (req, reply) {
+
+  Rooms.findOneAndUpdate(
+    { _id: req.payload._id},
+    { $set: req.payload }
+  ).exec((err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(data);
+    return reply.redirect('/schoolAd/dashboard?message=Requested successfuly &alert=success');
+  });
+};
 module.exports = internals;

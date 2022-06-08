@@ -23,7 +23,6 @@
                                     <th scope="col" class="sort" data-sort="schoolName">School Name</th>
                                     <th scope="col" class="sort" data-sort="user">Status</th>
                                     <th scope="col" class="sort" data-sort="user">Confirmation</th>
-                                    <th scope="col" class="sort" data-sort="user">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -32,7 +31,7 @@
                                     <th scope="row">
                                         <div class="media align-items-center">
                                             <a href="#" class="avatar rounded-circle mr-3">
-                                                <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                                                <img alt="Image placeholder" src="{{this.profile_img}}">
                                             </a>
                                             <div class="media-body">
                                                 <span class="name mb-0 text-sm">{{this.email}}</span>
@@ -59,7 +58,7 @@
                                             </form>
                                         </div>
                                     </td>
-                                    <td class="text-right">
+                                    <!-- <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,7 +69,7 @@
                                                     data-target="#exampleModal">Delete</a>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                                 {{/each}}
                             </tbody>

@@ -60,8 +60,13 @@
 
                 <tr class="text-center">
                   <td scope="row">
-                    <div class="media-body">
-                      <span class="name mb-0 text-sm">{{this.roomNumber}}</span>
+                    <div class="media align-items-center">
+                      <a class="avatar rounded-circle mr-3">
+                        <img alt="Image placeholder" src="{{this.actual_img}}">
+                      </a>
+                      <div class="media-body">
+                        <a href="/schoolAd/building/Details/{{_id}}" class="name mb-0 text-sm">{{this.roomNumber}}</a>
+                      </div>
                     </div>
                   </td>
                   <td scope="row">
@@ -96,10 +101,11 @@
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item editBtn" data-id="{{this._id}}" data-roomNumber="{{this.roomNumber}}"
+                        <a class="dropdown-item editBtn" 
+                          data-id="{{this._id}}" 
+                          data-actual_img="{{this.actual_img}}" data-roomNumber="{{this.roomNumber}}"
                           data-roomCondition="{{this.roomCondition}}" data-actualUsage="{{this.actualUsage}}"
-                          data-floor="{{this.floor}}"
-                          data-roomDimensionW="{{this.roomDimensionW}}"
+                          data-floor="{{this.floor}}" data-roomDimensionW="{{this.roomDimensionW}}"
                           data-roomDimensionL="{{this.roomDimensionL}}">Update</a>
                         <a class="dropdown-item deleteBtn1" data-id="{{this._id}}">Delete</a>
                       </div>
@@ -126,23 +132,23 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <form role="form" method="POST" action="/schoolAd/room/add/{{building_id}}">
+        <form role="form" method="POST" action="/schoolAd/room/add/{{building_id}}" enctype="multipart/form-data">
           <div class="card-header">
             <div class="row align-items-center">
 
             </div>
           </div>
-          <!-- <div class="form-group">
+          <div class="form-group">
             <label class="form-control-label">ACTUAL PHOTO</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
               data-placement="top" data-content="Upload actual photo of the building.">
               <span class="material-icons">
                 help_outline
               </span></a>
-            <img class="img-thumbnail" id="actualResult" class="rounded-circle" />
-            <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+            <img class="img-thumbnail" id="actualResult5" class="rounded-circle" />
+            <input id="upload5" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL5(this);"
               class="form-control border-0" required />
-          </div> -->
+          </div>
           <div class="form-group">
             <!-- <label for="validationTooltip04">Room Number</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
@@ -251,23 +257,23 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <form role="form" method="POST" action="/schoolAd/room/update/{{building_id}}">
+        <form role="form" method="POST" action="/schoolAd/room/update/{{building_id}}" enctype="multipart/form-data">
           <div class="card-header">
             <div class="row align-items-center">
 
             </div>
           </div>
-          <!-- <div class="form-group">
+          <div class="form-group">
             <label class="form-control-label">ACTUAL PHOTO</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
               data-placement="top" data-content="Upload actual photo of the building.">
               <span class="material-icons">
                 help_outline
               </span></a>
-            <img class="img-thumbnail" id="actualResult" class="rounded-circle" />
-            <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+            <img class="img-thumbnail" id="img_edit" class="rounded-circle" />
+            <input id="upload4" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL3(this);"
               class="form-control border-0" required />
-          </div> -->
+          </div>
           <div class="form-group">
             <!-- <label for="validationTooltip04">Room Number</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
@@ -291,7 +297,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" id="roomNumber_edit" value="roomNumber_edit" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}">
+            <input class="form-control" id="roomNumber_edit" value="roomNumber_edit" name="roomNumber" type="number"
+              min="1" max="{{buildings_data.numberOfRooms}}">
           </div>
           <div class="form-group text-black">
             <label for="presentCampus">Room Condition</label>
@@ -319,7 +326,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" id="floor_edit" value="floor_edit" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}">
+            <input class="form-control" id="floor_edit" value="floor_edit" name="floor" type="number" min="1"
+              max="{{buildings_data.numberOfStorey}}">
           </div>
           <div class="form-group">
             <label for="presentCampus">Actual Usage</label>
@@ -330,7 +338,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" id="actualUsage_edit" value="actualUsage_edit" placeholder="Actual Usage" name="actualUsage" type="text">
+            <input class="form-control" id="actualUsage_edit" value="actualUsage_edit" placeholder="Actual Usage"
+              name="actualUsage" type="text">
           </div>
           <div class="form-group">
             <label for="presentCampus">Room Dimension Width</label>
@@ -341,7 +350,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" id="roomDimensionW_edit" value="roomDimensionW_edit" placeholder="meter" name="roomDimensionW" type="number">
+            <input class="form-control" id="roomDimensionW_edit" value="roomDimensionW_edit" placeholder="meter"
+              name="roomDimensionW" type="number">
           </div>
           <div class="form-group">
             <label for="presentCampus">Room Dimension Lenght </label>
@@ -352,7 +362,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" id="roomDimensionL_edit" value="roomDimensionL_edit" placeholder="meter" name="roomDimensionL" type="number">
+            <input class="form-control" id="roomDimensionL_edit" value="roomDimensionL_edit" placeholder="meter"
+              name="roomDimensionL" type="number">
           </div>
           <div class="col-12 text-right">
             <button id="btn-save" type="submit" class="btn btn-primary">
@@ -464,7 +475,7 @@
     $('#edit_id').val($(this).attr('data-id'));
     $('#roomNumber_edit').val($(this).attr('data-roomNumber'));
     $('#roomCondition_edit').val($(this).attr('data-roomCondition'));
-
+    $("#img_edit").attr("src",$(this).attr('data-actual_img'));
     $('#actualUsage_edit').val($(this).attr('data-actualUsage'));
     $('#floor_edit').val($(this).attr('data-floor'));
     $('#roomDimensionW_edit').val($(this).attr('data-roomDimensionW'));
@@ -548,40 +559,75 @@
     document.getElementById("fourth").fstdropdown.rebind();
   }
 </script>
+<!-- UPLAOD Image ACTUAL PHOTO-->
+<script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL5(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
 
-  <!-- UPLAOD Image ACTUAL PHOTO-->
-  <script>
-    /*  ==========================================
-      SHOW UPLOADED IMAGE
-  * ========================================== */
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          $("#actualResult").attr("src", e.target.result);
-          $("#imgdatainput").val(e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
+      reader.onload = function (e) {
+        $("#actualResult5").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
     }
+  }
 
-    $(function () {
-      $("#upload").on("change", function () {
-        readURL(input);
-      });
+  $(function () {
+    $("#upload5").on("change", function () {
+      readURL5(input);
     });
+  });
 
-    /*  ==========================================
-      SHOW UPLOADED IMAGE NAME
-  * ========================================== */
-    var input = document.getElementById("upload");
-    var infoArea = document.getElementById("upload-label");
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload5");
+  var infoArea = document.getElementById("upload-label");
 
-    input.addEventListener("change", showFileName);
-    function showFileName(event) {
-      var input = event.srcElement;
-      var fileName = input.files[0].name;
-      infoArea.textContent = "File name: " + fileName;
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
+</script>
+<!-- UPLAOD Image UPDATED ACTUAL PHOTO-->
+<script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL3(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#actual_img_edit").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
     }
+  }
+
+  $(function () {
+    $("#upload4").on("change", function () {
+      readURL3(input);
+    });
+  });
+
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload4");
+  var infoArea = document.getElementById("upload-label");
+
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
 </script>

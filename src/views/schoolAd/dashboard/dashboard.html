@@ -133,27 +133,153 @@
   <!-- Page content -->
   <div class="container-fluid mt--4">
     <div class="row">
-      <div class="col-xl-12">
+      <div class="col-xl-4">
         <div class="card">
           <div class="row">
-            <div class="col-sm-6">
-              <img src="../../assets/img/logo/image.png" class="" style="width: 300px; height: 300px;
-                      margin-left: 150px; align-items: center; border-radius: 5px;" />
-            </div>
-            <div class="col-sm-6">
-              <h1 class="text-center mt-7 ml-3 font-weight-bold display-3">{{credentials.school_name}}</h1>
+            <div class="col-sm-12 p-4">
+              <img src="{{credentials.school_profile}}" class="img-fluid" style="
+                      align-items: center; border-radius: 5px;" />
+              <h1 class="text-center mt-2 ml-3 font-weight-bold display-3">{{credentials.school_name}}</h1>
               <h2 class="text-center mb-10 font-italic">ID: {{credentials.school_ID}}</h2>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-8">
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="row" style="height:624px; width: 100%;">
+            <div id="carouselExampleIndicators" class="carousel slide" style="margin-left: 150px; margin-top: 40px;"
+              data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img class="d-block w-100" style="border-radius: 10px;" src="{{credentials.school_profile}}"
+                    alt="First slide">
+                </div>
+                <div class="carousel-item">
+                  {{#each buildingRequest}}
+                  <img class="d-block w-100" style="border-radius: 10px;" src="{{this.actual_img}}" alt="Second slide">
+                </div>
+                {{/each}}
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
         <div class="card">
           <div class="card-header border-0">
-            <div class="col text-right">
-              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestModal">Request Building</a>
-              <!-- <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Request Rooms</a>
-              <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addBuilding">Request Other Facility</a> -->
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Buildings Request</h3>
+              </div>
+              <div class="col text-right">
+                <!-- <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestBuilding">Existing Building</a> -->
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Building Number</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Request</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each buildingRequest}}
+                <tr>
+                  <td scope="row">{{this.buildingNumber}}</td>
+                  <td class="text-danger">{{this.buildingCondition}}</td>
+                  <td class="text-danger">{{this.status}}</td>
+                  <td class="text-danger">{{this.note}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info requestBtn" data-id="{{this._id}}"
+                      data-number="{{this.buildingNumber}}" data-condition="{{this.buildingCondition}}"
+                      data-status="{{this.status}}">Request</button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Rooms Request</h3>
+              </div>
+              <div class="col text-right">
+                <!-- <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestBuilding">Existing Building</a> -->
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Room Number</th>
+                  <th scope="col">Building Number</th>
+                  <th scope="col">Floor</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Request</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each roomRequest}}
+                <tr>
+                  <td scope="row">{{this.roomNumber}}</td>
+                  <td class="text-danger">{{this.building_id.buildingNumber}}</td>
+                  <td class="text-danger">{{this.floor}}</td>
+                  <td class="text-danger">{{this.roomCondition}}</td>
+                  <td class="text-danger">{{this.status}}</td>
+                  <td class="text-danger">{{this.note}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-info requestBtn1" data-id="{{this._id}}"
+                      data-roomNumber="{{this.roomNumber}}" data-status="{{this.status}}"
+                      data-condition="{{this.roomCondition}}">Request</button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Request New</h3>
+              </div>
+              <div class="col text-right">
+                <a href="" class="btn btn-info " data-toggle="modal" data-target="#requestModal">Request
+                  New</a>
+              </div>
             </div>
           </div>
           <div class="table-responsive">
@@ -170,22 +296,9 @@
                 {{#each request}}
                 <tr>
                   <td scope="row">{{this.name}}</td>
-                  <td class="text-danger">{{this.condition}}</td>
+                  <td class="text-danger">{{this.specific}}</td>
                   <td class="text-danger">{{this.status}}</td>
                   <td class="text-danger">{{this.note}}</td>
-                  <!-- <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-black" href="#" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item editBtn" data-id="{{this._id}}" data-temporary="{{this.temporary}}"
-                          data-usetemporary="{{this.usetemporary}}">Update</a>
-                        <a class="dropdown-item dltBtn" data-id="{{this._id}}">Delete</a>
-                      </div>
-                    </div>
-                  </td> -->
                 </tr>
                 {{/each}}
               </tbody>
@@ -195,169 +308,322 @@
       </div>
     </div>
   </div>
-</div>
 
-<!--  ***************** REQUEST add Modal *********************** -->
-<div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form role="form" method="POST" action="/schoolAd/request">
+  <!--  ***************** REQUEST add Modal *********************** -->
+  <div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form role="form" method="POST" action="/schoolAd/reqNew">
+          <div class="card-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-lg-11 pl-5">
+                <label>Name</label>
+                <select name="name" class="form-control">
+                  <option selected></option>
+                  <option>BUILDING</option>
+                  <option>FACILITY</option>
+                  <option>FURNITURE</option>
+                  <option>ROOM</option>
+                  <option>WATER & SANITATION</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-11  pl-5">
+                <label>Specific Request</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <input type="string" class="form-control" value="REQUESTED" name="status" hidden>
+                <input type="string" class="form-control" placeholder="" name="specific" required>
+              </div>
+              <div class="form-group col-lg-11  pl-5">
+                <label for="exampleFormControlTextarea1">Note</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+
+                <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <div class="col-12 text-right pr-5">
+                <button id="btn-save" type="submit" class="btn btn-primary">
+                  Request
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--  ***************** REQUEST Building Modal *********************** -->
+  <div class="modal fade requestBuilding" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
         <div class="card-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="form-group col-lg-11 pl-5">
-                <label>Name</label>
-                <select  name="name" class="form-control">
-                    <option selected></option>
-                    <option>BUILDING</option>
-                    <option>FACILITY</option>
-                    <option>FURNITURE</option>
-                    <option>ROOM</option>
-                    <option>WATER & SANITATION</option>
-                </select>
-            </div>
-            <div class="form-group col-lg-11  pl-5">
-              <label>Condition</label>
-              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
-                title="" data-placement="top"
-                data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+          <form action="/schoolAd/buildReq" method="POST">
+            <div class="row">
+              <div class="form-group col-lg-11  pl-5">
+                <label>Building Number</label>
+                <input type="text" name="id" id="request_id" hidden>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
                   <span class="material-icons">
                     help_outline
                   </span>
-              </a>
-              <input type="string" class="form-control" placeholder="" name="condition" required>
-            </div>
-            <div class="form-group col-lg-11  pl-5">
-              <label for="exampleFormControlTextarea1">Note</label>
-              <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
-                title="" data-placement="top"
-                data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                </a>
+                <input type="string" class="form-control" id="number" value="number" name="buildingNumber" disabled>
+              </div>
+              <div class="form-group col-lg-11  pl-5">
+                <label>Condition</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
                   <span class="material-icons">
                     help_outline
                   </span>
-              </a>
-              
+                </a>
+                <input type="string" class="form-control" id="condition" value="condition" placeholder=""
+                  name="condition" disabled>
+              </div>
+
+              <div class="form-group col-lg-11  pl-5">
+                <input type="string" class="form-control" value="REQUESTED" name="status" hidden>
+                <label for="exampleFormControlTextarea1">Note</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+
                 <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+
+              <div class="col-12 text-right pr-5">
+                <button id="btn-save" type="submit" class="btn btn-primary">
+                  Request
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
+              </div>
             </div>
-            <div class="col-12 text-right pr-5">
-              <button id="btn-save" type="submit" class="btn btn-primary">
-                Save
-              </button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                Close
-              </button>
-            </div>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
-<!-- chart.js -->
-<script src="https://cdnjs.com/libraries/Chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-<script src="https://www.jsdelivr.com/package/npm/chart.js"></script>
-<!-- chart script -->
-<script>
-  // chartBar();
-  chartPie();
+  <!--  ***************** REQUEST Room Modal *********************** -->
+  <div class="modal fade requestRoom" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/schoolAd/roomReq" method="POST">
+            <div class="row">
+              <div class="form-group col-lg-11  pl-5">
+                <label>Room Number</label>
+                <input type="text" name="_id" id="room_id" hidden>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <input type="string" class="form-control" id="roomNumber" value="roomNumber" name="buildingNumber"
+                  disabled>
+              </div>
+              <div class="form-group col-lg-11  pl-5">
+                <label>Condition</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+                <input type="string" class="form-control" id="roomCondition" value="roomCondition" placeholder=""
+                  name="condition" disabled>
+              </div>
 
-  function chartBar() {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132)',
-            'rgba(54, 162, 235)',
-            'rgba(255, 206, 86)',
-            'rgba(75, 192, 192)',
-            'rgba(153, 102, 255)',
-            'rgba(255, 159, 64)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true
+              <div class="form-group col-lg-11  pl-5">
+                <input type="string" class="form-control" value="REQUESTED" name="status" hidden>
+                <label for="exampleFormControlTextarea1">Note</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+
+                <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+
+              <div class="col-12 text-right pr-5">
+                <button id="btn-save" type="submit" class="btn btn-primary">
+                  Request
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                  Close
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- chart.js -->
+  <script src="https://cdnjs.com/libraries/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <script src="https://www.jsdelivr.com/package/npm/chart.js"></script>
+  <!-- chart script -->
+  <script>
+    // chartBar();
+    chartPie();
+
+    function chartBar() {
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132)',
+              'rgba(54, 162, 235)',
+              'rgba(255, 206, 86)',
+              'rgba(75, 192, 192)',
+              'rgba(153, 102, 255)',
+              'rgba(255, 159, 64)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
-  }
-  function chartPie() {
-    const ctxs = document.getElementById('myCharts').getContext('2d');
-    const myCharts = new Chart(ctxs, {
-      type: 'pie',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132)',
-            'rgba(54, 162, 235)',
-            'rgba(255, 206, 86)',
-            'rgba(75, 192, 192)',
-            'rgba(153, 102, 255)',
-            'rgba(255, 159, 64)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132)',
-            'rgba(54, 162, 235)',
-            'rgba(255, 206, 86)',
-            'rgba(75, 192, 192)',
-            'rgba(153, 102, 255)',
-            'rgba(255, 159, 64)'
-          ],
-          borderWidth: 1,
-          hoverOffset: 4
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true
+      });
+    }
+    function chartPie() {
+      const ctxs = document.getElementById('myCharts').getContext('2d');
+      const myCharts = new Chart(ctxs, {
+        type: 'pie',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132)',
+              'rgba(54, 162, 235)',
+              'rgba(255, 206, 86)',
+              'rgba(75, 192, 192)',
+              'rgba(153, 102, 255)',
+              'rgba(255, 159, 64)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132)',
+              'rgba(54, 162, 235)',
+              'rgba(255, 206, 86)',
+              'rgba(75, 192, 192)',
+              'rgba(153, 102, 255)',
+              'rgba(255, 159, 64)'
+            ],
+            borderWidth: 1,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
+      });
+    }
+  </script>
+  <!-- **************************** DATA TABLE script ****************************** -->
+  <script>
+    $(document).ready(function () {
+      $('#builDamage').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+        ],
+        stateSave: true,
+      });
     });
-  }
-</script>
-<!-- **************************** DATA TABLE script ****************************** -->
-<script>
-  $(document).ready(function () {
-    $('#builDamage').DataTable({
-      dom: 'lBfrtip',
-      buttons: [
-      ],
-      stateSave: true,
+  </script>
+  <!-- popOver Script -->
+  <script>
+    $(document).ready(function () {
+      $('[data-toggle="popover"]').popover();
     });
-  });
-</script>
- <!-- popOver Script -->
- <script>
-  $(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-  });
-</script>
+  </script>
+  <!-- ****************************request building script************************************************** -->
+  <script>
+    $('.requestBtn').click(function () {
+
+      $('#request_id').val($(this).attr('data-id'));
+      $('#number').val($(this).attr('data-number'));
+      $('#condition').val($(this).attr('data-condition'));
+
+      $('.requestBuilding').modal('show');
+    });
+  </script>
+  <!-- ****************************request room script************************************************** -->
+  <script>
+    $('.requestBtn1').click(function () {
+
+      $('#room_id').val($(this).attr('data-id'));
+      $('#roomNumber').val($(this).attr('data-roomNumber'));
+      $('#roomCondition').val($(this).attr('data-condition'));
+
+      $('.requestRoom').modal('show');
+    });
+  </script>

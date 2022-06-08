@@ -5,11 +5,14 @@ const  Buildings = require('../../../database/models/building');
 const  Rooms = require('../../../database/models/room');
 const Students = require("../../../database/models/student");
 const Facilities = require("../../../database/models/facility");
-const  SchoolWSF = require("../../../database/models/standAWateASanitation");
+const SchoolWSF = require("../../../database/models/standAWateASanitation");
+const BuildingWSF = require("../../../database/models/buildingWSF");
 const Makeshift = require("../../../database/models/makeshift");
 const  Temporary = require("../../../database/models/temporary");
 const Furnitures = require("../../../database/models/furniture");
 const Users = require('../../../database/models/users');
+const Stand = require('../../../database/models/standAWateASanitation');
+const Access = require('../../../database/models/access');
 
 var internals = {};
 
@@ -92,8 +95,8 @@ internals.adminSchool = async function (req, reply) {
         schools_data,
         building_damage,
         room_damage,
-        users
-        // users,
+        users,
+        credentials: req.auth.credentials
       });
     }
   )
@@ -185,7 +188,8 @@ internals.adminSchoolDt = async (req, reply) => {
           },
     ]);
   const building = await Buildings.aggregate(
-    [ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id)}},
+    [ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id),
+                isDeleted: false}},
       {
         $lookup:
           {
@@ -197,7 +201,8 @@ internals.adminSchoolDt = async (req, reply) => {
       },
     ]);
   const students = await Students.aggregate(
-    [ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id)}},
+    [ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id),
+                isDeleted: false}},
       {
         $group: {
           _id: "_id",
@@ -209,7 +214,8 @@ internals.adminSchoolDt = async (req, reply) => {
     ]
  );
  const makeshift = await Makeshift.aggregate(
-  [ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id)}},
+  [ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id),
+              isDeleted: false}},
     {
       $group: {
         _id: "_id",
@@ -221,7 +227,12 @@ internals.adminSchoolDt = async (req, reply) => {
   ]
 );
 const temporary = await Temporary.aggregate(
-[ {$match:{ school_id: Mongoose.Types.ObjectId(req.params.id)}},
+[ {$match:{ 
+  $and: [{school_id: Mongoose.Types.ObjectId(req.params.id)},
+            {isDeleted: false}
+  ]  
+  }
+},
   {
     $group: {
       _id: "_id",
@@ -232,10 +243,43 @@ const temporary = await Temporary.aggregate(
   }
 ]
 );
-  console.log('resssssssss----->', building);
+const allSchools = await Schools.find({
+  _id: req.params.id,
+}).lean();
+const allRoom = await Rooms.find({
+  school_id: req.params.id,
+  isDeleted: false
+}).populate('building_id')
+  .lean();
+const allBWSF = await BuildingWSF.find({
+    school_id: req.params.id,
+    isDeleted: false
+}).populate('building_id')
+    .lean();
+const allMakeshift = await Makeshift.find({
+    school_id: req.params.id,
+    isDeleted: false
+  }).lean();
+const allTemporary = await Temporary.find({
+      school_id: req.params.id,
+      isDeleted: false
+  }).lean();
+const allSWSF = await Stand.find({
+    school_id: req.params.id,
+    isDeleted: false
+}).lean();
+const student = await Students.find({
+  school_id: req.params.id,
+  isDeleted: false
+}).lean();
+const access = await Access.find({
+  school_id: req.params.id,
+  isDeleted: false
+}).lean();
+  console.log('resssssssss----->', allSWSF);
   const all = schools.map(data => ({...data, totalBuild: data.totalBuild.length, totalRoom: data.totalRoom.length,
                     totalStudent: data.totalStudent.length}))
-  // const total = makeshift[0]?.useMakeshift + temporary[0]?.useTemporary
+  const total = makeshift[0]?.useMakeshift + temporary[0]?.useTemporary
   
   reply.view('admin/schools/schooldetails.html', {
     schools: all,
@@ -249,8 +293,16 @@ const temporary = await Temporary.aggregate(
     students:students[0],
     makeshift:makeshift[0],
     temporary:temporary[0],
-    // total: isNaN(total) ? 0: total,
-    
+    total: isNaN(total) ? 0: total,
+    allRoom,
+    allMakeshift,
+    allTemporary,
+    allSchools,
+    allBWSF,
+    allSWSF,
+    student,
+    access,
+    credentials: req.auth.credentials
   });
 
 
@@ -261,57 +313,4 @@ const temporary = await Temporary.aggregate(
 };
 
 
-//-----------------------------SEARCH 
-// internals.schoolSearch = function (req, reply) {
-//   var schools_data = {};
-  
-//   Async.series([
-//     (callback) => {
-//       Schools.find({
-//         schoolName: {
-//           $regex: new RegExp(req.query.school),
-//           $options: 'i',
-//         },
-//        })
-//         .lean()
-//         .exec((err, data) => {
-//           schools_data = data;
-//             console.log('----->', schools_data);
-//           // console.log(data)
-//           return callback(null);
-//     });
-//   }
-//   ],
-//       (callback)=>{
-//         reply.view('admin/schools/school.html',{
-//           schools_data
-//         });
-//     }
-//     )
-// },
-// internals.adminSchoolDt = async (req, reply) => {
-//   try {
-
-//     const { id } = req.params;
-//     const building = await Buildings.find({school_id: id}).lean();
-//     const room = await Rooms.find({school_id: id}).lean();
-//     const totalBuild  = await Buildings.countDocuments({school_id: id}).lean();
-//     const buildingRoom  = await Rooms.countDocuments({school_id: id}).lean();
-//     console.log('ID sa school', building);  
-//     console.log('Total------------->', totalBuild); 
-//     console.log('ID sa school', buildingRoom); 
-//     reply.view("admin/schools/schooldetails.html", {
-//       building,
-//       totalBuild,
-//       room,
-//       message: req.query.message,
-//       alert: req.query.alert,
-//       // building_id: req.params.id
-//       //:JSON.stringify(building,null,2)
-//     });
-//   } catch (err) {
-//     console.log(err)
-//     reply.redirect("/admin/school?message=Internal error! &alert=error");
-//   }
-// };
 module.exports = internals;

@@ -78,13 +78,6 @@
                               class="name mb-0 text-sm">{{this.buildingNumber}}</a>
                       </div>
                   </div>
-                    <!-- <div class="media align-items-center">
-                      <div class="media-body">
-                        <a href="/schoolAd/building/Details/{{_id}}"
-                          class="name mb-0 text-sm">{{this.buildingNumber}}</a>
-
-                      </div>
-                    </div> -->
                   </td>
                   <td class="media align-items-center">
                     <span style="text-transform: uppercase;">{{this.buildingType}}</span>
@@ -286,9 +279,8 @@
                   <input style="text-transform: uppercase;" type="text" id="specificFundSource" class="form-control" name="specificFundSource"  />
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-11">
                 <div class="form-group">
-                  <div class="col-lg-11">
                     <label for="buildingType">BUILDING TYPE</label>
                     <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
                     title="" data-placement="top"
@@ -316,7 +308,6 @@
                     </select><input name="buildingType" class="form-control" style="display:none; text-transform: uppercase;" 
                         disabled="disabled"
                         onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
-                </div>
                   <!-- <label for="buildingType" class="form-control-label">BUILDING TYPE</label>
                   <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
                     title="" data-placement="top"
@@ -359,7 +350,9 @@
                   <label class="form-control-label" for="classificationOfBuilding">BUILDING CLASSIFICATION</label>
                   <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
                     title="" data-placement="top"
-                    data-content="Refers to the classification of how the building is constructed">
+                    data-content="Refers to the classification of how the building is constructed.
+                    Permanent - Made of strong and durable materials, 80% of which is concrete (including Gabaldon Buildings).
+                    Semi-Permanent - Made of a combination of materials such as concrete and 80% lumber.">
                     <span class="material-icons">
                       help_outline
                     </span>
@@ -592,8 +585,8 @@
                     <span class="material-icons">
                       help_outline
                     </span></a>
-                      <img class="img-thumbnail" id="actual_img_edit" src="" />
-                      <input id="upload" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL(this);"
+                      <img class="img-thumbnail" id="actual_img_edit"/>
+                      <input id="upload4" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL3(this);"
                       class="form-control border-0"/>
                 </div>
               </div>
@@ -732,7 +725,9 @@
                   <label class="form-control-label" for="classificationOfBuilding">BUILDING CLASSIFICATION</label>
                   <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
                     title="" data-placement="top"
-                    data-content="Refers to the classification of how the building is constructed">
+                    data-content="Refers to the classification of how the building is constructed.
+                    Permanent - Made of strong and durable materials, 80% of which is concrete (including Gabaldon Buildings).
+                    Semi-Permanent - Made of a combination of materials such as concrete and 80% lumber.">
                     <span class="material-icons">
                       help_outline
                     </span>
@@ -1134,7 +1129,7 @@
   </div> -->
 </div>
 <!-- **************************** delete Modal ****************************** -->
-<div class="modal fade myModal">
+<!-- <div class="modal fade myModal">
   <div class="modal-dialog modal-confirm">
     <div class="modal-content">
       <div class="modal-header flex-column">
@@ -1157,7 +1152,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- **************************** update script ****************************** -->
 <script>
@@ -1310,6 +1305,42 @@
     SHOW UPLOADED IMAGE NAME
 * ========================================== */
   var input = document.getElementById("upload2");
+  var infoArea = document.getElementById("upload-label");
+
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
+</script>
+ <!-- UPLAOD Image UPDATED ACTUAL PHOTO-->
+ <script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL3(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#actual_img_edit").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(function () {
+    $("#upload4").on("change", function () {
+      readURL3(input);
+    });
+  });
+
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload4");
   var infoArea = document.getElementById("upload-label");
 
   input.addEventListener("change", showFileName);

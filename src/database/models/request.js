@@ -9,9 +9,9 @@ const RequestSchema = new Mongoose.Schema(
     user_id: {type: ObjectId, ref: 'users'},
     school_id: {type: ObjectId, ref: 'schools'},
     name: {type: String},
-    condition: {type: String},
+    specific: {type: String},
     note: {type: String},
-    status: {type: String, default: 'PENDING'},
+    status: {type: String},
 
   },
   {

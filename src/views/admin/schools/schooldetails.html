@@ -132,14 +132,27 @@
   </div>
 
   <!-- Page content -->
-  <div class="container-fluid mt--6">
+  <div class="container-fluid mt--2">
     <div class="row">
+      <!-- <div class="col-xl-12">
+        <div class="card">
+          {{#each allSchools}}
+          <div class="align-items-center d-inline" style="display: inline; float: left;">
+            <img src="{{this.logo_img}}" style="height: 150px; margin-top: 30px; margin-left: 70px; border-radius: 20px;">
+          </div>
+          <div class="d-inline" style="display: inline; float: right;">
+            <h1>{{this.schoolName}}</h1>
+            <h3>{{this.schoolId}}</h3>
+          </div>
+          {{/each}}
+        </div>
+      </div> -->
       <div class="col-xl-12">
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class=" mb-0">School Building Records</h3>
+                <h3 class=" mb-0">BUILDINGS RECORD</h3>
               </div>
             </div>
           </div>
@@ -148,9 +161,9 @@
             <table class="table align-items-center table-flush" id="school">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col" class="sort" data-sort="name">Building Number</th>
-                  <th scope="col" class="sort" data-sort="budget">Building Type</th>
-                  <th scope="col" class="sort" data-sort="status">Number of Storey</th>
+                  <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
+                  <th scope="col" class="sort" data-sort="budget">BUILDING TYPE</th>
+                  <th scope="col" class="sort" data-sort="status">NUMBER OF STOREY</th>
                   <th scope="col" class="sort" data-sort="status">Year Completed</th>
                   <th scope="col" class="sort" data-sort="status">Building Condition</th>
                   <th scope="col" class="sort" data-sort="status">Fund Source</th>
@@ -164,8 +177,8 @@
                   <th scope="col" class="sort" data-sort="status">Insurance Information</th> 
                   <th scope="col" class="sort" data-sort="status">Building PWD Accessible?</th> 
                   <th scope="col" class="sort" data-sort="status">Undergone Major Repair</th> 
-                  <th scope="col" class="sort" data-sort="status">With Certificate of Acceptance?</th> 
-                  <th scope="col" class="sort" data-sort="status">Building Include in the Boook of Accountant?</th> 
+                  <th scope="col" class="sort" data-sort="status">Certificate of Acceptance</th> 
+                  <th scope="col" class="sort" data-sort="status">Building Include in the Boook of Accountant</th> 
 
                 </tr>
               </thead>
@@ -175,8 +188,7 @@
                   <td scope="row">
                     <div class="media align-items-center">
                         <div class="media-body">
-                            <a href="/schoolAd/building/Details/{{_id}}"
-                                class="name mb-0 text-sm">{{this.buildingNumber}}</a>
+                            <a class="name mb-0 text-sm">{{this.buildingNumber}}</a>
                                 
                         </div>
                     </div>
@@ -242,6 +254,74 @@
           </div>
         </div>
       </div>
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class=" mb-0">ROOMS RECORDS</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Proj]]ects table -->
+            <table class="table align-items-center table-flush" id="room">
+              <thead class="thead-light">
+                  <tr>
+                      <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
+                      <th scope="col" class="sort" data-sort="name">ROOM NUMBER</th>
+                      <th scope="col" class="sort" data-sort="budget">ROOM CONDITION</th>
+                      <th scope="col" class="sort" data-sort="status">ACTUAL USAGE</th>
+                      <th scope="col" class="sort" data-sort="status">FLOOR</th>
+                      <th scope="col" class="sort" data-sort="status">DIMENSION (W)</th>
+                      <th scope="col" class="sort" data-sort="status">DIMENSION (L)</th>
+                  </tr>
+              </thead>
+              <tbody class="list">
+                  {{#each allRoom}}
+                  <tr>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.building_id.buildingNumber}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.roomNumber}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.roomCondition}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.actualUsage}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.floor}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.roomDimensionW}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.roomDimensionL}}</span>
+                          </div>
+                      </td>
+                  </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-xl-6">
@@ -270,7 +350,7 @@
                   <th scope="row">{{this.name}}</th>
                   <td></td>
                   <td>{{this.presentCampus}}</td>
-                  <td class="text-success">{{this.status}}</td>
+                  <td class="">{{this.status}}</td>
                 </tr>
                 {{/each}}
               </tbody>
@@ -303,7 +383,7 @@
                 <tr>
                   <th scope="row">{{this.name}}</th>
                   <td></td>
-                  <td class="text-success">{{this.total}}</td>
+                  <td class="">{{this.total}}</td>
                   <td></td>
                 </tr>
                 {{/each}}
@@ -319,7 +399,7 @@
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class=" mb-0">School Water & Sanitation</h3>
+                <h3 class=" mb-0">STAND-ALONE WATER & SANITATION</h3>
               </div>
             </div>
           </div>
@@ -328,27 +408,45 @@
             <table class="table align-items-center table-flush" id="schoolwsfs">
               <thead class="thead-light">
                   <tr>
-                      <th scope="col" class="sort" data-sort="name">Toilet Type</th>
-                      <th scope="col" class="sort" data-sort="name">Total Toilet</th>
+                      <th scope="col" class="sort" data-sort="name">Male</th>
+                      <th scope="col" class="sort" data-sort="name">Female</th>
+                      <th scope="col" class="sort" data-sort="name">Shared</th>
+                      <th scope="col" class="sort" data-sort="name">PWD</th>
+                      <th scope="col" class="sort" data-sort="name">Non-Functional</th>
                       <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
-                      <th scope="col" class="sort" data-sort="status">Type of Urinals</th>
-                      <th scope="col" class="sort" data-sort="status">Number of Urinals</th>
-                      <th scope="col" class="sort" data-sort="status">Septic Tank</th>
-                      <th scope="col" class="sort" data-sort="status">Faucet</th>
-                      <th scope="col" class="sort" data-sort="completion">Number of Faucet</th>
+                      <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
+                      <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
+                      <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
+                      <th scope="col" class="sort" data-sort="status">With Faucet</th>
+                      <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
                   </tr>
               </thead>
               <tbody class="list">
-                  {{#each schoolwsf}}
+                  {{#each allSWSF}}
                   <tr>
                       <td scope="row">
                           <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.type}}</span>
+                              <span class="name mb-0 text-sm">{{this.male}}</span>
                           </div>
                       </td>
                       <td scope="row">
                           <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.toilet}}</span>
+                              <span class="name mb-0 text-sm">{{this.fmale}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.shared}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.pwd}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
                           </div>
                       </td>
                       <td scope="row">
@@ -358,12 +456,12 @@
                       </td>
                       <td scope="row">
                           <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.typeUrinals}}</span>
+                              <span class="name mb-0 text-sm">{{this.urinals}}</span>
                           </div>
                       </td>
                       <td scope="row">
                           <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.numberUrinals}}</span>
+                              <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
                           </div>
                       </td>
                       <td scope="row">
@@ -373,12 +471,12 @@
                       </td>
                       <td scope="row">
                           <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.faucet}}</span>
+                              <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
                           </div>
                       </td>
                       <td scope="row">
                           <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.totalFaucet}}</span>
+                              <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
                           </div>
                       </td>
                   </tr>
@@ -388,6 +486,166 @@
           </div>
         </div>
       </div>
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class=" mb-0">BUILDING WATER & SANITATION</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Proj]]ects table -->
+            <table class="table align-items-center table-flush" id="bwsfs">
+              <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
+                      <th scope="col" class="sort" data-sort="name">Male</th>
+                      <th scope="col" class="sort" data-sort="name">Female</th>
+                      <th scope="col" class="sort" data-sort="name">Shared</th>
+                      <th scope="col" class="sort" data-sort="name">PWD</th>
+                      <th scope="col" class="sort" data-sort="name">Non-Functional</th>
+                      <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
+                      <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
+                      <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
+                      <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
+                      <th scope="col" class="sort" data-sort="status">With Faucet</th>
+                      <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
+                  </tr>
+              </thead>
+              <tbody class="list">
+                  {{#each allBWSF}}
+                  <tr>
+                    <td scope="row">
+                      <div class="media-body">
+                          <span class="name mb-0 text-sm">{{this.building_id.buildingNumber}}</span>
+                      </div>
+                  </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.male}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.fmale}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.shared}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.pwd}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.urinals}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.septicTank}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
+                          </div>
+                      </td>
+                      <td scope="row">
+                          <div class="media-body">
+                              <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
+                          </div>
+                      </td>
+                  </tr>
+                  {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">STUDENT LIST</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush" id="temp">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">LIST PER YEAR LEVEL</th>
+                <th scope="col">TOTAL NUMBER</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each student}}
+              <tr>
+                <th scope="row">{{this.yearlevel}}</th>
+                <td>{{this.total}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">TRANSPORTATION & ACCESS ROAD</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush" id="makeshift">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">ROAD TYPE</th>
+                <th scope="col">TRANSPORTATION VEHICLE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each access}}
+              <tr>
+                <th scope="row">{{this.roadType}}</th>
+                <td class="row">{{this.transportation}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
     <div class="row">
       <div class="col-xl-7"></div>
@@ -395,7 +653,88 @@
     </div>
   </div>
 </div>
+<!-- **************************** DATA TABLE script ****************************** -->
 <script>
+  $(document).ready(function() {
+  $('#school').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#facility').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#furniture').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#room').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#schoolwsfs').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#bwsfs').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#temp').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<script>
+  $(document).ready(function() {
+  $('#makeshift').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+</script>
+<!-- <script>
   $(document).ready(function () {
       $('#school').DataTable({
           dom: 'lBfrtip',
@@ -406,8 +745,8 @@
       stateSave: true,
       });
   });
-</script>
-<script>
+</script> -->
+<!-- <script>
   $(document).ready(function () {
       $('#facility').DataTable({
           dom: 'lBfrtip',
@@ -418,8 +757,8 @@
       stateSave: true,
       });
   });
-</script>
-<script>
+</script> -->
+<!-- <script>
   $(document).ready(function () {
       $('#furniture').DataTable({
           dom: 'lBfrtip',
@@ -430,8 +769,8 @@
       stateSave: true,
       });
   });
-</script>
-<script>
+</script> -->
+<!-- <script>
   $(document).ready(function () {
       $('#schoolwsfs').DataTable({
           dom: 'lBfrtip',
@@ -442,4 +781,4 @@
       stateSave: true,
       });
   });
-</script>
+</script> -->

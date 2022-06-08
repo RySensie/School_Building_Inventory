@@ -84,7 +84,6 @@ internals.adminUserView = async function (req, reply) {
         schools_data,
         building_damage,
         room_damage,
-        users_data
       });
     }
   )

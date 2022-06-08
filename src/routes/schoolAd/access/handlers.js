@@ -34,6 +34,7 @@ internals.transport = function (req, reply) {
         access_data,
         message: req.query.message,
         alert: req.query.alert,
+        credentials: req.auth.credentials,
       });
     }
   )

@@ -108,7 +108,10 @@ internals.adminDashboard = async (req, reply) => {
       }).lean();
   
   const request = await Request.find({
-        status: 'PENDING'
+    $or: [
+      {status: "REQUESTED"},
+      {status: "APPROVED"},
+    ],
   }).populate('school_id')
   .lean();
 
@@ -130,9 +133,41 @@ internals.adminDashboard = async (req, reply) => {
 
   }catch (error) {
     console.log(err)
-    reply.redirect("admin/dashboard?message=Internal error! &alert=error");
+    reply.redirect("/admin/dashboard?message=Internal error! &alert=error");
   }
 };
-
-
+internals.reqBuilding = function (req, reply) {
+  Buildings.findOneAndUpdate(
+    { _id: req.payload.id },
+    { $set: {status: 'APPROVED'} }
+  ).exec((err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    return reply.redirect('/admin/dashboard?message=successfuly approved&alert=success');
+  });
+};
+internals.reqRoom = function (req, reply) {
+  Rooms.findOneAndUpdate(
+    { _id: req.payload.id1 },
+    { $set: {status: 'APPROVED'} }
+  ).exec((err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    return reply.redirect('/admin/dashboard?message=successfuly approved&alert=success');
+  });
+};
+internals.reqOther = function (req, reply) {
+  Request.findOneAndUpdate(
+    { _id: req.payload.id3},
+    { $set: {status: 'APPROVED'} }
+  ).exec((err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(data);
+    return reply.redirect('/admin/dashboard?message=successfuly approved&alert=success');
+  });
+};
 module.exports = internals;
