@@ -67,7 +67,7 @@ internals.temporaryAdd = (req, reply) => {
         temporary: req.payload.temporary,
         usetemporary: req.payload.usetemporary,
       }
-      console.log('=======> ', payload);
+      // console.log('=======> ', payload);
       var saveMe = new Temporary(payload);
       saveMe.save(function (err, data) {
         if (err) {
@@ -138,7 +138,7 @@ internals.makeshiftAdd = (req, reply) => {
 };
 //---------------------> makeshift update <-----------------------//
 internals.makeshiftUpdate = function (req, reply) {
-  console.log("---------------<>>>>>>>", req.payload.make_id),
+  // console.log("---------------<>>>>>>>", req.payload.make_id),
   Makeshift.findOneAndUpdate(
     { _id: req.payload.make_id },
     { $set: req.payload }

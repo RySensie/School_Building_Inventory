@@ -49,7 +49,7 @@ internals.room = function (req, reply) {
 
   ],
     function (callback) {
-      console.log('------++++>', buildings_data),
+      // console.log('------++++>', buildings_data),
         reply.view('schoolAd/building/room/room.html', {
           rooms_data,
           buildings_data,
@@ -71,11 +71,11 @@ internals.roomUpdate = async function (req, reply) {
     roomDimensionW: req.payload.roomDimensionW,
     roomDimensionL: req.payload.roomDimensionL
   };
-  console.log(req.payload.actual_img);
+  // console.log(req.payload.actual_img);
   const rooms = await Rooms.findOneAndUpdate({
     _id: req.payload.edit_id 
   },{$set: payload}).lean();
-  console.log(rooms);
+  // console.log(rooms);
   if(!rooms){
     return reply.redirect('/schoolAd/room/' + req.params.building_id);
   }
@@ -100,7 +100,7 @@ internals.roomUpdate = async function (req, reply) {
 // };
 //Delete Rooms---------------------Delete-----
 internals.roomDelete = function (req, reply) {
-  console.log("----->>>>>>", req.payload.id);
+  // console.log("----->>>>>>", req.payload.id);
 
   Rooms.findOneAndUpdate(
     { _id: req.payload.id },
@@ -146,12 +146,12 @@ internals.roomAdd = async (req, reply) => {
     roomDimensionW: req.payload.roomDimensionW,
     roomDimensionL: req.payload.roomDimensionL,
   };
-  console.log(payload);
+  // console.log(payload);
   const rooms = await Rooms.create(payload);
   if (!rooms) {
     return reply.redirect('/schoolAd/room/' + req.params.building_id);
   }
-  console.log(rooms);
+  // console.log(rooms);
   await Rooms.update({
     _id: rooms._id
   }, {

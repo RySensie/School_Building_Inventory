@@ -87,7 +87,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input type="text" id="buildingNumber" class="form-control" name="buildingNumber"  />
+                      <input type="text" id="buildingNumber" class="form-control" name="buildingNumber" required />
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -100,7 +100,7 @@
                           help_outline
                         </span>
                       </a>
-                      <select id="status_edit" name="buildingCondition" class="form-control" >
+                      <select id="status_edit" name="buildingCondition" class="form-control" required>
                         <option selected></option>
                         <option>GOOD CONDITION</option>
                         <option>MINOR DAMAGE</option>
@@ -121,7 +121,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input style="text-transform: uppercase;" type="text" id="fundSource" class="form-control" name="fundSource"  />
+                      <input style="text-transform: uppercase;" type="text" id="fundSource" class="form-control" name="fundSource" required />
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -134,7 +134,8 @@
                           help_outline
                         </span>
                       </a>
-                      <input style="text-transform: uppercase;" type="text" id="specificFundSource" class="form-control" name="specificFundSource"  />
+                      <input style="text-transform: uppercase;" type="text" id="specificFundSource" 
+                      class="form-control" name="specificFundSource" required />
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -151,7 +152,7 @@
                         <select class="form-control" name="buildingType" onchange="if(this.options[this.selectedIndex].value=='customOption'){
                             toggleField(this,this.nextSibling);
                             this.selectedIndex='0';
-                        }">
+                        }" required>
                             <option></option>
                             <option>JICA - EDUCATIONAL FACILITIES IMPROVEMENT PROGRAM (EFIP)</option>
                             <option>BAGONG LIPUNAN SCHOOL BUILDING (BLSB) TYPE 1</option>
@@ -189,7 +190,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input type="number" id="numberOfStorey" class="form-control" name="numberOfStorey"  />
+                      <input type="number" id="numberOfStorey" class="form-control" name="numberOfStorey"required />
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -202,7 +203,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input type="number" id="numberOfRooms" class="form-control" name="numberOfRooms"  />
+                      <input type="number" id="numberOfRooms" class="form-control" name="numberOfRooms" required/>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -215,7 +216,7 @@
                           help_outline
                         </span>
                       </a>
-                      <select id="classificationOfBuilding" name="classificationOfBuilding" class="form-control">
+                      <select id="classificationOfBuilding" name="classificationOfBuilding" class="form-control"required>
                         <option selected></option>
                         <option>PERMANENT</option>
                         <option>SEMI PERMANENT</option>
@@ -232,7 +233,7 @@
                           help_outline
                         </span>
                       </a>
-                      <select id="buildingMaterial" name="buildingMaterial" class="form-control" >
+                      <select id="buildingMaterial" name="buildingMaterial" class="form-control" required>
                         <option selected></option>
                         <option>CONCRETE</option>
                         <option>CONCRETE & WOODS</option>
@@ -271,7 +272,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input type="date" id="yearCompleted" class="form-control" name="dateAcquisition"  />
+                      <input type="date" id="yearCompleted" class="form-control" name="dateAcquisition"  required/>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -306,7 +307,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input type="number" id="acquisitionCost" class="form-control" name="acquisitionCost"  />
+                      <input type="number" id="acquisitionCost" class="form-control" name="acquisitionCost" required />
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -319,7 +320,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input type="number" id="bookValue" class="form-control" name="bookValue"  />
+                      <input type="number" id="bookValue" class="form-control" name="bookValue" required />
                     </div>
                   </div>
                   <div class="col-lg-4">
@@ -332,7 +333,7 @@
                           help_outline
                         </span>
                       </a>
-                      <input style="text-transform: uppercase;" type="text" id="insuranceInfo" class="form-control" name="insuranceInfo"  />
+                      <input style="text-transform: uppercase;" type="text" id="insuranceInfo" class="form-control" name="insuranceInfo" required />
                     </div>
                   </div>
                 </div>
@@ -349,7 +350,7 @@
                         help_outline
                       </span>
                     </a>
-                    <select id="pwdAccessible" name="pwdAccessible" class="form-control">
+                    <select id="pwdAccessible" name="pwdAccessible" class="form-control" required>
                       <option selected></option>
                       <option>YES</option>
                       <option>NO</option>
@@ -364,7 +365,7 @@
                         help_outline
                       </span>
                     </a>
-                    <select id="undergoneMajorRepair" name="undergoneMajorRepair" class="form-control">
+                    <select id="undergoneMajorRepair" name="undergoneMajorRepair" class="form-control" required>
                       <option selected></option>
                       <option>YES</option>
                       <option>NO</option>
@@ -379,7 +380,7 @@
                         help_outline
                       </span>
                     </a>
-                    <select id="certificateOfAcceptance" name="certificateOfAcceptance" class="form-control">
+                    <select id="certificateOfAcceptance" name="certificateOfAcceptance" class="form-control" required>
                       <option selected></option>
                       <option>YES</option>
                       <option>NO</option>
@@ -394,7 +395,7 @@
                         help_outline
                       </span>
                     </a>
-                    <select id="includeDepedBook" name="includeDepedBook" class="form-control">
+                    <select id="includeDepedBook" name="includeDepedBook" class="form-control" required>
                       <option selected></option>
                       <option>YES</option>
                       <option>NO</option>

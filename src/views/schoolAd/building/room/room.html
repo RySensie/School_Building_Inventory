@@ -171,7 +171,7 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}">
+            <input class="form-control" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}" required>
           </div>
           <div class="form-group text-black">
             <label for="presentCampus">Room Condition</label>
@@ -181,7 +181,7 @@
                 help_outline
               </span>
             </a>
-            <select id="status_edit" name="roomCondition" class="form-control">
+            <select id="status_edit" name="roomCondition" class="form-control" required>
               <option selected></option>
               <option>GOOD CONDITION</option>
               <option>MINOR DAMAGE</option>
@@ -199,40 +199,43 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}">
+            <input class="form-control" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}" required>
           </div>
           <div class="form-group">
             <label for="presentCampus">Actual Usage</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
               data-placement="top"
-              data-content="Refers to the manner by which a room is currently being utilized, it should correspond to the number of usages (e.g., If the room is shared by two SPED classes held at the same time, actual usage is SPED classroom and SPED classroom).">
+              data-content="Refers to the manner by which a room is currently being utilized, it should correspond to
+               the number of usages (e.g., If the room is shared by two SPED classes held at the same time, actual usage is SPED classroom and SPED classroom).">
               <span class="material-icons">
                 help_outline
               </span>
             </a>
-            <input class="form-control" placeholder="Actual Usage" name="actualUsage" type="text">
+            <input class="form-control" placeholder="Actual Usage" name="actualUsage" type="text" required>
           </div>
           <div class="form-group">
             <label for="presentCampus">Room Dimension Width</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
               data-placement="top"
-              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side of the chalkboard while length refers to the side of the window.">
+              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side
+               of the chalkboard while length refers to the side of the window.">
               <span class="material-icons">
                 help_outline
               </span>
             </a>
-            <input class="form-control" placeholder="meter" name="roomDimensionW" type="number">
+            <input class="form-control" placeholder="meter" name="roomDimensionW" type="number" required>
           </div>
           <div class="form-group">
             <label for="presentCampus">Room Dimension Lenght </label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
               data-placement="top"
-              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side of the chalkboard while length refers to the side of the window.">
+              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the 
+              side of the chalkboard while length refers to the side of the window.">
               <span class="material-icons">
                 help_outline
               </span>
             </a>
-            <input class="form-control" placeholder="meter" name="roomDimensionL" type="number">
+            <input class="form-control" placeholder="meter" name="roomDimensionL" type="number" required>
           </div>
           <div class="col-12 text-right">
             <button id="btn-save" type="submit" class="btn btn-primary">

@@ -9,7 +9,7 @@ internals.facility = function (req, reply) {
 
   var facility_data = {};
 
-  console.log('========>', req.auth.credentials);
+  // console.log('========>', req.auth.credentials);
   Async.series([
     function (callback) {
       Facilities.find({
@@ -48,7 +48,7 @@ internals.addFacility = (req, reply) => {
         presentCampus: req.payload.presentCampus,
         status: req.payload.status,
       }
-      console.log('=======> ', payload);
+      // console.log('=======> ', payload);
       var saveMe = new Facilities(payload);
       saveMe.save(function (err, data) {
         if (err) {

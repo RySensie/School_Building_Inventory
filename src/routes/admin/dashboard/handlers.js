@@ -15,7 +15,7 @@ var Async = require('async');
 
 internals.adminDashboard = async (req, reply) => {
   try {
-    console.log('-->', req.auth.credentials);
+    // console.log('-->', req.auth.credentials);
     const school_id = req.auth.credentials.school_id;
     const totalBuilding = await Buildings.countDocuments({school_id});
     const totalRoom = await Rooms.countDocuments({school_id});
@@ -67,15 +67,51 @@ internals.adminDashboard = async (req, reply) => {
           as: "totalUsers",
       } 
   },
-    
+  {
+    $lookup:
+    {
+        from: "buildingswsf",
+        localField: "_id",
+        foreignField: "school_id",
+        as: "totalbwsf",
+    } 
+},
+{
+  $lookup:
+  {
+      from: "schoolsWSF",
+      localField: "_id",
+      foreignField: "school_id",
+      as: "totalSbwsf",
+  } 
+},
+//   {
+//     $lookup:
+//     {
+//         from: "temps",
+//         localField: "_id",
+//         foreignField: "school_id",
+//         as: "totalTemp",
+//     } 
+// },
+    // {
+    //   $group: {
+    //     _id: "_id",
+    //     temps: {
+    //       $sum: "$temporary"
+    //     }
+    //   }
+    // }
   ])
-  console.log('resssssssss', all);
+  // console.log('resssssssss', all);
   const p = all.map(data => ({...data, 
                   total_rooms: data.totalRoom.length,
-                   total_buildings: data.totalBuild.length,
-                    total_facilities: data.totalFa.length,
-                     total_furniture: data.totalFur.length,
-                      total_users: data.totalUsers.length }));
+                  total_buildings: data.totalBuild.length,
+                  total_facilities: data.totalFa.length,
+                  total_furniture: data.totalFur.length,
+                  total_users: data.totalUsers.length,
+                  total_bwsf: data.totalbwsf.length,
+                  total_sbwsf: data.totalSbwsf.length }));
   
   const building_damage = await Buildings.find({
     $or:[
@@ -110,12 +146,12 @@ internals.adminDashboard = async (req, reply) => {
   const request = await Request.find({
     $or: [
       {status: "REQUESTED"},
-      {status: "APPROVED"},
+      {status: "VERIFIED"},
     ],
   }).populate('school_id')
   .lean();
 
-      console.log('TEST', request);
+      // console.log('TEST', request);
   reply.view('admin/dashboard/dashboard.html', {
     all: p,
     totalBuilding,
@@ -123,11 +159,13 @@ internals.adminDashboard = async (req, reply) => {
     total_building: p.reduce((acc, curr) => acc += curr.total_buildings, 0),
     total_furniture: p.reduce((acc, curr) => acc += curr.total_furniture, 0),
     total_users: p.reduce((acc, curr) => acc += curr.total_users, 0),
+    total_bwsf: p.reduce((acc, curr) => acc += curr.total_bwsf, 0),
+    total_sbwsf: p.reduce((acc, curr) => acc += curr.total_sbwsf, 0),
     total_school: all.length,
     building_damage,
     room_damage,
     request,
-    users
+    users,
   });
 
 
@@ -136,38 +174,39 @@ internals.adminDashboard = async (req, reply) => {
     reply.redirect("/admin/dashboard?message=Internal error! &alert=error");
   }
 };
+
 internals.reqBuilding = function (req, reply) {
   Buildings.findOneAndUpdate(
     { _id: req.payload.id },
-    { $set: {status: 'APPROVED'} }
+    { $set: {status: 'VERIFIED'} }
   ).exec((err, data) => {
     if (err) {
       console.log(err);
     }
-    return reply.redirect('/admin/dashboard?message=successfuly approved&alert=success');
+    return reply.redirect('/admin/dashboard?message=successfuly VERIFIED&alert=success');
   });
 };
 internals.reqRoom = function (req, reply) {
   Rooms.findOneAndUpdate(
     { _id: req.payload.id1 },
-    { $set: {status: 'APPROVED'} }
+    { $set: {status: 'VERIFIED'} }
   ).exec((err, data) => {
     if (err) {
       console.log(err);
     }
-    return reply.redirect('/admin/dashboard?message=successfuly approved&alert=success');
+    return reply.redirect('/admin/dashboard?message=successfuly VERIFIED&alert=success');
   });
 };
 internals.reqOther = function (req, reply) {
   Request.findOneAndUpdate(
     { _id: req.payload.id3},
-    { $set: {status: 'APPROVED'} }
+    { $set: {status: 'VERIFIED'} }
   ).exec((err, data) => {
     if (err) {
       console.log(err);
     }
     console.log(data);
-    return reply.redirect('/admin/dashboard?message=successfuly approved&alert=success');
+    return reply.redirect('/admin/dashboard?message=successfuly VERIFIED&alert=success');
   });
 };
 module.exports = internals;

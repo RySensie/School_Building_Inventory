@@ -173,7 +173,7 @@
                   <td scope="row">{{this.school_id.schoolName}}</td>
                   <td class="text-danger">{{this.buildingCondition}}</td>
                   <td class="text-danger">{{this.status}}</td>
-                  <td class="text-danger">{{this.note}}</td>
+                  <td class="">{{this.note}}</td>
                   <td class="">
                     <button class="btn btn-sm btn-info requestBtn"
                       data-id="{{this._id}}" data-img="{{this.actual_img}}"
@@ -234,7 +234,7 @@
                     </div>
                   </td>
                   <td scope="row">{{this.school_id.schoolName}}</td>
-                  <td class="text-danger">{{this.building_id.buildingNumber}}</td>
+                  <td class="">{{this.building_id.buildingNumber}}</td>
                   <td class="text-danger">{{this.roomCondition}}</td>
                   <td class="text-danger">{{this.status}}</td>
                   <td class="">
@@ -338,9 +338,11 @@
                   <th scope="col">ADDRESS</th>
                   <th scope="col"></th>
                   <th scope="col">BUILDINGS</th>
+                  <th scope="col">BUILDINGS WATER & SANITATION</th>
                   <th scope="col">ROOMS</th>
                   <th scope="col">FACILITIES</th>
                   <th scope="col">FURNITURE</th>
+                  <!-- <th scope="col">SCHOOL WATER & SANITATION</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -352,9 +354,11 @@
                   <td class="text-default">{{this.address}}</td>
                   <td></td>
                   <td class="text-success">{{total_buildings}}</td>
+                  <td class="text-success">{{total_bwsf}}</td>
                   <td class="text-success">{{total_rooms}}</td>
                   <td class="text-success">{{total_facilities}}</td>
                   <td class="text-success">{{total_furniture}}</td>
+                  <!-- <td class="text-success">{{total_sbwsf}}</td> -->
                 </tr>
                 {{/each}}
               </tbody>

@@ -9,7 +9,7 @@ var Async = require('async');
 internals.furniture = function (req, reply) {
   var furniture_data = {};
 
-  console.log('========>', req.auth.credentials);
+  // console.log('========>', req.auth.credentials);
   Async.series([
     function (callback) {
       Furnitures.find({
@@ -48,7 +48,7 @@ internals.addFurniture = (req, reply) => {
         name: req.payload.name,
         total: req.payload.total,
       }
-      console.log('=======> ', payload);
+      // console.log('=======> ', payload);
       var saveMe = new Furnitures(payload);
       saveMe.save(function (err, data) {
         if (err) {

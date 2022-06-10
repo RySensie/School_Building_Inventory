@@ -44,9 +44,9 @@ internals.requestAdd = async (req, reply) => {
     condition: req.payload.condition,
     note: req.payload.note
   };
-  console.log(payload);
+  // console.log(payload);
   const request = await Request.create(payload);
-  console.log('-------)', request);
+  // console.log('-------)', request);
   return reply.redirect('/schoolAd/dashboard');
 };
 module.exports = internals;

@@ -11,9 +11,39 @@ var Async = require('async');
 const { findOne } = require('../../../database/models/users');
 const  Buildings = require('../../../database/models/building');
 const  Rooms = require('../../../database/models/room');
+const Request = require("../../../database/models/request");
 var email = require('../../../lib/email')
 internals.adminUserView = async function (req, reply) {
 
+  // const building_damage = await Buildings.find({
+  //   $or:[
+  //     {$and: [
+  //       {buildingCondition: "MAJOR DAMAGE"},
+  //       {isDeleted:false}
+  //     ]},
+  //     {$and: [
+  //       {buildingCondition: "MINOR DAMAGE"},
+  //       {isDeleted:false}
+  //     ]}
+  //   ]
+  // }).populate('school_id')
+  //   .lean();
+  //   const room_damage = await Rooms.find({
+  //     $or:[
+  //       {$and: [
+  //         {buildingCondition: "MAJOR DAMAGE"},
+  //         {isDeleted:false}
+  //       ]},
+  //       {$and: [
+  //         {buildingCondition: "MINOR DAMAGE"},
+  //         {isDeleted:false}
+  //       ]}
+  //     ]
+  //   }).populate('school_id')
+  //     .lean();
+  //     const users = await Users.find({
+  //       isConfirm: false
+  //     }).lean();
   const building_damage = await Buildings.find({
     $or:[
       {$and: [
@@ -27,23 +57,30 @@ internals.adminUserView = async function (req, reply) {
     ]
   }).populate('school_id')
     .lean();
-    const room_damage = await Rooms.find({
+  const room_damage = await Rooms.find({
       $or:[
         {$and: [
-          {buildingCondition: "MAJOR DAMAGE"},
+          {roomCondition: "MAJOR DAMAGE"},
           {isDeleted:false}
         ]},
         {$and: [
-          {buildingCondition: "MINOR DAMAGE"},
+          {roomCondition: "MINOR DAMAGE"},
           {isDeleted:false}
         ]}
       ]
-    }).populate('school_id')
+    }).populate('school_id').populate('building_id')
       .lean();
-      const users = await Users.find({
+  const users = await Users.find({
         isConfirm: false
       }).lean();
-
+  
+  const request = await Request.find({
+    $or: [
+      {status: "REQUESTED"},
+      {status: "VERIFIED"},
+    ],
+  }).populate('school_id')
+  .lean();
 
   var users_data = {}; var schools_data = {};
 
@@ -84,18 +121,20 @@ internals.adminUserView = async function (req, reply) {
         schools_data,
         building_damage,
         room_damage,
+        users,
+        credentials: req.auth.credentials
       });
     }
   )
 };
 internals.confirmAccount = async (req, reply) => {
   try {
-    console.log('--------------------?>>>>>>', req.payload.userID);
+    // console.log('--------------------?>>>>>>', req.payload.userID);
     if (req.payload.confirm) {
       const data = await Users.findByIdAndUpdate(req.payload.userID, {
         isConfirm: true,
       }, { new: true });
-      console.log('----------->Updated here', data);
+      // console.log('----------->Updated here', data);
       email.sendEmail(data.email,"Your Account has successfully confirmed!")
     }
 

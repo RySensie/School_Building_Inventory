@@ -12,7 +12,7 @@ internals.profile = async function (req, reply) {
   const school_info = await Schools.find({
     _id: req.auth.credentials.school_id
   }).lean(); 
-    console.log('========?>>>>', school_info); 
+    // console.log('========?>>>>', school_info); 
      return reply.view('schoolAd/profile/profile.html', {
       school_info,
       credentials: req.auth.credentials,

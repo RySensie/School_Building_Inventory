@@ -10,7 +10,7 @@ var Async = require('async');
 internals.transport = function (req, reply) { 
   var access_data = {};
 
-  console.log('========>', req.auth.credentials);
+  // console.log('========>', req.auth.credentials);
   Async.series([
     function (callback) {
         Access.find({
@@ -47,7 +47,7 @@ internals.transportAdd =  async (req, reply) => {
         roadType: req.payload.roadType,
         transportation: req.payload.transportation,
         };
-    console.log('???????????>', payload);
+    // console.log('???????????>', payload);
     const access = await Access.create(payload);
         if(!access){
           return reply.redirect('/schoolAd/transport?message=Problem occured!&alertType=danger');

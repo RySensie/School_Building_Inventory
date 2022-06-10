@@ -13,7 +13,7 @@ const Furnitures = require("../../../database/models/furniture");
 const Users = require('../../../database/models/users');
 const Stand = require('../../../database/models/standAWateASanitation');
 const Access = require('../../../database/models/access');
-
+const Request = require("../../../database/models/request");
 var internals = {};
 
 var Async = require('async');
@@ -90,7 +90,7 @@ internals.adminSchool = async function (req, reply) {
    
   ],
     function (callback) {
-      console.log(schools_data)
+      // console.log(schools_data)
       reply.view('admin/schools/school.html', {
         schools_data,
         building_damage,
@@ -108,7 +108,7 @@ internals.adminSchoolDt = async (req, reply) => {
   try {
   //  console.log('-->', _id);
     const { id } = req.params;
-    console.log('-ssssssssssss->', id);
+    // console.log('-ssssssssssss->', id);
     const schools = await Schools.aggregate([
       {$match:{ _id: Mongoose.Types.ObjectId(req.params.id) }},
       {
@@ -276,7 +276,7 @@ const access = await Access.find({
   school_id: req.params.id,
   isDeleted: false
 }).lean();
-  console.log('resssssssss----->', allSWSF);
+  // console.log('resssssssss----->', allSWSF);
   const all = schools.map(data => ({...data, totalBuild: data.totalBuild.length, totalRoom: data.totalRoom.length,
                     totalStudent: data.totalStudent.length}))
   const total = makeshift[0]?.useMakeshift + temporary[0]?.useTemporary

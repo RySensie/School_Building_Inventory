@@ -100,7 +100,7 @@
                 <div class="form-row">
                   <div class="col-md-8 mb-2">
                     <label>School Name</label>
-                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolName">
+                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolName" required>
                       <option value="">CHOOSE SCHOOL</option>
                       {{#each list_data}}
                       <option value="{{this.schoolName}}">{{this.schoolName}}</option>
@@ -133,7 +133,7 @@
                   </div> -->
                   <div class="col-md-6 mb-3">
                     <label for="validationTooltip04">School Address</label>
-                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="address">
+                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="address" required>
                       <option value="">CHOOSE SCHOOL ADDRESS</option>
                       {{#each list_data}}
                       <option value="{{this.address}}">{{this.address}}</option>
@@ -144,7 +144,7 @@
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="validationTooltip05">School ID</label>
-                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolId">
+                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolId" required>
                       <option value="">CHOOSE SCHOOL ID</option>
                       {{#each list_data}}
                       <option value="{{this.schoolId}}">{{this.schoolId}}</option>

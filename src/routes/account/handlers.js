@@ -141,7 +141,7 @@ internals.createAccount = async (req, reply) => {
       email: req.payload.email,
       password: password,
     };
-    console.log("------>?", data);
+    // console.log("------>?", data);
     const {_id} = await Schools.create({ schoolName: data.schoolName, schoolId: data.schoolId, address: data.address });
     const user = await Users.create({ school_id: _id, firstname: data.firstname, lastname: data.lastname, email: data.email, password: data.password, scope: ['schoolAd'] });
     

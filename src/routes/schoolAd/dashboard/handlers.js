@@ -114,11 +114,11 @@ const request = await Request.find({
     ]},
     {$and: [
       {school_id: req.auth.credentials.school_id},
-      {status: 'APPROVED'}
+      {status: 'VERIFIED'}
     ]}
   ]
 }).lean();
-      console.log(roomRequest);
+      // console.log(roomRequest);
      const total = makeshift[0]?.useMakeshift + temporary[0]?.useTemporary
       reply.view('schoolAd/dashboard/dashboard.html', {
         totalBuilding,
@@ -149,7 +149,7 @@ internals.requestNew = async (req, reply) => {
     note: req.payload.note,
     status: req.payload.status,
   };
-  console.log(payload);
+  // console.log(payload);
   const reqNew = await Request.create(payload);
   return reply.redirect('/schoolAd/dashboard?message=Request successfuly created&alert=success');
 };

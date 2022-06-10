@@ -16,7 +16,7 @@ internals.student = function (req, reply) {
 
     var student_data = {};
   
-    console.log('========>', req.auth.credentials);
+    // console.log('========>', req.auth.credentials);
     Async.series([
       function (callback) {
         Students.find({
@@ -53,7 +53,7 @@ internals.studentAdd = (req, reply) => {
           yearlevel: req.payload.yearlevel,
           total: req.payload.total,
         }
-        console.log('=======> ', payload);
+        // console.log('=======> ', payload);
         var saveMe = new Students(payload);
         saveMe.save(function (err, data) {
           if (err) {

@@ -11,7 +11,7 @@ internals.buildings = function (req, reply) {
 
   var buildings_data = {};
 
-  console.log('========>', req.auth.credentials);
+  // console.log('========>', req.auth.credentials);
   Async.series([
     function (callback) {
       Buildings.find({
@@ -69,12 +69,12 @@ internals.add = async (req, reply) => {
     insuranceInfo: req.payload.insuranceInfo,
     status: req.payload.status,
   };
-  console.log(payload);
+  // console.log(payload);
   const building = await Buildings.create(payload);
   if(!building){
     return reply.redirect('/schoolAd/building?message=Problem occured!&alertType=danger');
   }
-  console.log(building);
+  // console.log(building);
   await Buildings.update({
     _id: building._id
   },{
@@ -91,12 +91,12 @@ internals.add = async (req, reply) => {
 };
 
 internals.buildingDetails = async (req, reply) => {
-  console.log('-------->', req.params.id)
+  // console.log('-------->', req.params.id)
   try {
     const { id } = req.params;
     const building = await Buildings.findById(id).lean();
     if (!building) throw new Error('Invalid ID');
-    console.log('IMAGESSSSSSSSSS', building);
+    // console.log('IMAGESSSSSSSSSS', building);
     reply.view("schoolAd/building/buildingdetails.html", {
       credentials: req.auth.credentials,
       message: req.query.message,
@@ -134,11 +134,11 @@ internals.buildingUpdate = async function (req, reply) {
     bookValue: req.payload.bookValue,
     insuranceInfo: req.payload.insuranceInfo
   };
-  console.log(req.payload.actual_img);
+  // console.log(req.payload.actual_img);
   const building = await Buildings.findOneAndUpdate({
     _id: req.payload.edit_id
   },{$set: payload}).lean();
-  console.log(building);
+  // console.log(building);
   if(!building){
     return reply.redirect('/schoolAd/building?message=Problem occured!&alertType=danger');
   }
