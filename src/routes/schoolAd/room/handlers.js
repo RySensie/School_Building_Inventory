@@ -60,16 +60,45 @@ internals.room = function (req, reply) {
   )
 };
 
-//Update Rooms---------------------Update-----//
+//Edit Rooms---------------------Edit-----//
 internals.roomUpdate = async function (req, reply) {
   var payload = {
 
     roomNumber: req.payload.roomNumber,
-    roomCondition: req.payload.roomCondition,
     floor: req.payload.floor,
     actualUsage: req.payload.actualUsage,
     roomDimensionW: req.payload.roomDimensionW,
     roomDimensionL: req.payload.roomDimensionL
+  };
+  // console.log(req.payload.actual_img);
+  const rooms = await Rooms.findOneAndUpdate({
+    _id: req.payload.edit_id 
+  },{$set: payload}).lean();
+  // console.log(rooms);
+  if(!rooms){
+    return reply.redirect('/schoolAd/room/' + req.params.building_id);
+  }
+  if(!_.isEmpty(req.payload.actual_img)){
+    upload.photo(req.payload.actual_img, 'ROOM', rooms._id);
+  }
+
+  return reply.redirect('/schoolAd/room/' + req.params.building_id);
+};
+//Update Rooms---------------------Update-----//
+internals.conditionUpdate = async function (req, reply) {
+  var payload = {
+    roomCondition: req.payload.roomCondition,
+    percentage: req.payload.percentage,
+    door: req.payload.door,
+    window: req.payload.window,
+    flooring: req.payload.flooring,
+    beam: req.payload.beam,
+    column: req.payload.column,
+    board: req.payload.board,
+    wall: req.payload.wall,
+    ceiling: req.payload.ceiling,
+    toilet: req.payload.toilet,
+    electric: req.payload.electric,
   };
   // console.log(req.payload.actual_img);
   const rooms = await Rooms.findOneAndUpdate({

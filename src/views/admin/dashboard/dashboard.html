@@ -136,7 +136,21 @@
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class="mb-0">BUILDING DAMAGE REQUEST</h3>
+                <h3 class="mb-0">DAMAGE BUILDING</h3>
+              </div>
+            </div>
+          </div>
+          <div class="chart">
+            <canvas id="myChart1"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col-xl-12 text-center">
+                <h3 class="">BUILDING DAMAGE REQUEST</h3>
               </div>
               <!-- <div class="col text-right">
                 <a href="/admin/school" class="btn btn-sm btn-primary">See all</a>
@@ -144,21 +158,21 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table align-items-center table-flush">
+            <table class="table align-items-center table-flush" id="breq">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Building Number</th>
+                  <!-- <th scope="col">Building Number</th> -->
                   <th scope="col">School</th>
-                  <th scope="col">Condition</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Note</th>
+                  <!-- <th scope="col">Condition</th> -->
+                  <th scope="col">Level of Damage</th>
+                  <!-- <th scope="col">Note</th> -->
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {{#each building_damage}}
-                <tr>
-                  <td scope="row">
+                <tr class="">
+                  <!-- <td scope="row">
                     <div class="media align-items-center">
                       <a class="avatar rounded-circle mr-3">
                         <img alt="Image placeholder" src="{{this.actual_img}}">
@@ -168,12 +182,12 @@
                           class="name mb-0 text-sm">{{this.buildingNumber}}</a>
                       </div>
                     </div>
-                  </td>
+                  </td> -->
                   <!-- <td scope="row">{{this.buildingNumber}}</td> -->
                   <td scope="row">{{this.school_id.schoolName}}</td>
-                  <td class="text-danger">{{this.buildingCondition}}</td>
-                  <td class="text-danger">{{this.status}}</td>
-                  <td class="">{{this.note}}</td>
+                  <!-- <td class="text-danger">{{this.buildingCondition}}</td> -->
+                  <td class="text-danger text-center">{{this.percentage}}%</td>
+                  <!-- <td class="">{{this.note}}</td> -->
                   <td class="">
                     <button class="btn btn-sm btn-info requestBtn"
                       data-id="{{this._id}}" data-img="{{this.actual_img}}"
@@ -195,12 +209,12 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-12">
+      <div class="col-xl-6">
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">ROOM DAMAGE REQUEST</h3>
+              <div class="col-sm-12 text-center">
+                <h3 class="">ROOM DAMAGE REQUEST</h3>
               </div>
               <!-- <div class="col text-right">
                 <a href="/admin/school" class="btn btn-sm btn-primary">See all</a>
@@ -208,21 +222,21 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table align-items-center table-flush">
+            <table class="table align-items-center table-flush" id="rreq">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Room Number</th>
+                  <!-- <th scope="col">Room Number</th> -->
                   <th scope="col">School</th>
-                  <th scope="col">Building Number</th>
-                  <th scope="col">Condition</th>
-                  <th scope="col">Status</th>
+                  <!-- <th scope="col">Building Number</th> -->
+                  <!-- <th scope="col">Condition</th> -->
+                  <th scope="col">Level of Damage</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {{#each room_damage}}
                 <tr>
-                  <td scope="row">
+                  <!-- <td scope="row">
                     <div class="media align-items-center">
                       <a class="avatar rounded-circle mr-3">
                         <img alt="Image placeholder" src="{{this.actual_img}}">
@@ -232,11 +246,11 @@
                           class="name mb-0 text-sm">{{this.roomNumber}}</a>
                       </div>
                     </div>
-                  </td>
+                  </td> -->
                   <td scope="row">{{this.school_id.schoolName}}</td>
-                  <td class="">{{this.building_id.buildingNumber}}</td>
-                  <td class="text-danger">{{this.roomCondition}}</td>
-                  <td class="text-danger">{{this.status}}</td>
+                  <!-- <td class="">{{this.building_id.buildingNumber}}</td> -->
+                  <!-- <td class="text-danger">{{this.roomCondition}}</td> -->
+                  <td class="text-danger text-center">{{this.percentage}}%</td>
                   <td class="">
                     <button class="btn btn-sm btn-info requestBtn1" 
                       data-id="{{this._id}}"
@@ -267,17 +281,17 @@
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">OTHER REQUEST</h3>
+              <div class="col-sm-12 text-center">
+                <h3 class="">OTHER REQUEST</h3>
               </div>
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table align-items-center table-flush">
+            <table class="table align-items-center table-flush" id="req">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">School Name</th>
+                  <th scope="col">School</th>
+                  <th scope="col">Request</th>
                   <th scope="col">Specific Request</th>
                   <th scope="col">Status</th>
                   <th scope="col">Note</th>
@@ -287,15 +301,8 @@
               <tbody>
                 {{#each request}}
                 <tr>
-                  <td scope="row">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <a
-                          class="name mb-0 text-sm">{{this.name}}</a>
-                      </div>
-                    </div>
-                  </td>
                   <td scope="row">{{this.school_id.schoolName}}</td>
+                  <td scope="row">{{this.name}}</td>
                   <td class="">{{this.specific}}</td>
                   <td class="text-danger">{{this.status}}</td>
                   <td class="">{{this.note}}</td>
@@ -317,10 +324,10 @@
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">SUMMARY REPORTS</h3>
+              <div class="col-sm-7 text-right">
+                <h3 class="">SUMMARY REPORTS</h3>
               </div>
-              <div class="col text-right">
+              <div class="col-sm-5 text-right">
                 <a href="/admin/school" class="btn btn-primary btn-info"><span class="material-icons">
                   visibility
                 </span></a>
@@ -367,10 +374,10 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
 
       <div class="col-sm-12">
-        <!-- <div class="card">
+        <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
               <div class="col text-right">
@@ -380,10 +387,10 @@
           <div class="chart">
             <canvas id="myChart"></canvas>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
-    <div class="col-xl-5"></div>
+    <div class="col-xl-5"></div> -->
   </div>
 </div>
 </div>
@@ -630,18 +637,20 @@
 <script src="https://www.jsdelivr.com/package/npm/chart.js"></script>
 <!-- chart script -->
 <script>
-
   chartBar();
   chartPie();
+  
+
 
   function chartBar() {
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+    const ctx = document.getElementById('myChart1').getContext('2d');
+    const myChart1 = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange',
+              'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
-          label: '# of Votes',
+          label: '# of Damage',
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
             'rgba(255, 99, 132)',
@@ -712,6 +721,30 @@
     });
   }
 </script>
+    <!-- ****************************datatables script************************************************** -->
+    <script>
+      $(document).ready(function() {
+      $('#breq').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+          ]
+      } );
+    } );
+    $(document).ready(function() {
+      $('#rreq').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+          ]
+      } );
+    } );
+    $(document).ready(function() {
+      $('#req').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+          ]
+      } );
+    } );
+  </script>
 <!-- DATA TABLES SCRIPT -->
 <script>
   $(document).ready(function () {

@@ -95,7 +95,7 @@
                     <span style="text-transform: uppercase;">{{this.buildingCondition}}</span>
                   </td>
                   <td>
-                    <span style="text-transform: uppercase;">{{toUpper this.fundSource}}</span>
+                    <span style="text-transform: uppercase;">{{ this.fundSource}}</span>
                   </td>
                   <td>
                     <span style="text-transform: uppercase;">{{this.specificFundSource}}</span>
@@ -155,7 +155,7 @@
                           data-insuranceInfo="{{this.insuranceInfo}}" data-pwdAccessible="{{this.pwdAccessible}}"
                           data-undergoneMajorRepair="{{this.undergoneMajorRepair}}"
                           data-certificateOfAcceptance="{{this.certificateOfAcceptance}}"
-                          data-includeDepedBook="{{this.includeDepedBook}}">Update</a>
+                          data-includeDepedBook="{{this.includeDepedBook}}">EDIT BUILDING</a>
 
                         <!-- <a class="dropdown-item deleteBtn" data-id="{{this._id}}">Delete Building</a> -->
                       </div>
@@ -608,7 +608,7 @@
                   <input type="text" id="buildingNumber_edit" value="buildingNumber_edit" class="form-control" name="buildingNumber"  />
                 </div>
               </div>
-              <div class="col-lg-6">
+              <!-- <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label" for="buildingCondition">BUILDING CONDITION</label>
                   <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
@@ -628,7 +628,7 @@
                     <option>ON GOING CONSTRUCTION</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
               <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label" for="input-city">FUND SOURCE</label>
@@ -696,7 +696,7 @@
                   <input style="text-transform: uppercase;" type="text" id="buildingType" class="form-control" name="buildingType"  /> -->
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label" for="numberOfStorey">NUMBER OF STOREY</label>
                   <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
@@ -709,7 +709,7 @@
                   <input type="number" id="numberOfStorey_edit" value="numberOfStorey_edit" class="form-control" name="numberOfStorey"  />
                 </div>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <label class="form-control-label" for="numberOfRooms">NUMBER OF ROOMS</label>
                   <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus"
@@ -1197,7 +1197,7 @@
   $('#tangene').DataTable( {
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+          'copy', 'excel', 'print'
       ]
   } );
 } );

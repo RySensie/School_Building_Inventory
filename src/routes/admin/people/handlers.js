@@ -48,10 +48,12 @@ internals.adminUserView = async function (req, reply) {
     $or:[
       {$and: [
         {buildingCondition: "MAJOR DAMAGE"},
+        {status: "REQUESTED"},
         {isDeleted:false}
       ]},
       {$and: [
         {buildingCondition: "MINOR DAMAGE"},
+        {status: "REQUESTED"},
         {isDeleted:false}
       ]}
     ]
@@ -61,10 +63,12 @@ internals.adminUserView = async function (req, reply) {
       $or:[
         {$and: [
           {roomCondition: "MAJOR DAMAGE"},
+          {status: "REQUESTED"},
           {isDeleted:false}
         ]},
         {$and: [
           {roomCondition: "MINOR DAMAGE"},
+          {status: "REQUESTED"},
           {isDeleted:false}
         ]}
       ]
@@ -130,13 +134,12 @@ internals.adminUserView = async function (req, reply) {
 internals.confirmAccount = async (req, reply) => {
   try {
     // console.log('--------------------?>>>>>>', req.payload.userID);
-    if (req.payload.confirm) {
-      const data = await Users.findByIdAndUpdate(req.payload.userID, {
+      const data = await Users.findByIdAndUpdate(req.payload.id, {
         isConfirm: true,
       }, { new: true });
       // console.log('----------->Updated here', data);
       email.sendEmail(data.email,"Your Account has successfully confirmed!")
-    }
+    
 
     reply.redirect('/admin/people');
   } catch (error) {

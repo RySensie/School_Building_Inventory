@@ -110,7 +110,7 @@ internals.signup = function (req, reply) {
             console.log(err)
           }
           list_data = data;
-          //console.log(data)
+          console.log(data)
           return callback(null);
         })
     },

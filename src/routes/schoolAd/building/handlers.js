@@ -1,14 +1,17 @@
 'use strict';
 
-var internals = {},
-  Buildings = require("../../../database/models/building");
-  var Sharp = require('sharp');
+
+const  Buildings = require("../../../database/models/building");
+const  Rooms = require("../../../database/models/room");
+const  BCondition = require("../../../database/models/bConditionForm");
+
+var internals = {};
+var Sharp = require('sharp');
 var Async = require('async');
 var upload  = require('../../../lib/upload_photo');
 var _ = require('lodash');
 
 internals.buildings = function (req, reply) {
-
   var buildings_data = {};
 
   // console.log('========>', req.auth.credentials);
@@ -94,6 +97,42 @@ internals.buildingDetails = async (req, reply) => {
   // console.log('-------->', req.params.id)
   try {
     const { id } = req.params;
+
+    const RoomDamage = await Rooms.find({
+      $or:[
+        {$and: [
+          {building_id: id},
+          {roomCondition: "MAJOR DAMAGE"},
+          {isDeleted:false}
+        ]},
+        {$and: [
+          {building_id: id},
+          {roomCondition: "MINOR DAMAGE"},
+          {isDeleted:false}
+        ]}
+      ]
+    }).lean();
+    const statMajor = await Rooms.countDocuments({
+      building_id: id,
+      roomCondition: "MAJOR DAMAGE",
+      isDeleted: false
+    }).lean();
+
+    const statMinor = await Rooms.countDocuments({
+      building_id: id,
+      roomCondition: "MINOR DAMAGE",
+      isDeleted: false 
+    }).lean();
+
+    const allRoom = await Rooms.countDocuments({
+      building_id: id,
+      isDeleted: false
+    }).lean();
+
+    let statAll = (statMajor + statMinor)/allRoom*40;
+    let perall =  statAll.toFixed(2)
+    console.log('------->>>>>', perall);
+
     const building = await Buildings.findById(id).lean();
     if (!building) throw new Error('Invalid ID');
     // console.log('IMAGESSSSSSSSSS', building);
@@ -102,6 +141,8 @@ internals.buildingDetails = async (req, reply) => {
       message: req.query.message,
       alert: req.query.alert,
       building,
+      RoomDamage,
+      perall,
       building_id: req.params.id
       //:JSON.stringify(building,null,2)
     });
@@ -110,7 +151,7 @@ internals.buildingDetails = async (req, reply) => {
     reply.redirect("/schoolAd/building?message=Internal error! &alert=error");
   }
 };
-//-----------------Update Building---------------------//
+//-----------------Edit Building---------------------//
 internals.buildingUpdate = async function (req, reply) {
   var payload = {
     school_id: req.auth.credentials.school_id,
@@ -119,7 +160,7 @@ internals.buildingUpdate = async function (req, reply) {
     buildingType: req.payload.buildingType,
     fundSource: req.payload.fundSource,
     specificFundSource: req.payload.specificFundSource,
-    buildingCondition: req.payload.buildingCondition,
+    // buildingCondition: req.payload.buildingCondition,
     numberOfStorey: req.payload.numberOfStorey,
     numberOfRooms: req.payload.numberOfRooms,
     yearCompleted: req.payload.yearCompleted,
@@ -147,6 +188,33 @@ internals.buildingUpdate = async function (req, reply) {
   }
 
   return reply.redirect('/schoolAd/building?message=successfully updated&alertType=success');
+};
+//-----------------Condition Update Building---------------------//
+internals.conditionUpdate = async function (req, reply) {
+  var payload = {
+    school_id: req.auth.credentials.school_id,
+    percentage: req.payload.percentage,
+    buildingCondition: req.payload.buildingCondition,
+    roof: req.payload.roof,
+    paint: req.payload.paint,
+    ceiling: req.payload.ceiling,
+    wall: req.payload.wall,
+    crack: req.payload.crack,
+
+  };
+  console.log(req.payload);
+  const building = await Buildings.findOneAndUpdate({
+    _id: req.payload.edit_id
+  },{$set: payload}).lean();
+  // console.log(building);
+  if(!building){
+    return reply.redirect('/schoolAd/building/Details/' + req.params.building_id);
+  }
+  if(!_.isEmpty(req.payload.actual_img)){
+    upload.photo(req.payload.actual_img, 'ACTUAL', building._id);
+  }
+
+  return reply.redirect('/schoolAd/building/Details/' + req.params.building_id);
 };
 //------------------Delete building-----------------//
 // internals.buildingDelete = function (req, reply) {

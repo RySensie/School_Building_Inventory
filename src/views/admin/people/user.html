@@ -47,7 +47,12 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <div class="custom-control custom-switch">
+                                      <button class="btn btn-sm btn-success confirmBtn"
+                                        data-id="{{this._id}}"
+                                        ><span class="material-icons">
+                                          thumb_up_alt
+                                        </span></button>
+                                        <!-- <div class="custom-control custom-switch">
                                             <form action="/admin/people/confirm" method="POST">
                                                 <input type="hidden" name="userID" value="{{_id}}">
                                                 <input type="checkbox" name="confirm" class="custom-control-input"
@@ -56,20 +61,8 @@
                                                     Account</label>
                                                 <button class="btn btn-primary btn-sm" type="submit">Confirm</button>
                                             </form>
-                                        </div>
+                                        </div> -->
                                     </td>
-                                    <!-- <td class="text-right">
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="" data-toggle="modal"
-                                                    data-target="#exampleModal">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td> -->
                                 </tr>
                                 {{/each}}
                             </tbody>
@@ -81,28 +74,39 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+<!-- **************************** REQUEST APPROVED BUILDING Modal ****************************** -->
+<div class="modal fade confirmModal" data-backdrop="static">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header flex-column">
+          <div class="icon-box">
+            <i class="material-icons">thumb_up</i>
+          </div>
+          <h4 class="modal-title w-100">Are you sure?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         </div>
+        <form action="/admin/people/confirm" method="POST">
+          <div class="modal-body">
+  
+            <p>Do you really want to Confirm this account? This process cannot be undone.</p>
+            <input type="hidden" id="_id" name="id">
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
-
+  </div>
+<!-- ****************************request building script************************************************** -->
+<script>
+    $('.confirmBtn').click(function () {
+  
+      $('#_id').val($(this).attr('data-id'));
+      $('.confirmModal').modal('show');
+    });
+  </script>
 <script>
     $(document).ready(function () {
         $('#tangene').DataTable();

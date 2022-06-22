@@ -19,17 +19,17 @@ internals.endpoints = [
     },
   },
 },
-{
-  method: ['POST'],
-  path: '/schoolAd/buildingWSF/add/{building_id}',
-  handler: Handlers.buildingWSF_add,
-  config: {
-    auth: {
-      strategy: 'standard',
-      scope: ['schoolAd']
-    },
-  },
-},
+// {
+//   method: ['POST'],
+//   path: '/schoolAd/buildingWSF/add/{building_id}',
+//   handler: Handlers.buildingWSF_add,
+//   config: {
+//     auth: {
+//       strategy: 'standard',
+//       scope: ['schoolAd']
+//     },
+//   },
+// },
 {
   method: ['POST'],
   path: '/schoolAd/buildingWSF/update/{building_id}',

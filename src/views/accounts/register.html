@@ -88,10 +88,9 @@
 
               <form class="needs-validation" method="POST" action="/signup" enctype="multipart/form-data" nonvalidate>
                 <div class="form-row">
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <center>
-                      <img class="img-thumbnail" id="logoResult"
-                        class="rounded-circle" />
+                      <img class="img-thumbnail" id="logoResult" />
                     </center>
                     <input id="uploads" name="logo" type="file" accept=".jpg,.jpeg" onchange="readURLs(this);"
                       class="form-control border-0" required />
@@ -101,9 +100,9 @@
                   <div class="col-md-8 mb-2">
                     <label>School Name</label>
                     <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolName" required>
-                      <option value="">CHOOSE SCHOOL</option>
+
                       {{#each list_data}}
-                      <option value="{{this.schoolName}}">{{this.schoolName}}</option>
+                      <option data-schoolID="{{this.schoolId}}" data-address="{{this.address}}" value="{{this._id}}">{{this.schoolName}}</option>
                       {{/each}}
                     </select>
                   </div>
@@ -133,23 +132,26 @@
                   </div> -->
                   <div class="col-md-6 mb-3">
                     <label for="validationTooltip04">School Address</label>
-                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="address" required>
+                    <input type="text" class="form-control" id="address" value="Address" placeholder="" name="address"
+                      required readonly>
+                    <!-- <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="address" required>
                       <option value="">CHOOSE SCHOOL ADDRESS</option>
                       {{#each list_data}}
                       <option value="{{this.address}}">{{this.address}}</option>
                       {{/each}}
-                    </select>
+                    </select> -->
                     <!-- <input type="text" class="form-control" id="validationTooltip04" placeholder="" name="address"
                       required> -->
                   </div>
                   <div class="col-md-6 mb-3">
                     <label for="validationTooltip05">School ID</label>
-                    <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolId" required>
+                    <input type="text" class="form-control" id="schoolID" placeholder="" name="schoolId" required readonly>
+                    <!-- <select class='form-control fstdropdown-select' searchdisable="true" id="second" name="schoolId" required>
                       <option value="">CHOOSE SCHOOL ID</option>
                       {{#each list_data}}
                       <option value="{{this.schoolId}}">{{this.schoolId}}</option>
                       {{/each}}
-                    </select>
+                    </select> -->
                     <!-- <input type="number" class="form-control" id="validationTooltip05" placeholder="" name="schoolId"
                       required> -->
                   </div>
@@ -264,11 +266,11 @@
       infoArea.textContent = "File name: " + fileName;
     }
   </script>
-<!-- UPLAOD  LOGO Image -->
-<script>
-  /*  ==========================================
-      SHOW UPLOADED IMAGE
-  * ========================================== */
+  <!-- UPLAOD  LOGO Image -->
+  <script>
+    /*  ==========================================
+        SHOW UPLOADED IMAGE
+    * ========================================== */
     function readURLs(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -300,8 +302,8 @@
       infoArea.textContent = "File name: " + fileName;
     }
   </script>
-  
- <!------------------------
+
+  <!------------------------
    SELECT WITH DROPDOWN 
   ------------------------->
   <script>
@@ -339,4 +341,15 @@
     function updateDrop() {
       document.getElementById("fourth").fstdropdown.rebind();
     }
+  </script>
+  <!-- **************************** get select script ****************************** -->
+  <script>
+    $('#second').on('change', function() {
+      var address = $(this).find(":selected").attr('data-address');
+      var schoolID = $(this).find(":selected").attr('data-schoolId');
+      $("#address").val(address);
+      $("#schoolID").val(schoolID);
+
+     
+    });
   </script>

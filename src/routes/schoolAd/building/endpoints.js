@@ -54,6 +54,17 @@ internals.endpoints = [
   },
   {
     method: ['POST'],
+    path: '/schoolAd/building/conditionUpdate',
+    handler: Handlers.conditionUpdate,
+    config: {
+      auth: {
+        strategy: 'standard',
+        scope: ['schoolAd']
+      },
+    },
+  },
+  {
+    method: ['POST'],
     path: '/schoolAd/building/update',
     handler: Handlers.buildingUpdate,
     config: {

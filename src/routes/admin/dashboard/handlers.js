@@ -103,6 +103,7 @@ internals.adminDashboard = async (req, reply) => {
     //   }
     // }
   ])
+  
   // console.log('resssssssss', all);
   const p = all.map(data => ({...data, 
                   total_rooms: data.totalRoom.length,
@@ -117,10 +118,12 @@ internals.adminDashboard = async (req, reply) => {
     $or:[
       {$and: [
         {buildingCondition: "MAJOR DAMAGE"},
+        {status: "REQUESTED"},
         {isDeleted:false}
       ]},
       {$and: [
         {buildingCondition: "MINOR DAMAGE"},
+        {status: "REQUESTED"},
         {isDeleted:false}
       ]}
     ]
@@ -130,10 +133,12 @@ internals.adminDashboard = async (req, reply) => {
       $or:[
         {$and: [
           {roomCondition: "MAJOR DAMAGE"},
+          {status: "REQUESTED"},
           {isDeleted:false}
         ]},
         {$and: [
           {roomCondition: "MINOR DAMAGE"},
+          {status: "REQUESTED"},
           {isDeleted:false}
         ]}
       ]

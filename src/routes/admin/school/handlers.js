@@ -29,31 +29,43 @@ internals.adminSchool = async function (req, reply) {
     $or:[
       {$and: [
         {buildingCondition: "MAJOR DAMAGE"},
+        {status: "REQUESTED"},
         {isDeleted:false}
       ]},
       {$and: [
         {buildingCondition: "MINOR DAMAGE"},
+        {status: "REQUESTED"},
         {isDeleted:false}
       ]}
     ]
   }).populate('school_id')
     .lean();
-    const room_damage = await Rooms.find({
+  const room_damage = await Rooms.find({
       $or:[
         {$and: [
-          {buildingCondition: "MAJOR DAMAGE"},
+          {roomCondition: "MAJOR DAMAGE"},
+          {status: "REQUESTED"},
           {isDeleted:false}
         ]},
         {$and: [
-          {buildingCondition: "MINOR DAMAGE"},
+          {roomCondition: "MINOR DAMAGE"},
+          {status: "REQUESTED"},
           {isDeleted:false}
         ]}
       ]
-    }).populate('school_id')
+    }).populate('school_id').populate('building_id')
       .lean();
-      const users = await Users.find({
+  const users = await Users.find({
         isConfirm: false
       }).lean();
+  
+  const request = await Request.find({
+    $or: [
+      {status: "REQUESTED"},
+      {status: "VERIFIED"},
+    ],
+  }).populate('school_id')
+  .lean();
 
   Async.series([
     // function (callback) {

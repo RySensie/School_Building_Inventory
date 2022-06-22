@@ -17,6 +17,7 @@ internals.dashboard = async function (req, reply) {
       const school_id = req.auth.credentials.school_id;
       const totalBuilding = await Buildings.countDocuments({school_id});
       const totalRoom = await Rooms.countDocuments({school_id});
+
       //const totalStdents = await Students.countDocuments({school_id});
       //const totalRoom = await Rooms.countDocuments({building_id})
     //   const totalRooms = await Rooms.aggregate([
@@ -30,6 +31,18 @@ internals.dashboard = async function (req, reply) {
     //     },
     //     }, 
     // ])
+
+      const separateRoom = await Rooms.aggregate([
+        {$group: {
+                  _id: "$building_id",
+                   roomCondition: { $push: "$roomCondition" },
+        }
+        }
+    ])
+    // separateRoom.forEach(v=> v.separateRoom)
+
+    console.log('-------->>>>>>', separateRoom);
+
       const students = await Students.aggregate(
         [ {$match:{ school_id: Mongoose.Types.ObjectId(req.auth.credentials.school_id)}},
           {
@@ -66,6 +79,7 @@ internals.dashboard = async function (req, reply) {
       }
     ]
  );
+
 //  const buildDamage = await Buildings.aggregate([ 
 //   { $match : { 
 //     $and:[
@@ -81,6 +95,7 @@ internals.dashboard = async function (req, reply) {
 //   { $match : { buildingCondition: "MINOR DAMAGE"}},
   
 // ]);
+
 const buildingRequest = await Buildings.find({
   $or:[
     {$and: [

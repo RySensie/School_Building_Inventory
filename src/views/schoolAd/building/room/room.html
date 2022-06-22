@@ -65,7 +65,7 @@
                         <img alt="Image placeholder" src="{{this.actual_img}}">
                       </a>
                       <div class="media-body">
-                        <a href="/schoolAd/building/Details/{{_id}}" class="name mb-0 text-sm">{{this.roomNumber}}</a>
+                        <a class="name mb-0 text-sm">{{this.roomNumber}}</a>
                       </div>
                     </div>
                   </td>
@@ -101,12 +101,13 @@
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item editBtn" 
-                          data-id="{{this._id}}" 
-                          data-actual_img="{{this.actual_img}}" data-roomNumber="{{this.roomNumber}}"
-                          data-roomCondition="{{this.roomCondition}}" data-actualUsage="{{this.actualUsage}}"
-                          data-floor="{{this.floor}}" data-roomDimensionW="{{this.roomDimensionW}}"
-                          data-roomDimensionL="{{this.roomDimensionL}}">Update</a>
+                        <a class="dropdown-item editBtn" data-id="{{this._id}}" data-actual_img="{{this.actual_img}}"
+                          data-roomNumber="{{this.roomNumber}}" data-roomCondition="{{this.roomCondition}}"
+                          data-actualUsage="{{this.actualUsage}}" data-floor="{{this.floor}}"
+                          data-roomDimensionW="{{this.roomDimensionW}}"
+                          data-roomDimensionL="{{this.roomDimensionL}}">Edit Room</a>
+                        <a class="dropdown-item updateBtn" data-id="{{this._id}}" data-actual_img="{{this.actual_img}}"
+                          data-roomCondition="{{this.roomCondition}}">Update Condition</a>
                         <a class="dropdown-item deleteBtn1" data-id="{{this._id}}">Delete</a>
                       </div>
                     </div>
@@ -171,7 +172,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}" required>
+            <input class="form-control" name="roomNumber" type="number" min="1" max="{{buildings_data.numberOfRooms}}"
+              required>
           </div>
           <div class="form-group text-black">
             <label for="presentCampus">Room Condition</label>
@@ -199,7 +201,8 @@
                 help_outline
               </span>
             </a>
-            <input class="form-control" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}" required>
+            <input class="form-control" name="floor" type="number" min="1" max="{{buildings_data.numberOfStorey}}"
+              required>
           </div>
           <div class="form-group">
             <label for="presentCampus">Actual Usage</label>
@@ -216,8 +219,7 @@
           <div class="form-group">
             <label for="presentCampus">Room Dimension Width</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-              data-placement="top"
-              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side
+              data-placement="top" data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the side
                of the chalkboard while length refers to the side of the window.">
               <span class="material-icons">
                 help_outline
@@ -228,8 +230,7 @@
           <div class="form-group">
             <label for="presentCampus">Room Dimension Lenght </label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-              data-placement="top"
-              data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the 
+              data-placement="top" data-content="Refers to the size of a room specifying the width and length (WxL). Width refers to the 
               side of the chalkboard while length refers to the side of the window.">
               <span class="material-icons">
                 help_outline
@@ -251,7 +252,7 @@
   </div>
 </div>
 
-<!-- **************************** Update Modal ****************************** -->
+<!-- **************************** Edit room Modal ****************************** -->
 <div class="modal fade updateModal" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -381,6 +382,201 @@
     </div>
   </div>
 </div>
+<!-- **************************** Update room condition Modal ****************************** -->
+<div class="modal fade updateRoom" tabindex="-1" data-backdrop="static" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="card-header">
+          <div class="row align-items-center">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row border border-dark">
+              <div class="col-sm-12">
+                <h2 class="text-center"> Room Condition Form <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top" data-content="Upload actual photo of the building.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
+              </h2>
+                
+              </div>
+              <div class="col-sm-4 mb-3 mt-2">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="DOOR"  id="door">
+                  <label class="form-check-label" for="defaultCheck1">
+                    DOOR
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3 mt-2">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="WINDOW" id="window">
+                  <label class="form-check-label" for="defaultCheck1">
+                    WINDOW
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3 mt-2">
+                <div class="form-check">
+                  <input class="form-check-input prc" type="checkbox" value="FLOORING" id="flooring">
+                  <label class="form-check-label" for="defaultCheck1">
+                    FLOORING
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <div class="form-check">
+                  <input class="form-check-input prc" type="checkbox" value="BEAMS" id="beams">
+                  <label class="form-check-label" for="defaultCheck1">
+                    BEAMS
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="COLUMNS" id="columns">
+                  <label class="form-check-label" for="defaultCheck1">
+                    COLUMNS
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <div class="form-check">
+                  <input class="form-check-input prc" type="checkbox" value="BOARD" id="board">
+                  <label class="form-check-label" for="defaultCheck1">
+                    BOARD
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="WALL" id="wall">
+                  <label class="form-check-label" for="defaultCheck1">
+                   WALL
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="CEILING" id="ceiling">
+                  <label class="form-check-label" for="defaultCheck1">
+                    CEILING
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4 mb-3">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="TOILET" id="toilet">
+                  <label class="form-check-label" for="defaultCheck1">
+                    TOILET
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-check ">
+                  <input class="form-check-input prc" type="checkbox" value="ELECTRICAL COMPONENTS" id="electrical">
+                  <label class="form-check-label" for="defaultCheck1">
+                    ELECTRICAL COMPONENTS
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-12  text-center mt-4 mb-4"><button type="button" class="btn btn-sm btn-primary"
+                  onclick="myFunction()">Next</button></div>
+            </div>
+          </div>
+          <div class="col-sm-12 mt-5">
+            <h2 class="text-center">ROOM CONDITION UPDATE</h2>
+            
+            <form role="form" method="POST" action="/schoolAd/room/conditionUpdate/{{building_id}}"
+              enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <input type="text" name="edit_id" id="_id" class="form-control" hidden>
+
+                    <input type="text" name="door" id="Vd" class="form-control" hidden>
+                    <input type="text" name="window" id="Vw" class="form-control" hidden>
+                    <input type="text" name="flooring" id="Vf" class="form-control" hidden>
+                    <input type="text" name="beam" id="Vb" class="form-control" hidden>
+                    <input type="text" name="column" id="Vc" class="form-control" hidden>
+                    <input type="text" name="board" id="Vbrd" class="form-control" hidden>
+                    <input type="text" name="wall" id="Vwll" class="form-control" hidden>
+                    <input type="text" name="ceiling" id="Vcl" class="form-control" hidden>
+                    <input type="text" name="toilet" id="Vt" class="form-control" hidden>
+                    <input type="text" name="electric" id="Ve" class="form-control" hidden>
+
+                    <label class="form-control-label">ACTUAL PHOTO</label>
+                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                      data-placement="top" data-content="Upload actual photo of the building.">
+                      <span class="material-icons">
+                        help_outline
+                      </span></a>
+                    <img class="img-thumbnail" id="imgs_edit" class="rounded-circle" />
+                    <input id="upload6" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL4(this);"
+                      class="form-control border-0" required />
+                  </div>
+                </div>
+                <div class="col-sm-6"></div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" id="recommed" value="" name="roomNumber" type="text" readonly>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="form-group text-black">
+                    <label for="presentCampus">Damage Percentage</label>
+                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                      data-placement="top" data-content="Refers to the current physical state of a room.">
+                      <span class="material-icons">
+                        help_outline
+                      </span>
+                    </a>
+                    <input class="form-control" id="percentage" value="" name="percentage" type="number" readonly>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group text-black">
+                    <label for="presentCampus">Room Condition</label>
+                    <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                      data-placement="top" data-content="Refers to the current physical state of a room.">
+                      <span class="material-icons">
+                        help_outline
+                      </span>
+                    </a>
+                    <select id="roomConditions_edit" name="roomCondition" class="form-control">
+                      <option selected value="roomConditions_edit"></option>
+                      <option>GOOD CONDITION</option>
+                      <option>MINOR DAMAGE</option>
+                      <option>MAJOR DAMAGE</option>
+                      <option>CONDEMNED/DEMOLATION</option>
+                      <option>COMPLETION</option>
+                      <option>ON GOING CONSTRUCTION</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 text-center">
+                  <button id="btn-save" type="submit" class="btn btn-primary">
+                    UPDATE
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- <div class="modal fade updateModal" data-backdrop="static" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -472,19 +668,29 @@
   </div>
 </div>
 
-<!-- update -->
+<!-- Edit room -->
 <script>
   $('.editBtn').click(function () {
     $('#edit_id').val($(this).attr('data-id'));
     $('#roomNumber_edit').val($(this).attr('data-roomNumber'));
     $('#roomCondition_edit').val($(this).attr('data-roomCondition'));
-    $("#img_edit").attr("src",$(this).attr('data-actual_img'));
+    $("#img_edit").attr("src", $(this).attr('data-actual_img'));
     $('#actualUsage_edit').val($(this).attr('data-actualUsage'));
     $('#floor_edit').val($(this).attr('data-floor'));
     $('#roomDimensionW_edit').val($(this).attr('data-roomDimensionW'));
     $('#roomDimensionL_edit').val($(this).attr('data-roomDimensionL'));
 
     $('.updateModal').modal('show');
+  });
+</script>
+<!-- update room condition -->
+<script>
+  $('.updateBtn').click(function () {
+    $('#_id').val($(this).attr('data-id'));
+    $('#roomConditions_edit').val($(this).attr('data-roomCondition'));
+    $("#imgs_edit").attr("src", $(this).attr('data-actual_img'));
+
+    $('.updateRoom').modal('show');
   });
 </script>
 <!-- Delete -->
@@ -526,7 +732,7 @@
 <!------------------------
    SELECT WITH DROPDOWN 
   ------------------------->
-<script>
+<!-- <script>
   function setDrop() {
     if (!document.getElementById('third').classList.contains("fstdropdown-select"))
       document.getElementById('third').className = 'fstdropdown-select';
@@ -561,8 +767,8 @@
   function updateDrop() {
     document.getElementById("fourth").fstdropdown.rebind();
   }
-</script>
-<!-- UPLAOD Image ACTUAL PHOTO-->
+</script> -->
+<!-- UPLAOD Add Image ACTUAL PHOTO-->
 <script>
   /*  ==========================================
     SHOW UPLOADED IMAGE
@@ -598,7 +804,7 @@
     infoArea.textContent = "File name: " + fileName;
   }
 </script>
-<!-- UPLAOD Image UPDATED ACTUAL PHOTO-->
+<!-- UPLAOD Image Edit ACTUAL PHOTO-->
 <script>
   /*  ==========================================
     SHOW UPLOADED IMAGE
@@ -608,7 +814,7 @@
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        $("#actual_img_edit").attr("src", e.target.result);
+        $("#img_edit").attr("src", e.target.result);
         $("#imgdatainput").val(e.target.result);
       };
       reader.readAsDataURL(input.files[0]);
@@ -632,5 +838,174 @@
     var input = event.srcElement;
     var fileName = input.files[0].name;
     infoArea.textContent = "File name: " + fileName;
+  }
+</script>
+<!-- UPLAOD Image UPDATED ACTUAL PHOTO-->
+<script>
+  /*  ==========================================
+    SHOW UPLOADED IMAGE
+* ========================================== */
+  function readURL4(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("#imgs_edit").attr("src", e.target.result);
+        $("#imgdatainput").val(e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $(function () {
+    $("#upload6").on("change", function () {
+      readURL4(input);
+    });
+  });
+
+  /*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+  var input = document.getElementById("upload6");
+  var infoArea = document.getElementById("upload-label");
+
+  input.addEventListener("change", showFileName);
+  function showFileName(event) {
+    var input = event.srcElement;
+    var fileName = input.files[0].name;
+    infoArea.textContent = "File name: " + fileName;
+  }
+</script>
+<script>
+  function myFunction() {
+  let Cdoor = $('#door').is(':checked');
+      if(Cdoor == true){
+          var door = 10;
+          var Doors = document.getElementById("door").value;
+      }
+      else{
+          var door = 0;
+          var Doors = "uncheck";
+      }
+      var doors = parseInt(door);
+  let Cwindow = $('#window').is(':checked');
+      if(Cwindow == true){
+          var window = 10;
+          var Windows = document.getElementById("window").value;
+      }
+      else{
+          var window = 0;
+          var Windows = "uncheck";
+      }
+      var windows = parseInt(window);
+  let Cflooring = $('#flooring').is(':checked');
+      if(Cflooring == true){
+          var flooring = 10;
+          var Floorings = document.getElementById("flooring").value;
+      }
+      else{
+          var flooring = 0;
+          var Floorings = "uncheck";
+      }
+      var floorings = parseInt(flooring);
+  let Cbeams = $('#beams').is(':checked');
+      if(Cbeams == true){
+          var beam = 10;
+          var Beams = document.getElementById("beams").value;
+      }
+      else{
+          var beam = 0;
+          var Beams = "uncheck";
+      }
+      var beams = parseInt(beam);
+  let Ccolumns = $('#columns').is(':checked');
+      if(Ccolumns == true){
+          var column = 10;
+          var Columns = document.getElementById("columns").value;
+      }
+      else{
+          var column = 0;
+          var Columns = "uncheck";
+      }
+      var columns = parseInt(column);
+      let Cboard = $('#board').is(':checked');
+      if(Cboard == true){
+          var board = 10;
+          var Boards = document.getElementById("board").value;
+      }
+      else{
+          var board = 0;
+          var Boards = "uncheck";
+      }
+      var boards = parseInt(board);
+  let Cwall = $('#wall').is(':checked');
+      if(Cwall == true){
+          var wall = 10;
+          var Walls = document.getElementById("wall").value;
+      }
+      else{
+          var wall = 0;
+          var Walls = "uncheck";
+      }
+      var walls = parseInt(wall);
+  let Cceiling = $('#ceiling').is(':checked');
+      if(Cceiling == true){
+          var ceiling = 10;
+          var Ceilings = document.getElementById("ceiling").value;
+      }
+      else{
+          var ceiling = 0;
+          var Ceilings = "uncheck";
+      }
+      var ceilings = parseInt(ceiling);
+  let Ctoilet = $('#toilet').is(':checked');
+      if(Ctoilet == true){
+          var toilet = 10;
+          var Toilets = document.getElementById("toilet").value;
+      }
+      else{
+          var toilet = 0;
+          var Toilets = "uncheck";
+      }
+      var toilets = parseInt(toilet);
+  let Celectrical = $('#electrical').is(':checked');
+      if(Celectrical == true){
+          var electrical = 10;
+          var Electricals = document.getElementById("electrical").value;
+      }
+      else{
+          var electrical = 0;
+          var Electricals = "uncheck";
+      }
+      var electricals = parseInt(electrical);
+ 
+  let total = doors + windows + floorings + beams + columns +
+              boards + walls + ceilings + toilets + electricals;
+
+  if(total==0){
+      var less = "The recommended room condition is Good Condition"
+  }
+  if(total<=40){
+      var less = "The recommended room condition is Minor Damage"
+  }
+  if(total>=41){
+      var less = "The recommended room condition is Major Damage"
+  }
+  console.log(total);
+
+  $("#percentage").val(total);
+  $("#recommed").val(less);
+
+  $("#Vd").val(Doors);
+  $("#Vw").val(Windows);
+  $("#Vf").val(Floorings);
+  $("#Vb").val(Beams);
+  $("#Vc").val(Columns);
+  $("#Vbrd").val(Boards);
+  $("#Vwll").val(Walls);
+  $("#Vcl").val(Ceilings);
+  $("#Vt").val(Toilets);
+  $("#Ve").val(Electricals);
+
   }
 </script>
