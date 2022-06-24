@@ -131,21 +131,7 @@
   <!-- Page content -->
   <div class="container-fluid mt--6">
     <div class="row">
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">DAMAGE BUILDING</h3>
-              </div>
-            </div>
-          </div>
-          <div class="chart">
-            <canvas id="myChart1"></canvas>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6">
+      <div class="col-xl-6 mt-7">
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
@@ -186,19 +172,19 @@
                   <!-- <td scope="row">{{this.buildingNumber}}</td> -->
                   <td scope="row">{{this.school_id.schoolName}}</td>
                   <!-- <td class="text-danger">{{this.buildingCondition}}</td> -->
-                  <td class="text-danger text-center">{{this.percentage}}%</td>
+                  <td class="text-danger">{{this.percentage}}%</td>
                   <!-- <td class="">{{this.note}}</td> -->
                   <td class="">
-                    <button class="btn btn-sm btn-info requestBtn"
-                      data-id="{{this._id}}" data-img="{{this.actual_img}}"
+                    <button class="btn btn-sm btn-primary requestBtn" data-id="{{this._id}}" data-img="{{this.actual_img}}"
                       data-num="{{this.buildingNumber}}" data-con="{{this.buildingCondition}}"
-                      data-stat="{{this.status}}" data-note="{{this.note}}"
+                      data-stat="{{this.status}}" data-note="{{this.note}}" data-percentage="{{this.percentage}}"
+                      data-roof="{{this.roof}}" data-paint="{{this.paint}}" data-wall="{{this.wall}}"
+                      data-ceiling="{{this.ceiling}}" data-crack="{{this.crack}}"
                       data-schlname="{{this.school_id.schoolName}}"><span class="material-icons">
                         visibility
                       </span></button>
-                    <button class="btn btn-sm btn-success approveBtn"
-                      data-id="{{this._id}}"
-                      ><span class="material-icons">
+                    <button class="btn btn-sm btn-success approveBtn" data-id="{{this._id}}"><span
+                        class="material-icons">
                         thumb_up_alt
                       </span></button>
                   </td>
@@ -209,7 +195,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-6">
+      <div class="col-xl-6 mt-7">
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
@@ -250,23 +236,22 @@
                   <td scope="row">{{this.school_id.schoolName}}</td>
                   <!-- <td class="">{{this.building_id.buildingNumber}}</td> -->
                   <!-- <td class="text-danger">{{this.roomCondition}}</td> -->
-                  <td class="text-danger text-center">{{this.percentage}}%</td>
+                  <td class="text-danger">{{this.percentage}}%</td>
                   <td class="">
-                    <button class="btn btn-sm btn-info requestBtn1" 
-                      data-id="{{this._id}}"
-                      data-img1="{{this.actual_img}}"
-                      data-rnum="{{this.roomNumber}}"
-                      data-rcon="{{this.roomCondition}}"
-                      data-rstat="{{this.status}}" 
-                      data-rnote="{{this.note}}"
-                      data-bnum="{{this.building_id.buildingNumber}}"
-                      data-flr="{{this.floor}}"
+                    <button class="btn btn-sm btn-primary requestBtn1" data-id="{{this._id}}"
+                      data-img1="{{this.actual_img}}" data-rnum="{{this.roomNumber}}" data-rcon="{{this.roomCondition}}"
+                      data-rstat="{{this.status}}" data-rnote="{{this.note}}"
+                      data-bnum="{{this.building_id.buildingNumber}}" data-flr="{{this.floor}}"
+                      data-percentage="{{this.percentage}}" data-door="{{this.door}}"
+                      data-window="{{this.window}}"  data-flooring="{{this.flooring}}"
+                      data-beam="{{this.beam}}"  data-column="{{this.column}}" data-board="{{this.board}}" 
+                      data-wall="{{this.wall}}" data-ceiling="{{this.ceiling}}" data-toilet="{{this.toilet}}"
+                      data-electric="{{this.electric}}"
                       data-rschlname="{{this.school_id.schoolName}}"><span class="material-icons">
                         visibility
                       </span></button>
-                    <button class="btn btn-sm btn-success approveBtn1"
-                      data-id2="{{this._id}}"
-                      ><span class="material-icons">
+                    <button class="btn btn-sm btn-success approveBtn1" data-id2="{{this._id}}"><span
+                        class="material-icons">
                         thumb_up_alt
                       </span></button>
                   </td>
@@ -307,9 +292,8 @@
                   <td class="text-danger">{{this.status}}</td>
                   <td class="">{{this.note}}</td>
                   <td class="">
-                    <button class="btn btn-sm btn-success approveBtn3"
-                      data-id3="{{this._id}}"
-                      ><span class="material-icons">
+                    <button class="btn btn-sm btn-success approveBtn3" data-id3="{{this._id}}"><span
+                        class="material-icons">
                         thumb_up_alt
                       </span></button>
                   </td>
@@ -328,9 +312,9 @@
                 <h3 class="">SUMMARY REPORTS</h3>
               </div>
               <div class="col-sm-5 text-right">
-                <a href="/admin/school" class="btn btn-primary btn-info"><span class="material-icons">
-                  visibility
-                </span></a>
+                <a href="/admin/school" class="btn btn-primary btn-primary"><span class="material-icons">
+                    visibility
+                  </span></a>
               </div>
             </div>
           </div>
@@ -374,23 +358,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col text-right">
-              </div>
-            </div>
-          </div>
-          <div class="chart">
-            <canvas id="myChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-5"></div> -->
   </div>
 </div>
 </div>
@@ -406,21 +373,57 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-xl-6">
+          <div class="col-xl-12 text-center mt-4">
+            <h2 class=""> BUILDING INFORMATION</h2>
+          </div>
+          <div class="col-xl-5">
             <input type="text" id="_id1" hidden>
             <img class="img-thumbnail" id="img_edit" />
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-6 pt-2">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-12 text-center mt-4">
+                <h3 class=""> BUILDING DAMAGES</h3>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="roof" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="paint" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="wall" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="cel" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="crk" readonly>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-xl-12 text-center mt-4">
+            <h3 class=""> BUILDING CONDITION</h3>
+          </div>
+          <div class="col-xl-6 pt-3">
             <label>School Name</label>
             <input class="form-control text-blue" type="text" name="" id="school" value="school" disabled>
           </div>
-        </div>
-        <div class="row">
           <div class="col-xl-4 pt-3">
             <label>Building Number</label>
             <input class="form-control text-blue" type="text" name="" id="num" value="num" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
+            <label>LEVEL OF DAMAGE</label>
+            <input class="form-control text-red" type="text" name="" id="per" readonly>
           </div>
           <div class="col-xl-4 pt-3">
             <label>Building Condition</label>
@@ -432,7 +435,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-8 pt-2">
+          <div class="col-xl-12 pt-2">
             <label for="exampleFormControlTextarea1">Note</label>
             <textarea class="form-control text-blue" id="note" aria-valuemax="note" rows="3" disabled></textarea>
           </div>
@@ -477,18 +480,71 @@
       </div>
       <div class="modal-body">
         <div class="row">
+          <div class="col-xl-12 text-center mt-4">
+            <h2 class=""> ROOM INFORMATION</h2>
+          </div>
           <div class="col-xl-6">
             <input type="text" id="_id1" hidden>
             <img class="img-thumbnail" id="img_edit1" />
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-6 pt-2">
+          <div class="col-xl-12">
+            <div class="row">
+              <div class="col-xl-12 text-center mt-4">
+                <h3 class=""> ROOM DAMAGES</h3>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="dr" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="wnd" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="flring" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="bm" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="clmn" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="brd" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="wll" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="ceil" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="toi" readonly>
+              </div>
+              <div class="col-sm-4"></div>
+              <div class="col-sm-4">
+                <label></label>
+                <input class="form-control text-blue" type="text" name="" id="elec" readonly>
+              </div>
+              <div class="col-sm-4"></div>
+            </div>
+          </div>
+          <div class="col-xl-12 text-center mt-4">
+            <h3 class=""> ROOM CONDITION</h3>
+          </div>
+          <div class="col-xl-6 pt-3">
             <label>School Name</label>
             <input class="form-control text-blue" type="text" name="" id="rschool" value="rschool" disabled>
           </div>
-        </div>
-        <div class="row">
           <div class="col-xl-4 pt-3">
             <label>Building Number</label>
             <input class="form-control text-blue" type="text" name="" id="bnum" value="bnum" disabled>
@@ -497,8 +553,6 @@
             <label>Floor</label>
             <input class="form-control text-blue" type="text" name="" id="flr" value="flr" disabled>
           </div>
-        </div>
-        <div class="row">
           <div class="col-xl-4 pt-3">
             <label>Room Number</label>
             <input class="form-control text-blue" type="text" name="" id="rnum" value="rnum" disabled>
@@ -508,12 +562,16 @@
             <input class="form-control text-red" type="text" name="" id="rcon" value="rcon" disabled>
           </div>
           <div class="col-xl-4 pt-3">
+            <label>Level of Damage</label>
+            <input class="form-control text-red" type="text" name="" id="pers" disabled>
+          </div>
+          <div class="col-xl-4 pt-3">
             <label>Status</label>
             <input class="form-control text-red" type="text" name="" id="rstat" value="rstat" disabled>
           </div>
         </div>
         <div class="row">
-          <div class="col-xl-8 pt-2">
+          <div class="col-xl-12 pt-2">
             <label for="exampleFormControlTextarea1">Note</label>
             <textarea class="form-control text-blue" id="rnote" aria-valuemax="rnote" rows="3" disabled></textarea>
           </div>
@@ -584,6 +642,12 @@
     $('#con').val($(this).attr('data-con'));
     $('#stat').val($(this).attr('data-stat'));
     $('#note').val($(this).attr('data-note'));
+    $('#per').val($(this).attr('data-percentage'));
+    $('#roof').val($(this).attr('data-roof'));
+    $('#paint').val($(this).attr('data-paint'));
+    $('#wall').val($(this).attr('data-wall'));
+    $('#cel').val($(this).attr('data-ceiling'));
+    $('#crk').val($(this).attr('data-crack'));
     $('#school').val($(this).attr('data-schlname'));
     $('.requestBuilding').modal('show');
   });
@@ -608,6 +672,17 @@
     $('#rnote').val($(this).attr('data-rnote'));
     $('#bnum').val($(this).attr('data-bnum'));
     $('#flr').val($(this).attr('data-flr'));
+    $('#pers').val($(this).attr('data-percentage'));
+    $('#dr').val($(this).attr('data-door'));
+    $('#wnd').val($(this).attr('data-window'));
+    $('#flring').val($(this).attr('data-flooring'));
+    $('#bm').val($(this).attr('data-beam'));
+    $('#clmn').val($(this).attr('data-column'));
+    $('#brd').val($(this).attr('data-board'));
+    $('#wll').val($(this).attr('data-wall'));
+    $('#ceil').val($(this).attr('data-ceiling'));
+    $('#toi').val($(this).attr('data-toilet'));
+    $('#elec').val($(this).attr('data-electric'));
     $('#rschool').val($(this).attr('data-rschlname'));
     $('.requestRoom').modal('show');
   });
@@ -639,7 +714,7 @@
 <script>
   chartBar();
   chartPie();
-  
+
 
 
   function chartBar() {
@@ -648,7 +723,7 @@
       type: 'bar',
       data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange',
-              'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
           label: '# of Damage',
           data: [12, 19, 3, 5, 2, 3],
@@ -721,30 +796,30 @@
     });
   }
 </script>
-    <!-- ****************************datatables script************************************************** -->
-    <script>
-      $(document).ready(function() {
-      $('#breq').DataTable( {
-          dom: 'Bfrtip',
-          buttons: [
-          ]
-      } );
-    } );
-    $(document).ready(function() {
-      $('#rreq').DataTable( {
-          dom: 'Bfrtip',
-          buttons: [
-          ]
-      } );
-    } );
-    $(document).ready(function() {
-      $('#req').DataTable( {
-          dom: 'Bfrtip',
-          buttons: [
-          ]
-      } );
-    } );
-  </script>
+<!-- ****************************datatables script************************************************** -->
+<script>
+  $(document).ready(function () {
+    $('#breq').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+      ]
+    });
+  });
+  $(document).ready(function () {
+    $('#rreq').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+      ]
+    });
+  });
+  $(document).ready(function () {
+    $('#req').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+      ]
+    });
+  });
+</script>
 <!-- DATA TABLES SCRIPT -->
 <script>
   $(document).ready(function () {

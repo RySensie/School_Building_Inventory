@@ -107,10 +107,10 @@ internals.signup = function (req, reply) {
         .lean()
         .exec((err, data) => {
           if (err) {
-            console.log(err)
+            // console.log(err)
           }
           list_data = data;
-          console.log(data)
+          // console.log(data)
           return callback(null);
         })
     },
@@ -150,7 +150,7 @@ internals.createAccount = async (req, reply) => {
       return reply.redirect("/login?message=Successfully Created!&alertType=success");
 
   } catch (err) {
-    console.log("errrrrror", err)  
+    // console.log("errrrrror", err)  
     reply.redirect("/signup?message=Problem occured 2!&alertType=danger");
   }
 };

@@ -7,13 +7,18 @@
     <div class="header bg-primary pb-6">
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt-0">
+    <div class="container-fluid mt--4">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <!-- Card header -->
-                    <div class="card-header border-0">
-                    </div>
+                    <div class="card-header text-center">
+                        <h2 class="font-weight-bold mt-2">USERS LIST</h2>
+                        <div class="row align-items-center">
+                          <div class="col text-right">
+                          </div>
+                        </div>
+                      </div>
                     <!-- Light table -->
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush" id="tangene">
@@ -52,16 +57,6 @@
                                         ><span class="material-icons">
                                           thumb_up_alt
                                         </span></button>
-                                        <!-- <div class="custom-control custom-switch">
-                                            <form action="/admin/people/confirm" method="POST">
-                                                <input type="hidden" name="userID" value="{{_id}}">
-                                                <input type="checkbox" name="confirm" class="custom-control-input"
-                                                    id="{{_id}}">
-                                                <label class="custom-control-label" for="{{_id}}">Confirm
-                                                    Account</label>
-                                                <button class="btn btn-primary btn-sm" type="submit">Confirm</button>
-                                            </form>
-                                        </div> -->
                                     </td>
                                 </tr>
                                 {{/each}}

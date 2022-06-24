@@ -13,7 +13,7 @@
               <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                 <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home">
                       Dashboard</i></a></li>
-                <li class="breadcrumb-item"><a href="/schoolAd/building/Details/{{building_id}}"> BuildingList</a></li>
+                <li class="breadcrumb-item"><a href="/schoolAd/building/Details/{{building_id}}"> Building Details</a></li>
                 <li class="breadcrumb-item active" aria-current="page"> Room Details</li>
               </ol>
             </nav>
@@ -304,7 +304,7 @@
             <input class="form-control" id="roomNumber_edit" value="roomNumber_edit" name="roomNumber" type="number"
               min="1" max="{{buildings_data.numberOfRooms}}">
           </div>
-          <div class="form-group text-black">
+          <!-- <div class="form-group text-black">
             <label for="presentCampus">Room Condition</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
               data-placement="top" data-content="Refers to the current physical state of a room.">
@@ -321,7 +321,7 @@
               <option>COMPLETION</option>
               <option>ON GOING CONSTRUCTION</option>
             </select>
-          </div>
+          </div> -->
           <div class="form-group text-black">
             <label for="presentCampus">Floor</label>
             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
@@ -400,7 +400,7 @@
             <div class="row border border-dark">
               <div class="col-sm-12">
                 <h2 class="text-center"> Room Condition Form <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top" data-content="Upload actual photo of the building.">
+                  data-placement="top" data-content="Check the box, if the room have this kind of damage.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -521,7 +521,7 @@
                       </span></a>
                     <img class="img-thumbnail" id="imgs_edit" class="rounded-circle" />
                     <input id="upload6" name="actual_img" type="file" accept=".jpg,.jpeg" onchange="readURL4(this);"
-                      class="form-control border-0" required />
+                      class="form-control border-0" />
                   </div>
                 </div>
                 <div class="col-sm-6"></div>
@@ -534,7 +534,7 @@
                   <div class="form-group text-black">
                     <label for="presentCampus">Damage Percentage</label>
                     <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                      data-placement="top" data-content="Refers to the current physical state of a room.">
+                      data-placement="top" data-content="Refers to the current percentage of the room condition. To get the percentage, please fill the ROOM CONDITION FORM  first and click next button">
                       <span class="material-icons">
                         help_outline
                       </span>
@@ -885,7 +885,7 @@
       }
       else{
           var door = 0;
-          var Doors = "uncheck";
+          var Doors = "Unchecked";
       }
       var doors = parseInt(door);
   let Cwindow = $('#window').is(':checked');
@@ -895,7 +895,7 @@
       }
       else{
           var window = 0;
-          var Windows = "uncheck";
+          var Windows = "Unchecked";
       }
       var windows = parseInt(window);
   let Cflooring = $('#flooring').is(':checked');
@@ -905,7 +905,7 @@
       }
       else{
           var flooring = 0;
-          var Floorings = "uncheck";
+          var Floorings = "Unchecked";
       }
       var floorings = parseInt(flooring);
   let Cbeams = $('#beams').is(':checked');
@@ -915,7 +915,7 @@
       }
       else{
           var beam = 0;
-          var Beams = "uncheck";
+          var Beams = "Unchecked";
       }
       var beams = parseInt(beam);
   let Ccolumns = $('#columns').is(':checked');
@@ -925,7 +925,7 @@
       }
       else{
           var column = 0;
-          var Columns = "uncheck";
+          var Columns = "Unchecked";
       }
       var columns = parseInt(column);
       let Cboard = $('#board').is(':checked');
@@ -935,7 +935,7 @@
       }
       else{
           var board = 0;
-          var Boards = "uncheck";
+          var Boards = "Unchecked";
       }
       var boards = parseInt(board);
   let Cwall = $('#wall').is(':checked');
@@ -945,7 +945,7 @@
       }
       else{
           var wall = 0;
-          var Walls = "uncheck";
+          var Walls = "Unchecked";
       }
       var walls = parseInt(wall);
   let Cceiling = $('#ceiling').is(':checked');
@@ -955,7 +955,7 @@
       }
       else{
           var ceiling = 0;
-          var Ceilings = "uncheck";
+          var Ceilings = "Unchecked";
       }
       var ceilings = parseInt(ceiling);
   let Ctoilet = $('#toilet').is(':checked');
@@ -965,7 +965,7 @@
       }
       else{
           var toilet = 0;
-          var Toilets = "uncheck";
+          var Toilets = "Unchecked";
       }
       var toilets = parseInt(toilet);
   let Celectrical = $('#electrical').is(':checked');
@@ -975,20 +975,20 @@
       }
       else{
           var electrical = 0;
-          var Electricals = "uncheck";
+          var Electricals = "Unchecked";
       }
       var electricals = parseInt(electrical);
  
   let total = doors + windows + floorings + beams + columns +
               boards + walls + ceilings + toilets + electricals;
 
-  if(total==0){
+  if(total == 0){
       var less = "The recommended room condition is Good Condition"
   }
-  if(total<=40){
+  if(total > 0 && total <=  40){
       var less = "The recommended room condition is Minor Damage"
   }
-  if(total>=41){
+  if(total > 40 && total <=  100){
       var less = "The recommended room condition is Major Damage"
   }
   console.log(total);

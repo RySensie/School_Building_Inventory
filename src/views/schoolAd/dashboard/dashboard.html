@@ -182,9 +182,9 @@
                   <td class="text-danger">{{this.buildingCondition}}</td>
                   <td class="text-danger">{{this.percentage}}%</td>
                   <td class="text-danger">{{this.status}}</td>
-                  <td class="text-danger">{{this.note}}</td>
+                  <td class="">{{this.note}}</td>
                   <td>
-                    <button class="btn btn-sm btn-info requestBtn" data-id="{{this._id}}"
+                    <button class="btn btn-sm btn-primary  requestBtn" data-id="{{this._id}}"
                       data-number="{{this.buildingNumber}}" data-condition="{{this.buildingCondition}}"
                       data-status="{{this.status}}">Request</button>
                   </td>
@@ -221,14 +221,14 @@
                 {{#each roomRequest}}
                 <tr>
                   <td scope="row">{{this.roomNumber}}</td>
-                  <td class="text-danger">{{this.building_id.buildingNumber}}</td>
-                  <td class="text-danger">{{this.floor}}</td>
+                  <td class="">{{this.building_id.buildingNumber}}</td>
+                  <td class="">{{this.floor}}</td>
                   <td class="text-danger">{{this.percentage}}%</td>
                   <td class="text-danger">{{this.roomCondition}}</td>
-                  <td class="text-danger">{{this.status}}</td>
+                  <td class="text-success">{{this.status}}</td>
 
                   <td>
-                    <button class="btn btn-sm btn-info requestBtn1" data-id="{{this._id}}"
+                    <button class="btn btn-sm btn-primary requestBtn1" data-id="{{this._id}}"
                       data-roomNumber="{{this.roomNumber}}" data-status="{{this.status}}"
                       data-condition="{{this.roomCondition}}">Request</button>
                   </td>
@@ -248,7 +248,7 @@
                 <h2 class="font-weight-bolder" style="color: #203e7a;">NEW REQUEST</h2>
               </div>
               <div class="col text-right">
-                <a href="" class="btn btn-sm   btn-info " data-toggle="modal" data-target="#requestModal">Request
+                <a href="" class="btn btn-sm  btn-primary  " data-toggle="modal" data-target="#requestModal">Request
                   New</a>
               </div>
             </div>
@@ -292,8 +292,18 @@
           </div>
           <div class="modal-body">
             <div class="row">
+              <div class="col-sm-12 text-center">
+                <h3>REQUEST FORM</h3>
+              </div>
               <div class="form-group col-lg-11 pl-5">
                 <label>Name</label>
+                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
+                  data-placement="top"
+                  data-content="Refers to the type of request.">
+                  <span class="material-icons">
+                    help_outline
+                  </span>
+                </a>
                 <select name="name" class="form-control">
                   <option selected></option>
                   <option>BUILDING</option>
@@ -307,7 +317,7 @@
                 <label>Specific Request</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
                   data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  data-content="Refers to the specific type of request.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -319,7 +329,7 @@
                 <label for="exampleFormControlTextarea1">Note</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
                   data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  data-content="Additional message of the request, like quantity">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -327,12 +337,9 @@
 
                 <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
-              <div class="col-12 text-right pr-5">
+              <div class="col-12 text-center">
                 <button id="btn-save" type="submit" class="btn btn-primary">
                   Request
-                </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                  Close
                 </button>
               </div>
             </div>
@@ -353,27 +360,16 @@
         <div class="modal-body">
           <form action="/schoolAd/buildReq" method="POST">
             <div class="row">
+              <div class="col-sm-12 text-center">
+                <h3>BUILDING REQUEST FORM</h3>
+              </div>
               <div class="form-group col-lg-11  pl-5">
                 <label>Building Number</label>
                 <input type="text" name="id" id="request_id" hidden>
-                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
-                  <span class="material-icons">
-                    help_outline
-                  </span>
-                </a>
                 <input type="string" class="form-control" id="number" value="number" name="buildingNumber" disabled>
               </div>
               <div class="form-group col-lg-11  pl-5">
                 <label>Condition</label>
-                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
-                  <span class="material-icons">
-                    help_outline
-                  </span>
-                </a>
                 <input type="string" class="form-control" id="condition" value="condition" placeholder=""
                   name="condition" disabled>
               </div>
@@ -383,7 +379,7 @@
                 <label for="exampleFormControlTextarea1">Note</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
                   data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  data-content="Additional message of the request, like quantity.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -392,12 +388,9 @@
                 <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
 
-              <div class="col-12 text-right pr-5">
+              <div class="col-12 text-center">
                 <button id="btn-save" type="submit" class="btn btn-primary">
                   Request
-                </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                  Close
                 </button>
               </div>
             </div>
@@ -418,28 +411,17 @@
         <div class="modal-body">
           <form action="/schoolAd/roomReq" method="POST">
             <div class="row">
+              <div class="col-sm-12 text-center">
+                <h3>ROOM REQUEST FORM</h3>
+              </div>
               <div class="form-group col-lg-11  pl-5">
                 <label>Room Number</label>
                 <input type="text" name="_id" id="room_id" hidden>
-                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
-                  <span class="material-icons">
-                    help_outline
-                  </span>
-                </a>
                 <input type="string" class="form-control" id="roomNumber" value="roomNumber" name="buildingNumber"
                   disabled>
               </div>
               <div class="form-group col-lg-11  pl-5">
                 <label>Condition</label>
-                <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
-                  <span class="material-icons">
-                    help_outline
-                  </span>
-                </a>
                 <input type="string" class="form-control" id="roomCondition" value="roomCondition" placeholder=""
                   name="condition" disabled>
               </div>
@@ -449,7 +431,7 @@
                 <label for="exampleFormControlTextarea1">Note</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
                   data-placement="top"
-                  data-content="Refers to the number of classes or sections using Temporary Learning Space/s.">
+                  data-content="Additional message of the request, like quantity.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -458,12 +440,9 @@
                 <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
 
-              <div class="col-12 text-right pr-5">
+              <div class="col-12 text-center">
                 <button id="btn-save" type="submit" class="btn btn-primary">
                   Request
-                </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                  Close
                 </button>
               </div>
             </div>

@@ -255,6 +255,51 @@ const temporary = await Temporary.aggregate(
   }
 ]
 );
+// -----------------//
+// notification
+// ---------------//
+const building_damage = await Buildings.find({
+  $or:[
+    {$and: [
+      {buildingCondition: "MAJOR DAMAGE"},
+      {status: "REQUESTED"},
+      {isDeleted:false}
+    ]},
+    {$and: [
+      {buildingCondition: "MINOR DAMAGE"},
+      {status: "REQUESTED"},
+      {isDeleted:false}
+    ]}
+  ]
+}).populate('school_id')
+  .lean();
+const room_damage = await Rooms.find({
+    $or:[
+      {$and: [
+        {roomCondition: "MAJOR DAMAGE"},
+        {status: "REQUESTED"},
+        {isDeleted:false}
+      ]},
+      {$and: [
+        {roomCondition: "MINOR DAMAGE"},
+        {status: "REQUESTED"},
+        {isDeleted:false}
+      ]}
+    ]
+  }).populate('school_id').populate('building_id')
+    .lean();
+const users = await Users.find({
+      isConfirm: false
+    }).lean();
+
+const request = await Request.find({
+  $or: [
+    {status: "REQUESTED"},
+    {status: "VERIFIED"},
+  ],
+}).populate('school_id')
+.lean();
+
 const allSchools = await Schools.find({
   _id: req.params.id,
 }).lean();
@@ -314,6 +359,10 @@ const access = await Access.find({
     allSWSF,
     student,
     access,
+    building_damage,
+    room_damage,
+    users,
+    request,
     credentials: req.auth.credentials
   });
 

@@ -202,7 +202,7 @@ internals.conditionUpdate = async function (req, reply) {
     crack: req.payload.crack,
 
   };
-  console.log(req.payload);
+  // console.log(req.payload);
   const building = await Buildings.findOneAndUpdate({
     _id: req.payload.edit_id
   },{$set: payload}).lean();

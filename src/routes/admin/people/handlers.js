@@ -126,6 +126,7 @@ internals.adminUserView = async function (req, reply) {
         building_damage,
         room_damage,
         users,
+        request,
         credentials: req.auth.credentials
       });
     }

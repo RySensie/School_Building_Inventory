@@ -49,7 +49,7 @@
             <!-- List group -->
             <div class="list-group list-group-flush" style="height: 250px; overflow-y: scroll;">
               {{#each building_damage}}
-              <a href="#!" class="list-group-item list-group-item-action">
+              <a href="/admin/dashboard" class="list-group-item list-group-item-action">
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->
@@ -64,12 +64,13 @@
                       class="d-flex justify-content-between align-items-center"
                     >
                       <div>
-                        <h4 class="mb-0 text-sm">{{this.school_id.schoolName}}</h4>
+                        <h4 class="mb-0 text-sm">BUILDING REQUEST!</h4>
                       </div>
                       <div class="text-right text-muted">
                         <small>{{moment this.createdAt 'MMMM DD YYYY'}}</small>
                       </div>
                     </div>
+                    <h6 class="mb-0 text-sm">{{this.school_id.schoolName}}</h6>
                     <p class="text-sm mb-0">
                       Building number {{this.buildingNumber}} <br>{{this.buildingCondition}}
                     </p>
@@ -78,7 +79,7 @@
               </a>
               {{/each}}
               {{#each room_damage}}
-              <a href="#!" class="list-group-item list-group-item-action">
+              <a href="/admin/dashboard" class="list-group-item list-group-item-action">
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->
@@ -93,12 +94,13 @@
                       class="d-flex justify-content-between align-items-center"
                     >
                       <div>
-                        <h4 class="mb-0 text-sm">{{this.school_id.schoolName}}</h4>
+                        <h3 class="mb-0 text-sm">ROOM REQUEST!</h3>
                       </div>
                       <div class="text-right text-muted">
                         <small>{{moment this.createdAt 'MMMM DD YYYY'}}</small>
                       </div>
                     </div>
+                    <h6 class="mb-0 text-sm">{{this.school_id.schoolName}}</h6>
                     <p class="text-sm mb-0">Building number {{this.building_id.buildingNumber}} <br>
                       Room number {{this.roomNumber}} <br>{{this.roomCondition}}
                     </p>
@@ -107,7 +109,7 @@
               </a>
               {{/each}}
               {{#each request}}
-              <a href="#!" class="list-group-item list-group-item-action">
+              <a href="/admin/dashboard" class="list-group-item list-group-item-action">
                 <div class="row align-items-center">
                   <div class="col-auto">
                     <!-- Avatar -->

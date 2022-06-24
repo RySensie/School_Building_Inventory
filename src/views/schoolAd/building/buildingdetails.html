@@ -11,8 +11,8 @@
                             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                                 <li class="breadcrumb-item"><a href="/schoolAd/dashboard"><i class="fas fa-home">
                                             Dashboard</i></a></li>
-                                <li class="breadcrumb-item"><a href="/schoolAd/building"> BuildingList</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> BuildingDetails</li>
+                                <li class="breadcrumb-item"><a href="/schoolAd/building"> Building List</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> Building Details</li>
                             </ol>
                         </nav>
                     </div>
@@ -303,7 +303,7 @@
                             <div class="row border border-dark">
                                 <div class="col-sm-12 mb-4 mt-3">
                                     <h2 class="text-center">Building Structure Form <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                                        data-placement="top" data-content="Upload actual photo of the building.">
+                                        data-placement="top" data-content="Check the box, if the building have this kind of damage. Click next button if its done. ">
                                         <span class="material-icons">
                                           help_outline
                                         </span>
@@ -316,16 +316,16 @@
                                         <input class="form-check-input prc" type="checkbox" value="ROOF" name="roof"
                                             id="roof">
                                         <label class="form-check-label" for="roof">
-                                            Roof
+                                            ROOF
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-check">
-                                        <input class="form-check-input prc" type="checkbox" value="PAINT" name="paint"
+                                        <input class="form-check-input prc" type="checkbox" value="FADED PAINT" name="paint"
                                             id="paint">
                                         <label class="form-check-label" for="defaultCheck1">
-                                            Faded Paint
+                                            FADED PAINT
                                         </label>
                                     </div>
                                 </div>
@@ -334,7 +334,7 @@
                                         <input class="form-check-input prc" type="checkbox" value="CEILING"
                                             name="ceiling" id="ceiling">
                                         <label class="form-check-label" for="defaultCheck1">
-                                            Ceiling
+                                            CEILING
                                         </label>
                                     </div>
                                 </div>
@@ -343,7 +343,7 @@
                                         <input class="form-check-input prc" type="checkbox" value="WALL" name="wall"
                                             id="wall">
                                         <label class="form-check-label" for="defaultCheck1">
-                                            Wall
+                                            WALL
                                         </label>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@
                                         <input class="form-check-input prc" type="checkbox" value="CRACK" name="crack"
                                             id="crack">
                                         <label class="form-check-label" for="defaultCheck1">
-                                            Crack
+                                            CRACK
                                         </label>
                                     </div>
                                 </div>
@@ -400,10 +400,12 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="building-number">PERCENTAGE</label>
+                                            <label class="form-control-label" for="building-number">LEVEL OF DAMAGE</label>
                                             <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover"
                                                 data-trigger="focus" title="" data-placement="top"
-                                                data-content="Refers to the number of buildings in the school.">
+                                                data-content="Refers to the curret percentage of the buildings condition. To get the percentage,
+                                                 please fill the ROOM CONDITION FORM  first and click next button. The calculation of the percentage was 
+                                                 builing structure 60% and 40% or room condition">
                                                 <span class="material-icons">
                                                     help_outline
                                                 </span>
@@ -462,7 +464,7 @@
         }
         else {
             var roof = 0;
-            var Roofs = "uncheck";
+            var Roofs = "Unchecked";
         }
         var roofs = parseInt(roof);
         let Cpaint = $('#paint').is(':checked');
@@ -472,7 +474,7 @@
         }
         else {
             var paint = 0;
-            var Paints = "uncheck";
+            var Paints = "Unchecked";
         }
         var paints = parseInt(paint);
         let Cceiling = $('#ceiling').is(':checked');
@@ -482,7 +484,7 @@
         }
         else {
             var ceiling = 0;
-            var Ceilings = "uncheck";
+            var Ceilings = "Unchecked";
         }
         var ceilings = parseInt(ceiling);
         let Cwall = $('#wall').is(':checked');
@@ -492,7 +494,7 @@
         }
         else {
             var wall = 0;
-            var Walls = "uncheck";
+            var Walls = "Unchecked";
         }
         var walls = parseInt(wall);
         let Ccrack = $('#crack').is(':checked');
@@ -502,7 +504,7 @@
         }
         else {
             var crack = 0;
-            var Cracks = "uncheck";
+            var Cracks = "Unchecked";
         }
         var cracks = parseInt(crack);
         var roomPer = document.getElementById("roomPer").value;
@@ -513,10 +515,10 @@
         if (percentage == 0) {
             var less = "The recommended building condition is Good Condition"
         }
-        if (percentage <= 45) {
+        if (percentage > 0 && percentage <= 45) {
             var less = "The recommended building condition is Minor Damage"
         }
-        if (percentage >= 46) {
+        if (percentage >45 && percentage <= 100) {
             var less = "The recommended building condition is Major Damage"
         }
         console.log(percentage);

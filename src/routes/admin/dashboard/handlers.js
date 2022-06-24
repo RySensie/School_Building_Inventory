@@ -140,7 +140,7 @@ internals.adminDashboard = async (req, reply) => {
           {roomCondition: "MINOR DAMAGE"},
           {status: "REQUESTED"},
           {isDeleted:false}
-        ]}
+        ]},
       ]
     }).populate('school_id').populate('building_id')
       .lean();
@@ -151,7 +151,6 @@ internals.adminDashboard = async (req, reply) => {
   const request = await Request.find({
     $or: [
       {status: "REQUESTED"},
-      {status: "VERIFIED"},
     ],
   }).populate('school_id')
   .lean();
