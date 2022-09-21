@@ -39,6 +39,11 @@ internals.endpoints = [
         strategy: 'standard',
         scope: ['schoolAd']
       },
+      description: 'schoolAdmin update building',
+      tags: ['api'],
+      payload: {
+        maxBytes: 20000000,
+      },
     },
   },
   {
@@ -61,6 +66,11 @@ internals.endpoints = [
         strategy: 'standard',
         scope: ['schoolAd']
       },
+      description: 'schoolAdmin update building',
+      tags: ['api'],
+      payload: {
+        maxBytes: 20000000,
+      },
     },
   },
   {
@@ -71,6 +81,11 @@ internals.endpoints = [
       auth: {
         strategy: 'standard',
         scope: ['schoolAd']
+      },
+      description: 'schoolAdmin update building',
+      tags: ['api'],
+      payload: {
+        maxBytes: 20000000,
       },
     },
   },

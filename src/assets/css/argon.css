@@ -22913,6 +22913,23 @@ textarea[resize='horizontal']
     }
 }
 
+/* On screens that are 600px wide or less, the background color is olive */
+@media screen and (max-width: 992px) {
+    .navlogin {
+        display: none;
+    }
+    .school_logo{
+        display: none;
+    }
+  }
+@media screen and (max-width: 600px) {
+    .navlogin {
+        display: none;
+    }
+    .school_logo{
+        display: none;
+    }
+  }
 .nav-pills-circle .nav-link
 {
     line-height: 60px;

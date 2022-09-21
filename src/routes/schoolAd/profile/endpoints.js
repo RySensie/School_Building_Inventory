@@ -28,6 +28,9 @@ internals.endpoints = [
         strategy: 'standard',
         scope: ['schoolAd']
       },
+      payload: {
+        output: 'data',
+      }
     },
   },
 ]

@@ -104,7 +104,7 @@ internals.conditionUpdate = async function (req, reply) {
   const rooms = await Rooms.findOneAndUpdate({
     _id: req.payload.edit_id 
   },{$set: payload}).lean();
-  // console.log(rooms);
+  console.log(rooms);
   if(!rooms){
     return reply.redirect('/schoolAd/room/' + req.params.building_id);
   }

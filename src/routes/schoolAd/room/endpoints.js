@@ -28,6 +28,11 @@ internals.endpoints = [
         strategy: 'standard',
         scope: ['schoolAd']
       },
+      description: 'schoolAdmin add or create room',
+      tags: ['api'],
+      payload: {
+        maxBytes: 20000000,
+      },
     },
   },
   {
@@ -38,6 +43,11 @@ internals.endpoints = [
       auth: {
         strategy: 'standard',
         scope: ['schoolAd']
+      },
+      description: 'schoolAdmin update room',
+      tags: ['api'],
+      payload: {
+        maxBytes: 20000000,
       },
     },
   },

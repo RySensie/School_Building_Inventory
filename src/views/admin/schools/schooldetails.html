@@ -1,3 +1,47 @@
+<style>
+  .swiper {
+    width: 100%;
+    padding-bottom: 5px;
+  }
+
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 450px;
+    height: 550px;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 450px;
+    height: 550px;
+  }
+
+  .slide {
+    position: relative;
+    max-width: 800px;
+    /* Maximum width */
+    margin: 0 auto;
+    /* Center it */
+  }
+
+  .slide .content {
+    position: absolute;
+    /* Position the background text */
+    bottom: 0;
+    /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0);
+    /* Fallback color */
+    background: rgba(0, 0, 0, 0.5);
+    /* Black background with 0.5 opacity */
+    color: #f1f1f1;
+    /* Grey text */
+    width: 100%;
+    /* Full width */
+    padding: 20px;
+    /* Some padding */
+  }
+</style>
 {{> admin-sidenav school=true}}
 <div class="main-content" id="panel">
   {{> admin-topnav school=true mode=primary}}
@@ -132,7 +176,7 @@
   </div>
 
   <!-- Page content -->
-  <div class="container-fluid mt--2">
+  <div class="container-fluid mt--4">
     <div class="row">
       <!-- <div class="col-xl-12">
         <div class="card">
@@ -149,504 +193,662 @@
       </div> -->
       <div class="col-xl-12">
         <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class=" mb-0">BUILDINGS RECORD</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Proj]]ects table -->
-            <table class="table align-items-center table-flush" id="school">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
-                  <th scope="col" class="sort" data-sort="budget">BUILDING TYPE</th>
-                  <th scope="col" class="sort" data-sort="status">NUMBER OF STOREY</th>
-                  <th scope="col" class="sort" data-sort="status">Year Completed</th>
-                  <th scope="col" class="sort" data-sort="status">Building Condition</th>
-                  <th scope="col" class="sort" data-sort="status">Fund Source</th>
-                  <th scope="col" class="sort" data-sort="status">Specific Fund Source</th>
-                  <th scope="col" class="sort" data-sort="status">Number of Rooms</th>
-                  <th scope="col" class="sort" data-sort="status">Building Classification</th> 
-                  <th scope="col" class="sort" data-sort="status">Date Acquisition</th> 
-                  <th scope="col" class="sort" data-sort="status">Acquisition Cost</th> 
-                  <th scope="col" class="sort" data-sort="status">Building Materials</th> 
-                  <th scope="col" class="sort" data-sort="status">Book Value</th> 
-                  <th scope="col" class="sort" data-sort="status">Insurance Information</th> 
-                  <th scope="col" class="sort" data-sort="status">Building PWD Accessible?</th> 
-                  <th scope="col" class="sort" data-sort="status">Undergone Major Repair</th> 
-                  <th scope="col" class="sort" data-sort="status">Certificate of Acceptance</th> 
-                  <th scope="col" class="sort" data-sort="status">Building Include in the Boook of Accountant</th> 
+          <div class="card-body">
+            <nav class=" mb-2">
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active bg-primary text-white rounded-pill" id="nav-home-tab" data-toggle="tab"
+                  data-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i
+                    class="fa fa-home text-white mr-2"></i><b>Home</b></button>
 
-                </tr>
-              </thead>
-              <tbody>
-                {{#each building}}
-                <tr>
-                  <td scope="row">
-                    <div class="media align-items-center">
-                        <div class="media-body">
-                            <a class="name mb-0 text-sm">{{this.buildingNumber}}</a>
-                                
+                <button class="nav-link bg-primary text-white rounded-pill" id="nav-profile-tab" data-toggle="tab"
+                  data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                  <i class="ni ni-building text-white mr-2"></i><b>Buildings</b></button>
+
+                <button class="nav-link bg-primary text-white rounded-pill" id="nav-contact-tab" data-toggle="tab"
+                  data-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+                  aria-selected="false"><i class="ni ni-building text-white mr-2"></i><b>Facilities</b></button>
+              </div>
+            </nav>
+
+            <!-- home -->
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row justify-content-md-center mt-2 mb-5">
+                  <div class="col col-lg-2 text-right school_logo">
+                    <img src="{{school.logo_img}}" alt="..." class="rounded-circle" height="90">
+                  </div>
+                  <div class="col-md-auto text-center">
+
+                    <h1 class="mt-3">{{school.schoolName}}</h1>
+                    <p class="mt-0"><b>{{school.address}}</b> </p>
+                    <span><b>ID: {{school.schoolId}}</b></span>
+                  </div>
+                  <div class="col col-lg-2 text-left school_logo">
+                    <img src="/assets/img/logo/MC.png" alt="..." class="rounded-circle" height="90">
+                  </div>
+                </div>
+                <div class="row mt-5 mb-5">
+                  <div class="col-xl-6 mt-5">
+                    <div class="swiper mySwiper">
+                      <h1 class="text-center mb-2">Building Recent Image & Condition</h1>
+                      <div class="swiper-wrapper">
+                        {{#each building_list}}
+                        <div class="swiper-slide slide">
+                          <img class="rounded" src="{{this.actual_img}}" />
+                          <div class="content">
+                            <h1 class="text-white">Building # {{this.buildingNumber}}</h1>
+                            <p>{{this.buildingCondition}}</p>
+                          </div>
                         </div>
-                    </div>
-                </td>
-                <td class="media align-items-center">
-                    {{this.buildingType}}
-                </td>
-                <td>
-                    <span class="media align-items-center">
-                        <i class="bg-warning"></i>
-                        <span class="status">{{this.numberOfStorey}}</span>
-                    </span>
-                </td>
-                <td>
-                    {{this.yearCompleted}}
-                </td>
-                <td>
-                    {{this.buildingCondition}}
-                </td>
-                <td>
-                    {{this.fundSource}}
-                </td>
-                <td>
-                    {{this.specificFundSource}}
-                </td>
-                <td>
-                    {{this.numberOfRooms}}
-                </td>
-                <td>
-                    {{this.classificationOfBuilding}}
-                </td>
-                <td>
-                    {{this.dateAcquisition}}
-                </td>
-                <td>
-                    {{this.acquisitionCost}}
-                </td>
-                <td>
-                    {{this.buildingMaterial}}
-                </td>
-                <td>
-                    {{this.bookValue}}
-                </td>
-                <td>
-                    {{this.insuranceInfo}}
-                </td>
-                <td>
-                    {{this.pwdAccessible}}
-                </td>
-                <td>
-                    {{this.undergoneMajorRepair}}
-                </td>
-                <td>
-                    {{this.certificateOfAcceptance}}
-                </td>
-                <td>
-                    {{this.includeDepedBook}}
-                </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class=" mb-0">ROOMS RECORDS</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Proj]]ects table -->
-            <table class="table align-items-center table-flush" id="room">
-              <thead class="thead-light">
-                  <tr>
-                      <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
-                      <th scope="col" class="sort" data-sort="name">ROOM NUMBER</th>
-                      <th scope="col" class="sort" data-sort="budget">ROOM CONDITION</th>
-                      <th scope="col" class="sort" data-sort="status">ACTUAL USAGE</th>
-                      <th scope="col" class="sort" data-sort="status">FLOOR</th>
-                      <th scope="col" class="sort" data-sort="status">DIMENSION (W)</th>
-                      <th scope="col" class="sort" data-sort="status">DIMENSION (L)</th>
-                  </tr>
-              </thead>
-              <tbody class="list">
-                  {{#each allRoom}}
-                  <tr>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.building_id.buildingNumber}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.roomNumber}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.roomCondition}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.actualUsage}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.floor}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.roomDimensionW}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.roomDimensionL}}</span>
-                          </div>
-                      </td>
-                  </tr>
-                  {{/each}}
-              </tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-6">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">Facilities</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush" id="facility">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">NAME</th>
-                  <th scope="col"></th>
-                  <th scope="col">PRESENT</th>
-                  <th scope="col">STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each facility}}
-                <tr>
-                  <th scope="row">{{this.name}}</th>
-                  <td></td>
-                  <td>{{this.presentCampus}}</td>
-                  <td class="">{{this.status}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">Furnitures</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush" id="furniture">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">NAME</th>
-                  <th scope="col"></th>
-                  <th scope="col">TOTAL</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each furniture}}
-                <tr>
-                  <th scope="row">{{this.name}}</th>
-                  <td></td>
-                  <td class="">{{this.total}}</td>
-                  <td></td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class=" mb-0">STAND-ALONE WATER & SANITATION</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Proj]]ects table -->
-            <table class="table align-items-center table-flush" id="schoolwsfs">
-              <thead class="thead-light">
-                  <tr>
-                      <th scope="col" class="sort" data-sort="name">Male</th>
-                      <th scope="col" class="sort" data-sort="name">Female</th>
-                      <th scope="col" class="sort" data-sort="name">Shared</th>
-                      <th scope="col" class="sort" data-sort="name">PWD</th>
-                      <th scope="col" class="sort" data-sort="name">Non-Functional</th>
-                      <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
-                      <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
-                      <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
-                      <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
-                      <th scope="col" class="sort" data-sort="status">With Faucet</th>
-                      <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
-                  </tr>
-              </thead>
-              <tbody class="list">
-                  {{#each allSWSF}}
-                  <tr>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.male}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.fmale}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.shared}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.pwd}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.urinals}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.septicTank}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
-                          </div>
-                      </td>
-                  </tr>
-                  {{/each}}
-              </tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class=" mb-0">BUILDING WATER & SANITATION</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Proj]]ects table -->
-            <table class="table align-items-center table-flush" id="bwsfs">
-              <thead class="thead-light">
-                  <tr>
-                    <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
-                      <th scope="col" class="sort" data-sort="name">Male</th>
-                      <th scope="col" class="sort" data-sort="name">Female</th>
-                      <th scope="col" class="sort" data-sort="name">Shared</th>
-                      <th scope="col" class="sort" data-sort="name">PWD</th>
-                      <th scope="col" class="sort" data-sort="name">Non-Functional</th>
-                      <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
-                      <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
-                      <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
-                      <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
-                      <th scope="col" class="sort" data-sort="status">With Faucet</th>
-                      <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
-                  </tr>
-              </thead>
-              <tbody class="list">
-                  {{#each allBWSF}}
-                  <tr>
-                    <td scope="row">
-                      <div class="media-body">
-                          <span class="name mb-0 text-sm">{{this.building_id.buildingNumber}}</span>
+                        {{/each}}
                       </div>
-                  </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.male}}</span>
+                      <!-- <div class="swiper-pagination"></div> -->
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+
+                    <canvas class="ml-2" id="myCharts" width="500" height="280"></canvas>
+                  </div>
+
+                  <div class="col-sm-6 mt-5">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col-xl-12 text-center">
+                            <h3 class="">BUILDING DAMAGE REQUEST</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.fmale}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table align-items-center table-flush" id="breq">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Building #</th>
+                              <th scope="col">Condition</th>
+                              <th scope="col">Level of Damage</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each building_damage_req}}
+                            <tr class="">
+                              <td scope="row">{{this.buildingNumber}}</td>
+                              <td class="text-danger">{{this.buildingCondition}}</td>
+                              <td class="text-danger">{{this.percentage}}%</td>
+                              <td class="text-black">{{this.status}}</td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 mt-5">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col-xl-12 text-center">
+                            <h3 class="">ROOM DAMAGE REQUEST</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.shared}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table align-items-center table-flush" id="breq">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">Building #</th>
+                              <th scope="col">Room #</th>
+                              <th scope="col">Condition</th>
+                              <th scope="col">Level of Damage</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each rooms_damage_req}}
+                            <tr class="">
+                              <td scope="row">{{this.building_id.buildingNumber}}</td>
+                              <td class="text-danger">{{this.roomNumber}}</td>
+                              <td class="text-danger">{{this.roomCondition}}</td>
+                              <td class="text-danger">{{this.percentage}}%</td>
+                              <td class="text-black">{{this.status}}</td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- home end -->
+
+              <!-- building -->
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                <!--content-->
+                <div class="row mt-5">
+                  <div class="col-xl-12">
+                    <div class="row justify-content-md-center mt-2 mb-5">
+                      <div class="col col-lg-2 text-right">
+                        <img src="{{school.logo_img}}" alt="..." class="rounded-circle" height="90">
+                      </div>
+                      <div class="col-md-auto text-center">
+                        <h1 class="mt-3">{{school.schoolName}}</h1>
+                        <p class="mt-0"><b>{{school.address}}</b> </p>
+                        <span><b>ID: {{school.schoolId}}</b></span>
+                      </div>
+                      <div class="col col-lg-2 text-left">
+                        <img src="/assets/img/logo/MC.png" alt="..." class="rounded-circle" height="90">
+                      </div>
+                    </div>
+                    <div class="col text-center text-center">
+                      <h2 class=" mb-0">BUILDINGS RECORD</h2>
+                    </div>
+                    <div class="table-responsive">
+                      <!-- Proj]]ects table -->
+                      <table class="table align-items-center table-flush" id="school">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
+                            <th scope="col" class="sort" data-sort="budget">BUILDING TYPE</th>
+                            <th scope="col" class="sort" data-sort="status">NUMBER OF STOREY</th>
+                            <th scope="col" class="sort" data-sort="status">Year Completed</th>
+                            <th scope="col" class="sort" data-sort="status">Building Condition</th>
+                            <th scope="col" class="sort" data-sort="status">Fund Source</th>
+                            <th scope="col" class="sort" data-sort="status">Specific Fund Source</th>
+                            <th scope="col" class="sort" data-sort="status">Number of Rooms</th>
+                            <th scope="col" class="sort" data-sort="status">Building Classification</th>
+                            <th scope="col" class="sort" data-sort="status">Date Acquisition</th>
+                            <th scope="col" class="sort" data-sort="status">Acquisition Cost</th>
+                            <th scope="col" class="sort" data-sort="status">Building Materials</th>
+                            <th scope="col" class="sort" data-sort="status">Book Value</th>
+                            <th scope="col" class="sort" data-sort="status">Insurance Information</th>
+                            <th scope="col" class="sort" data-sort="status">Building PWD Accessible?</th>
+                            <th scope="col" class="sort" data-sort="status">Undergone Major Repair</th>
+                            <th scope="col" class="sort" data-sort="status">Certificate of Acceptance</th>
+                            <th scope="col" class="sort" data-sort="status">Building Include in the Boook of
+                              Accountant</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{#each building}}
+                          <tr>
+                            <td scope="row">
+                              <div class="media align-items-center">
+                                <div class="media-body">
+                                  <a class="name mb-0 text-sm">{{this.buildingNumber}}</a>
+
+                                </div>
+                              </div>
+                            </td>
+                            <td class="media align-items-center">
+                              {{this.buildingType}}
+                            </td>
+                            <td>
+                              <span class="media align-items-center">
+                                <i class="bg-warning"></i>
+                                <span class="status">{{this.numberOfStorey}}</span>
+                              </span>
+                            </td>
+                            <td>
+                              {{this.yearCompleted}}
+                            </td>
+                            <td>
+                              {{this.buildingCondition}}
+                            </td>
+                            <td>
+                              {{this.fundSource}}
+                            </td>
+                            <td>
+                              {{this.specificFundSource}}
+                            </td>
+                            <td>
+                              {{this.numberOfRooms}}
+                            </td>
+                            <td>
+                              {{this.classificationOfBuilding}}
+                            </td>
+                            <td>
+                              {{this.dateAcquisition}}
+                            </td>
+                            <td>
+                              {{this.acquisitionCost}}
+                            </td>
+                            <td>
+                              {{this.buildingMaterial}}
+                            </td>
+                            <td>
+                              {{this.bookValue}}
+                            </td>
+                            <td>
+                              {{this.insuranceInfo}}
+                            </td>
+                            <td>
+                              {{this.pwdAccessible}}
+                            </td>
+                            <td>
+                              {{this.undergoneMajorRepair}}
+                            </td>
+                            <td>
+                              {{this.certificateOfAcceptance}}
+                            </td>
+                            <td>
+                              {{this.includeDepedBook}}
+                            </td>
+                          </tr>
+                          {{/each}}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class=" mb-0">ROOMS RECORDS</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.pwd}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Proj]]ects table -->
+                        <table class="table align-items-center table-flush" id="room">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
+                              <th scope="col" class="sort" data-sort="name">ROOM NUMBER</th>
+                              <th scope="col" class="sort" data-sort="budget">ROOM CONDITION</th>
+                              <th scope="col" class="sort" data-sort="status">ACTUAL USAGE</th>
+                              <th scope="col" class="sort" data-sort="status">FLOOR</th>
+                              <th scope="col" class="sort" data-sort="status">DIMENSION (W)</th>
+                              <th scope="col" class="sort" data-sort="status">DIMENSION (L)</th>
+                            </tr>
+                          </thead>
+                          <tbody class="list">
+                            {{#each allRoom}}
+                            <tr>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.building_id.buildingNumber}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.roomNumber}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.roomCondition}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.actualUsage}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.floor}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.roomDimensionW}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.roomDimensionL}}</span>
+                                </div>
+                              </td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class=" mb-0">STAND-ALONE WATER & SANITATION</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Proj]]ects table -->
+                        <table class="table align-items-center table-flush" id="schoolwsfs">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col" class="sort" data-sort="name">Male</th>
+                              <th scope="col" class="sort" data-sort="name">Female</th>
+                              <th scope="col" class="sort" data-sort="name">Shared</th>
+                              <th scope="col" class="sort" data-sort="name">PWD</th>
+                              <th scope="col" class="sort" data-sort="name">Non-Functional</th>
+                              <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
+                              <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
+                              <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
+                              <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
+                              <th scope="col" class="sort" data-sort="status">With Faucet</th>
+                              <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
+                            </tr>
+                          </thead>
+                          <tbody class="list">
+                            {{#each allSWSF}}
+                            <tr>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.male}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.fmale}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.shared}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.pwd}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.urinals}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.septicTank}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
+                                </div>
+                              </td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class=" mb-0">BUILDING WATER & SANITATION</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Proj]]ects table -->
+                        <table class="table align-items-center table-flush" id="bwsfs">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col" class="sort" data-sort="name">BUILDING NUMBER</th>
+                              <th scope="col" class="sort" data-sort="name">Male</th>
+                              <th scope="col" class="sort" data-sort="name">Female</th>
+                              <th scope="col" class="sort" data-sort="name">Shared</th>
+                              <th scope="col" class="sort" data-sort="name">PWD</th>
+                              <th scope="col" class="sort" data-sort="name">Non-Functional</th>
+                              <th scope="col" class="sort" data-sort="budget">Number of Sink $ Washbin</th>
+                              <th scope="col" class="sort" data-sort="status">No. of Urinals</th>
+                              <th scope="col" class="sort" data-sort="status">No. of Urinals Trough</th>
+                              <th scope="col" class="sort" data-sort="status">No. Septic Tank</th>
+                              <th scope="col" class="sort" data-sort="status">With Faucet</th>
+                              <th scope="col" class="sort" data-sort="completion">No. Without Faucet</th>
+                            </tr>
+                          </thead>
+                          <tbody class="list">
+                            {{#each allBWSF}}
+                            <tr>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.building_id.buildingNumber}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.male}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.fmale}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.shared}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.pwd}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.nonfunc}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.numberWashbin}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.urinals}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.septicTank}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
+                                </div>
+                              </td>
+                              <td scope="row">
+                                <div class="media-body">
+                                  <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
+                                </div>
+                              </td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0">Facilities</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.urinals}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush" id="facility">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">NAME</th>
+                              <th scope="col"></th>
+                              <th scope="col">PRESENT</th>
+                              <th scope="col">STATUS</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each facility}}
+                            <tr>
+                              <th scope="row">{{this.name}}</th>
+                              <td></td>
+                              <td>{{this.presentCampus}}</td>
+                              <td class="">{{this.status}}</td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0">Furnitures</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.UrinalsTrou}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush" id="furniture">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">NAME</th>
+                              <th scope="col"></th>
+                              <th scope="col">TOTAL</th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each furniture}}
+                            <tr>
+                              <th scope="row">{{this.name}}</th>
+                              <td></td>
+                              <td class="">{{this.total}}</td>
+                              <td></td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0">STUDENT LIST</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.septicTank}}</span>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush" id="temp">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">LIST PER YEAR LEVEL</th>
+                              <th scope="col">TOTAL NUMBER</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each student}}
+                            <tr>
+                              <th scope="row">{{this.yearlevel}}</th>
+                              <td>{{this.total}}</td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card">
+                      <div class="card-header border-0">
+                        <div class="row align-items-center">
+                          <div class="col">
+                            <h3 class="mb-0">TRANSPORTATION & ACCESS ROAD</h3>
                           </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.wfaucet}}</span>
-                          </div>
-                      </td>
-                      <td scope="row">
-                          <div class="media-body">
-                              <span class="name mb-0 text-sm">{{this.wOutFaucet}}</span>
-                          </div>
-                      </td>
-                  </tr>
-                  {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-  </div>
-  <div class="row">
-    <div class="col-xl-6">
-      <div class="card">
-        <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h3 class="mb-0">STUDENT LIST</h3>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center table-flush" id="makeshift">
+                          <thead class="thead-light">
+                            <tr>
+                              <th scope="col">ROAD TYPE</th>
+                              <th scope="col">TRANSPORTATION VEHICLE</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each access}}
+                            <tr>
+                              <th scope="row">{{this.roadType}}</th>
+                              <td class="row">{{this.transportation}}</td>
+                            </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="table-responsive">
-          <!-- Projects table -->
-          <table class="table align-items-center table-flush" id="temp">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">LIST PER YEAR LEVEL</th>
-                <th scope="col">TOTAL NUMBER</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each student}}
-              <tr>
-                <th scope="row">{{this.yearlevel}}</th>
-                <td>{{this.total}}</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
       </div>
+
     </div>
-    <div class="col-xl-6">
-      <div class="card">
-        <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h3 class="mb-0">TRANSPORTATION & ACCESS ROAD</h3>
-            </div>
-          </div>
-        </div>
-        <div class="table-responsive">
-          <!-- Projects table -->
-          <table class="table align-items-center table-flush" id="makeshift">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">ROAD TYPE</th>
-                <th scope="col">TRANSPORTATION VEHICLE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each access}}
-              <tr>
-                <th scope="row">{{this.roadType}}</th>
-                <td class="row">{{this.transportation}}</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
     <div class="row">
       <div class="col-xl-7"></div>
       <div class="col-xl-5"></div>
@@ -655,84 +857,56 @@
 </div>
 <!-- **************************** DATA TABLE script ****************************** -->
 <script>
-  $(document).ready(function() {
-  $('#school').DataTable( {
+  $(document).ready(function () {
+    $('#school').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel'
+        'copy', 'excel'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#facility').DataTable( {
+    });
+    $('#facility').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#furniture').DataTable( {
+    });
+    $('#furniture').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#room').DataTable( {
+    });
+    $('#room').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#schoolwsfs').DataTable( {
+    });
+    $('#schoolwsfs').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#bwsfs').DataTable( {
+    });
+    $('#bwsfs').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#temp').DataTable( {
+    });
+    $('#temp').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
-</script>
-<script>
-  $(document).ready(function() {
-  $('#makeshift').DataTable( {
+    });
+    $('#makeshift').DataTable({
       dom: 'Bfrtip',
       buttons: [
-          'copy', 'excel', 'pdf', 'print'
+        'copy', 'excel', 'pdf', 'print'
       ]
-  } );
-} );
+    });
+  });
 </script>
 <!-- <script>
   $(document).ready(function () {
@@ -782,3 +956,143 @@
       });
   });
 </script> -->
+
+<!-- <script>
+  $(document).ready(function () {
+    var building_lists = '{{#renderJsonString building_list}}{{/renderJsonString}}';
+    building_lists = JSON.parse(building_lists);
+
+    console.log('building_list', building_lists);
+    let buildings = [];
+    building_lists.forEach(element => {
+      buildings.building_number = element.buildingNumber;
+    });
+
+    console.log('buildings', buildings);
+    var options = {
+      chart: {
+        type: 'bar'
+      },
+      series: [{
+        name: 'sales',
+        data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+      }],
+      xaxis: {
+        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+      }
+    }
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    chart.render();
+  });
+</script> -->
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 200,
+      modifier: 1,
+      slideShadows: true
+    },
+    autoplay: {
+      delay: 1500,
+      disableOnInteraction: true
+    },
+    pagination: {
+      el: ".swiper-pagination"
+    }
+  });
+  var swiper = new Swiper(".mySwipers", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 200,
+      modifier: 1,
+      slideShadows: true
+    },
+    autoplay: {
+      delay: 1500,
+      disableOnInteraction: true
+    },
+    pagination: {
+      el: ".swiper-pagination"
+    }
+  });
+</script>
+<!-- chart script -->
+<script>
+  $(document).ready(function () {
+    var building_lists = '{{#renderJsonString list}}{{/renderJsonString}}';
+    building_lists = JSON.parse(building_lists);
+    var good = building_lists.good;
+    var minor = building_lists.minor;
+    var major = building_lists.major;
+    // list = [];
+
+    // building_lists.forEach((index) => {
+    //   list.push(index[building_lists]);
+
+    // });
+    console.log('building_lists', good);
+    const ctxs = document.getElementById('myCharts').getContext('2d');
+    const myCharts = new Chart(ctxs, {
+      type: 'pie',
+      data: {
+        labels: ['MINOR DAMAGE', 'MAJOR DAMAGE', 'GOOD CONDITION',],
+        datasets: [{
+          label: '# of Votes',
+          data: [minor, major, good],
+          backgroundColor: [
+            'rgba(255, 99, 132)',
+            'rgba(54, 162, 235)',
+            'rgba(255, 206, 86)',
+
+          ],
+          borderColor: [
+            'rgba(255, 99, 132)',
+            'rgba(54, 162, 235)',
+            'rgba(255, 206, 86)',
+          ],
+          borderWidth: 1,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+  });
+</script>
+
+<script>
+  function PrintElem(elem) {
+    var restorepage = $('body').html();
+    var printcontent = $('#' + elem).clone();
+    $('body').empty().html(printcontent);
+    window.print();
+    $('body').html(restorepage);
+  }
+</script>
+
+<!-- chart.js -->
+<script src="https://cdnjs.com/libraries/Chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="https://www.jsdelivr.com/package/npm/chart.js"></script>

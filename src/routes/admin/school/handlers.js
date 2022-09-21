@@ -25,6 +25,7 @@ var Mongoose = require('mongoose');
 internals.adminSchool = async function (req, reply) {
 
   var schools_data = {};
+
   const building_damage = await Buildings.find({
     $or:[
       {$and: [
@@ -120,7 +121,59 @@ internals.adminSchoolDt = async (req, reply) => {
   try {
   //  console.log('-->', _id);
     const { id } = req.params;
-    // console.log('-ssssssssssss->', id);
+    var school_id = req.params.id;
+    var list = {};
+    list.minor = 0;
+    list.major = 0;
+    list.good = 0;
+    const school = await Schools.findOne({ _id : req.params.id}).lean()
+
+    const building_list = await Buildings.find({ school_id : school_id }).sort({' buildingNumber': 1}).lean()
+
+    const minor  = await Buildings.count({ $and: [{school_id : school_id }, {buildingCondition: 'MINOR DAMAGE'}]}).lean()
+    list.minor =minor;
+    const major  = await Buildings.count({ $and: [{school_id : school_id }, {buildingCondition: 'MAJOR DAMAGE'}]}).lean()
+    list.major =major;
+    const good  = await Buildings.count({ $and: [{school_id : school_id }, {buildingCondition: 'GOOD CONDITION'}]}).lean()
+    list.good =good;
+    console.log('list', list);
+
+    const building_damage_req = await Buildings.find({
+      $or:[
+        {$and: [
+          {school_id : school_id },
+          {buildingCondition: "MAJOR DAMAGE"},
+          { $or: [{status: "REQUESTED"}, {status: "VERIFIED"}]},
+          {isDeleted:false}
+        ]},
+        {$and: [
+          {school_id : school_id },
+          {buildingCondition: "MINOR DAMAGE"},
+          { $or: [{status: "REQUESTED"}, {status: "VERIFIED"}]},
+          {isDeleted:false}
+        ]}
+      ]
+    }).populate('school_id')
+      .lean();
+      const rooms_damage_req = await Rooms.find({
+        $or:[
+          {$and: [
+            {school_id : school_id },
+            {roomCondition: "MAJOR DAMAGE"},
+            { $or: [{status: "REQUESTED"}, {status: "VERIFIED"}]},
+            {isDeleted:false}
+          ]},
+          {$and: [
+            {school_id : school_id },
+            {roomCondition: "MINOR DAMAGE"},
+            { $or: [{status: "REQUESTED"}, {status: "VERIFIED"}]},
+            {isDeleted:false}
+          ]}
+        ]
+      }).populate('building_id')
+        .lean();
+
+    console.log('building_damage_req', rooms_damage_req);
     const schools = await Schools.aggregate([
       {$match:{ _id: Mongoose.Types.ObjectId(req.params.id) }},
       {
@@ -333,7 +386,7 @@ const access = await Access.find({
   school_id: req.params.id,
   isDeleted: false
 }).lean();
-  // console.log('resssssssss----->', allSWSF);
+  console.log('school----->', school);
   const all = schools.map(data => ({...data, totalBuild: data.totalBuild.length, totalRoom: data.totalRoom.length,
                     totalStudent: data.totalStudent.length}))
   const total = makeshift[0]?.useMakeshift + temporary[0]?.useTemporary
@@ -363,7 +416,12 @@ const access = await Access.find({
     room_damage,
     users,
     request,
-    credentials: req.auth.credentials
+    credentials: req.auth.credentials,
+    school,
+    building_list,
+    list,
+    building_damage_req,
+    rooms_damage_req
   });
 
 
@@ -372,6 +430,4 @@ const access = await Access.find({
     reply.redirect("/admin/school/details/" + req.params.id);
   }
 };
-
-
 module.exports = internals;

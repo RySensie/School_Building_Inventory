@@ -1,3 +1,47 @@
+<style>
+  .swiper {
+    width: 100%;
+    padding-bottom: 5px;
+  }
+
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 450px;
+    height: 550px;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 450px;
+    height: 550px;
+  }
+
+  .slide {
+    position: relative;
+    max-width: 800px;
+    /* Maximum width */
+    margin: 0 auto;
+    /* Center it */
+  }
+
+  .slide .content {
+    position: absolute;
+    /* Position the background text */
+    bottom: 0;
+    /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0);
+    /* Fallback color */
+    background: rgba(0, 0, 0, 0.5);
+    /* Black background with 0.5 opacity */
+    color: #f1f1f1;
+    /* Grey text */
+    width: 100%;
+    /* Full width */
+    padding: 20px;
+    /* Some padding */
+  }
+</style>
 {{> schoolAd-sidenav dashboard=true}}
 <div class="main-content" id="panel">
   {{> schoolAd-topnav dashboard=true mode=primary}}
@@ -132,148 +176,160 @@
   </div>
   <!-- Page content -->
   <div class="container-fluid mt--4">
-    <!-- <div class="row">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="swiper mySwiper">
+                  <div class="row justify-content-md-center mt-2 mb-5">
+                    <div class="col col-lg-2 text-right school_logo">
+                      <img src="{{school.logo_img}}" alt="..." class="rounded-circle mt-5" height="90">
+                    </div>
+                    <div class="col-md-auto text-center">
+                      <p class="mt-0">REGION X <br>DEPARTMENT OF EDUCATION </p>
+                      <h1 class="mt-3">{{school.schoolName}}</h1>
+                      <p class="mt-0"><b>{{school.address}}</b> </p>
+                      <span><b>ID: {{school.schoolId}}</b></span>
+                    </div>
+                    <div class="col col-lg-2 text-left school_logo">
+                      <img src="/assets/img/logo/MC.png" alt="..." class="rounded-circle mt-5" height="90">
+                    </div>
+                  </div>
+                  <!-- <div class="swiper-pagination"></div> -->
+                </div>
+              </div>
+              <div class="col-sm-12">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col-xl-4">
         <div class="card">
-          <div class="row">
-            <div class="col-sm-12 p-4">
-              <img src="{{credentials.school_profile}}" class="img-fluid" style="
-                      align-items: center; border-radius: 5px;" />
-              <h1 class="text-center mt-2 ml-3 font-weight-bold display-3">{{credentials.school_name}}</h1>
-              <h2 class="text-center mb-10 font-italic">ID: {{credentials.school_ID}}</h2>
-            </div>
+          <div class="card-header">
+            <h2 class="text-center">BUILDING CHART</h2>
+          </div>
+          <div class="card-body">
+
+            <canvas class="ml-2" id="myCharts" width="500" height="280"></canvas>
           </div>
         </div>
       </div>
       <div class="col-xl-8">
-        <div class="card">
-          <div class="row" style="height:624px;">
-            <img src="/assets/img/logo/MC.png" class="img-fluid" style="width: 28rem; height: 32rem; margin-left: 13rem; margin-top: 4rem;" />
+        <div class="card" style="height: 405px;">
+          <div class="card-header">
+            <h2 class="text-center">BUILDING REQUEST</h2>
           </div>
-        </div>
-      </div>
-    </div> -->
-    <div class="row">
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col-sm-12 text-center">
-                <h2 class="font-weight-bolder" style="color: #203e7a;">BUILDING REQUEST</h2>
-              </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush" id="breq">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Building Number</th>
+                    <th scope="col">Condition</th>
+                    <th scope="col">Level of Damage</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Request</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each buildingRequest}}
+                  <tr>
+                    <td scope="row">{{this.buildingNumber}}</td>
+                    <td class="{{#ifCond this.buildingCondition '===' 'MAJOR DAMAGE' }} text-danger {{else}} text-primary {{/ifCond}}">{{this.buildingCondition}}</td>
+                    <td class="text-danger">{{this.percentage}}%</td>
+                    <td class="{{#ifCond this.status '===' 'UNREQUESTED' }} text-primary {{else}} text-danger {{/ifCond}}">{{this.status}}</td>
+                    <td>{{#if REQUESTED}} DONE{{else}}
+                      <button class="btn btn-sm btn-primary  requestBtn" data-id="{{this._id}}"
+                        data-number="{{this.buildingNumber}}" data-condition="{{this.buildingCondition}}"
+                        data-status="{{this.status}}">Request</button>
+                      {{/if}}
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
             </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush" id="breq">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Building Number</th>
-                  <th scope="col">Condition</th>
-                  <th scope="col">Level of Damage</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Note</th>
-                  <th scope="col">Request</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each buildingRequest}}
-                <tr>
-                  <td scope="row">{{this.buildingNumber}}</td>
-                  <td class="text-danger">{{this.buildingCondition}}</td>
-                  <td class="text-danger">{{this.percentage}}%</td>
-                  <td class="text-danger">{{this.status}}</td>
-                  <td class="">{{this.note}}</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary  requestBtn" data-id="{{this._id}}"
-                      data-number="{{this.buildingNumber}}" data-condition="{{this.buildingCondition}}"
-                      data-status="{{this.status}}">Request</button>
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col-sm-12 text-center">
-                <h2 class="font-weight-bolder" style="color: #203e7a;">ROOM REQUEST</h2>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush" id="rreq">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Room Number</th>
-                  <th scope="col">Building Number</th>
-                  <th scope="col">Floor</th>
-                  <th scope="col">Level of Damage</th>
-                  <th scope="col">Condition</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Request</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each roomRequest}}
-                <tr>
-                  <td scope="row">{{this.roomNumber}}</td>
-                  <td class="">{{this.building_id.buildingNumber}}</td>
-                  <td class="">{{this.floor}}</td>
-                  <td class="text-danger">{{this.percentage}}%</td>
-                  <td class="text-danger">{{this.roomCondition}}</td>
-                  <td class="text-success">{{this.status}}</td>
 
-                  <td>
-                    <button class="btn btn-sm btn-primary requestBtn1" data-id="{{this._id}}"
-                      data-roomNumber="{{this.roomNumber}}" data-status="{{this.status}}"
-                      data-condition="{{this.roomCondition}}">Request</button>
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
-
-      <div class="col-xl-12">
+      <div class="col-sm-7">
         <div class="card">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col-sm-12 text-center">
-                <h2 class="font-weight-bolder" style="color: #203e7a;">NEW REQUEST</h2>
-              </div>
-              <div class="col text-right">
-                <a href="" class="btn btn-sm  btn-primary  " data-toggle="modal" data-target="#requestModal">Request
-                  New</a>
-              </div>
+          <div class="card-header">
+            <h2 class="font-weight-bolder" style="color: #203e7a;">ROOM REQUEST</h2>
+          </div>
+          <div class="card-body">
+
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush" id="rreq">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Room Number</th>
+                    <th scope="col">Building Number</th>
+                    <th scope="col">Level of Damage</th>
+                    <th scope="col">Condition</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Request</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each roomRequest}}
+                  <tr>
+                    <td scope="row">{{this.roomNumber}}</td>
+                    <td class="">{{this.building_id.buildingNumber}}</td>
+                    <td class="text-danger">{{this.percentage}}%</td>
+                    <td class="text-danger">{{this.roomCondition}}</td>
+                    <td class="text-success">{{this.status}}</td>
+
+                    <td>
+                      <button class="btn btn-sm btn-primary requestBtn1" data-id="{{this._id}}"
+                        data-roomNumber="{{this.roomNumber}}" data-status="{{this.status}}"
+                        data-condition="{{this.roomCondition}}">Request</button>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush" id="req">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Condition</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each request}}
-                <tr>
-                  <td scope="row">{{this.name}}</td>
-                  <td class="text-success">{{this.specific}}</td>
-                  <td class="text-danger">{{this.status}}</td>
-                  <td class="">{{this.note}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="card">
+          <div class="card-header">
+            <div class="col-sm-12 text-center">
+              <h2 class="font-weight-bolder" style="color: #203e7a;">NEW REQUEST</h2>
+            </div>
+            <div class="col text-right">
+              <a href="" class="btn btn-sm  btn-primary  " data-toggle="modal" data-target="#requestModal">Request
+                New</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush" id="req">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Condition</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each request}}
+                  <tr>
+                    <td scope="row">{{this.name}}</td>
+                    <td class="text-success">{{this.specific}}</td>
+                    <td class="text-danger">{{this.status}}</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -298,8 +354,7 @@
               <div class="form-group col-lg-11 pl-5">
                 <label>Name</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Refers to the type of request.">
+                  data-placement="top" data-content="Refers to the type of request.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -316,8 +371,7 @@
               <div class="form-group col-lg-11  pl-5">
                 <label>Specific Request</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Refers to the specific type of request.">
+                  data-placement="top" data-content="Refers to the specific type of request.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -328,8 +382,7 @@
               <div class="form-group col-lg-11  pl-5">
                 <label for="exampleFormControlTextarea1">Note</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Additional message of the request, like quantity">
+                  data-placement="top" data-content="Additional message of the request, like quantity">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -378,8 +431,7 @@
                 <input type="string" class="form-control" value="REQUESTED" name="status" hidden>
                 <label for="exampleFormControlTextarea1">Note</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Additional message of the request, like quantity.">
+                  data-placement="top" data-content="Additional message of the request, like quantity.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -430,8 +482,7 @@
                 <input type="string" class="form-control" value="REQUESTED" name="status" hidden>
                 <label for="exampleFormControlTextarea1">Note</label>
                 <a tabindex="0" class="btn btn-sm" role="button" data-toggle="popover" data-trigger="focus" title=""
-                  data-placement="top"
-                  data-content="Additional message of the request, like quantity.">
+                  data-placement="top" data-content="Additional message of the request, like quantity.">
                   <span class="material-icons">
                     help_outline
                   </span>
@@ -451,95 +502,90 @@
       </div>
     </div>
   </div>
-  <!-- chart.js -->
-  <script src="https://cdnjs.com/libraries/Chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-  <script src="https://www.jsdelivr.com/package/npm/chart.js"></script>
-  <!-- chart script -->
   <script>
     // chartBar();
-    chartPie();
+    // chartPie();
 
-    function chartBar() {
-      const ctx = document.getElementById('myChart').getContext('2d');
-      const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132)',
-              'rgba(54, 162, 235)',
-              'rgba(255, 206, 86)',
-              'rgba(75, 192, 192)',
-              'rgba(153, 102, 255)',
-              'rgba(255, 159, 64)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-    }
-    function chartPie() {
-      const ctxs = document.getElementById('myCharts').getContext('2d');
-      const myCharts = new Chart(ctxs, {
-        type: 'pie',
-        data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-          datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132)',
-              'rgba(54, 162, 235)',
-              'rgba(255, 206, 86)',
-              'rgba(75, 192, 192)',
-              'rgba(153, 102, 255)',
-              'rgba(255, 159, 64)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132)',
-              'rgba(54, 162, 235)',
-              'rgba(255, 206, 86)',
-              'rgba(75, 192, 192)',
-              'rgba(153, 102, 255)',
-              'rgba(255, 159, 64)'
-            ],
-            borderWidth: 1,
-            hoverOffset: 4
-          }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-    }
+    // function chartBar() {
+    //   const ctx = document.getElementById('myChart').getContext('2d');
+    //   const myChart = new Chart(ctx, {
+    //     type: 'bar',
+    //     data: {
+    //       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //       datasets: [{
+    //         label: '# of Votes',
+    //         data: [12, 19, 3, 5, 2, 3],
+    //         backgroundColor: [
+    //           'rgba(255, 99, 132)',
+    //           'rgba(54, 162, 235)',
+    //           'rgba(255, 206, 86)',
+    //           'rgba(75, 192, 192)',
+    //           'rgba(153, 102, 255)',
+    //           'rgba(255, 159, 64)'
+    //         ],
+    //         borderColor: [
+    //           'rgba(255, 99, 132, 1)',
+    //           'rgba(54, 162, 235, 1)',
+    //           'rgba(255, 206, 86, 1)',
+    //           'rgba(75, 192, 192, 1)',
+    //           'rgba(153, 102, 255, 1)',
+    //           'rgba(255, 159, 64, 1)'
+    //         ],
+    //         borderWidth: 1
+    //       }]
+    //     },
+    //     options: {
+    //       maintainAspectRatio: false,
+    //       scales: {
+    //         y: {
+    //           beginAtZero: true
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
+    // function chartPie() {
+    //   const ctxs = document.getElementById('myCharts').getContext('2d');
+    //   const myCharts = new Chart(ctxs, {
+    //     type: 'pie',
+    //     data: {
+    //       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //       datasets: [{
+    //         label: '# of Votes',
+    //         data: [12, 19, 3, 5, 2, 3],
+    //         backgroundColor: [
+    //           'rgba(255, 99, 132)',
+    //           'rgba(54, 162, 235)',
+    //           'rgba(255, 206, 86)',
+    //           'rgba(75, 192, 192)',
+    //           'rgba(153, 102, 255)',
+    //           'rgba(255, 159, 64)'
+    //         ],
+    //         borderColor: [
+    //           'rgba(255, 99, 132)',
+    //           'rgba(54, 162, 235)',
+    //           'rgba(255, 206, 86)',
+    //           'rgba(75, 192, 192)',
+    //           'rgba(153, 102, 255)',
+    //           'rgba(255, 159, 64)'
+    //         ],
+    //         borderWidth: 1,
+    //         hoverOffset: 4
+    //       }]
+    //     },
+    //     options: {
+    //       maintainAspectRatio: false,
+    //       scales: {
+    //         y: {
+    //           beginAtZero: true
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
   </script>
   <!-- **************************** DATA TABLE script ****************************** -->
-  <script>
+  <!-- <script>
     $(document).ready(function () {
       $('#builDamage').DataTable({
         dom: 'lBfrtip',
@@ -548,7 +594,7 @@
         stateSave: true,
       });
     });
-  </script>
+  </script> -->
   <!-- popOver Script -->
   <script>
     $(document).ready(function () {
@@ -577,27 +623,134 @@
       $('.requestRoom').modal('show');
     });
   </script>
-<!-- ****************************datatables script************************************************** -->
+  <!-- ****************************datatables script************************************************** -->
+  <script>
+    $(document).ready(function () {
+      $('#breq').DataTable({
+        scrollY: '200px',
+        scrollCollapse: true,
+        dom: 'Bfrtip',
+        paging: false,
+        buttons: [
+        ]
+      });
+    });
+    $(document).ready(function () {
+      $('#rreq').DataTable({
+        scrollY: '200px',
+        scrollCollapse: true,
+        dom: 'Bfrtip',
+        paging: false,
+        dom: 'Bfrtip',
+        buttons: [
+        ]
+      });
+    });
+    $(document).ready(function () {
+      $('#req').DataTable({
+        scrollY: '200px',
+        scrollCollapse: true,
+        dom: 'Bfrtip',
+        paging: false,
+        dom: 'Bfrtip',
+        buttons: [
+        ]
+      });
+    });
+  </script>
+  <!-- Initialize Swiper -->
 <script>
-    $(document).ready(function() {
-    $('#breq').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-        ]
-    } );
-  } );
-  $(document).ready(function() {
-    $('#rreq').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-        ]
-    } );
-  } );
-  $(document).ready(function() {
-    $('#req').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-        ]
-    } );
-  } );
+  var swiper = new Swiper(".mySwiper", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 200,
+      modifier: 1,
+      slideShadows: true
+    },
+    autoplay: {
+      delay: 1500,
+      disableOnInteraction: true
+    },
+    pagination: {
+      el: ".swiper-pagination"
+    }
+  });
+  var swiper = new Swiper(".mySwipers", {
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: "auto",
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 200,
+      modifier: 1,
+      slideShadows: true
+    },
+    autoplay: {
+      delay: 1500,
+      disableOnInteraction: true
+    },
+    pagination: {
+      el: ".swiper-pagination"
+    }
+  });
 </script>
+  <script>
+    $(document).ready(function () {
+      var building_lists = '{{#renderJsonString building_list}}{{/renderJsonString}}';
+      building_lists = JSON.parse(building_lists);
+      var b_good = building_lists.good;
+      var b_minor = building_lists.minor;
+      var b_major = building_lists.major;
+      // list = [];
+
+      // building_lists.forEach((index) => {
+      //   list.push(index[building_lists]);
+
+      // });
+      console.log('building_lists', building_lists);
+      const ctxs = document.getElementById('myCharts').getContext('2d');
+      const myCharts = new Chart(ctxs, {
+        type: 'pie',
+        data: {
+          labels: ['MINOR DAMAGE', 'MAJOR DAMAGE', 'GOOD CONDITION',],
+          datasets: [{
+            label: '# of Votes',
+            data: [b_minor, b_major, b_good],
+            backgroundColor: [
+              'rgba(255, 99, 132)',
+              'rgba(54, 162, 235)',
+              'rgba(255, 206, 86)',
+
+            ],
+            borderColor: [
+              'rgba(255, 99, 132)',
+              'rgba(54, 162, 235)',
+              'rgba(255, 206, 86)',
+            ],
+            borderWidth: 1,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+    });
+  </script>
+  <!-- chart.js -->
+  <script src="https://cdnjs.com/libraries/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <script src="https://www.jsdelivr.com/package/npm/chart.js"></script>

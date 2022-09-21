@@ -1,6 +1,7 @@
 "use strict";
 
 const Buildings = require("../../../database/models/building");
+const Schools = require("../../../database/models/school");
 const Facilities = require("../../../database/models/facility");
 const Students = require("../../../database/models/student");
 const Rooms = require("../../../database/models/room");
@@ -14,6 +15,12 @@ var Async = require('async');
 
 internals.dashboard = async function (req, reply) {
     try {
+      var building_list = {};
+      var school_ids = req.auth.credentials.school_id;
+      building_list.minor = 0;
+      building_list.major = 0;
+      building_list.good = 0;
+
       const school_id = req.auth.credentials.school_id;
       const totalBuilding = await Buildings.countDocuments({school_id});
       const totalRoom = await Rooms.countDocuments({school_id});
@@ -31,6 +38,18 @@ internals.dashboard = async function (req, reply) {
     //     },
     //     }, 
     // ])
+    const school = await Schools.findOne({ _id : school_ids}).lean()
+    const buildings = await Buildings.find({ school_id : school_id }).sort({' buildingNumber': 1}).lean()
+
+    
+
+    const minor  = await Buildings.count({ $and: [{school_id : school_ids }, {buildingCondition: 'MINOR DAMAGE'}]}).lean()
+    building_list.minor =minor;
+    const major  = await Buildings.count({ $and: [{school_id : school_ids }, {buildingCondition: 'MAJOR DAMAGE'}]}).lean()
+    building_list.major =major;
+    const good  = await Buildings.count({ $and: [{school_id : school_ids }, {buildingCondition: 'GOOD CONDITION'}]}).lean()
+    building_list.good =good;
+    console.log('building_list', buildings);
 
       const separateRoom = await Rooms.aggregate([
         {$group: {
@@ -150,6 +169,9 @@ const request = await Request.find({
         request,
         buildingRequest,
         roomRequest,
+        building_list,
+        buildings,
+        school
       });
     } catch (error) {
       console.log(error);
